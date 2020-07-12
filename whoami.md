@@ -4,4 +4,9 @@ title: "whoami"
 permalink: /whoami/
 ---
 
-[Hello world!](#hello)
+<img align="right" height="250" src="{{ site.url }}/assets/img/avatar.jpg" border="1" alt="avatar">
+
+Hello world!
+
+xx
+
