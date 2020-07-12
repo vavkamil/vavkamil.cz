@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="icon" href="{{ '/assets/img/favicon.ico' }}"/>
+    <link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}"/>
 
 {% seo %}
   </head>
@@ -20,13 +20,13 @@
         <h2>{{ site.description | default: site.github.project_tagline }}</h2>
 
         <section id="downloads">
-          <a href="/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
-          <a href="/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
-          <a href="/blog" class="btn"><span class="icon">📖</span>Blog</a>
-          <a href="/tools" class="btn"><span class="icon">💻</span>Tools</a>
-          <a href="/talks" class="btn"><span class="icon">📢</span>Talks</a>
-          <a href="/curriculum-vitae" class="btn"><span class="icon">🏆</span>Curriculum vitae</a>
-          <a href="/contact" class="btn"><span class="icon">📩</span>Contact</a>
+          <a href="{{ site.baseurl }}/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
+          <a href="{{ site.baseurl }}/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
+          <a href="{{ site.baseurl }}/blog" class="btn"><span class="icon">📖</span>Blog</a>
+          <a href="{{ site.baseurl }}/tools" class="btn"><span class="icon">💻</span>Tools</a>
+          <a href="{{ site.baseurl }}/talks" class="btn"><span class="icon">📢</span>Talks</a>
+          <a href="{{ site.baseurl }}/curriculum-vitae" class="btn"><span class="icon">🏆</span>Curriculum vitae</a>
+          <a href="{{ site.baseurl }}/contact" class="btn"><span class="icon">📩</span>Contact</a>
         </section>
       </div>
     </header>
