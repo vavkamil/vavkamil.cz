@@ -7,8 +7,19 @@ layout: default
 
 <p class="view">by {{ page.author | default: site.author }}</p>
 
+<div>
+{% capture words %}
+  {{ content | number_of_words | minus: 180 }}
+{% endcapture %}
+
+{% unless words contains "-" %}
+  <p>{{ words | plus: 180 | divided_by: 180 | append: " minutes to read" }}</p>
+{% endunless %}
+</div>
+
 {{content}}
 
 {% if page.tags %}
   <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
 {% endif %}
+

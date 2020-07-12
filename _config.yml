@@ -1,4 +1,15 @@
+# Welcome to Jekyll!
+#
+
+# Site settings
 theme: jekyll-theme-hacker
 
-title: Kamil Vavra
-description: Offensive website security | @vavkamil
+title: Kamil Vavra | @vavkamil
+description: Offensive website security | Bug bounty | Ethical hacking
+
+# Plugins
+plugins:
+ - jekyll-sitemap
+
+ # SEO
+permalink: /:year/:month/:day/:title/
