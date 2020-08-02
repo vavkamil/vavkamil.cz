@@ -4,22 +4,22 @@ title: "Blog"
 permalink: /blog/
 ---
 
-xxx
+Mostly posts about offensive website security
 
 ### Categories
 
 <div>
 	<ul>
+		<li>
 	{% for category in site.categories %}
 	  {% assign category_name = category[0] %}
-	  <li>
-	    <a href="/category/{{ category_name | slugify }}/">{{ category_name | replace: "-", " " }}</a>
-	  </li>
+	    <a href="{{ site.baseurl }}/blog/category/{{ category_name | slugify }}/">{{ category_name | replace: "-", " " }}</a> /
 	{% endfor %}
+		</li>
 	</ul>
 </div>
 
-#### Tags
+<!-- #### Tags
 
 <div>
 	<ul>
@@ -30,7 +30,7 @@ xxx
 	  </li>
 	{% endfor %}
 	</ul>
-</div>
+</div> -->
 
 ## All posts
 
@@ -42,6 +42,6 @@ xxx
     </a>
   </h2>
   <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_long_string }}</time>
-  {{ post.content }}
+  {{ post.content | strip_html | truncatewords: 60 }} }}
 </article>
 {% endfor %}
