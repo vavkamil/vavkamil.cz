@@ -1,8 +1,8 @@
 ## vavkamil.cz
 
-Migrating my personal WordPress blog [vavkamil.cz](https://vavkamil.cz) to GitHub pages.
+My personal blog about offensive web security
 
-Preview: [vavkamil.github.io](https://vavkamil.github.io/vavkamil.cz/)
+Preview: [vavkamil.cz](https://vavkamil.cz/)
 
 ### Technology stack
 
