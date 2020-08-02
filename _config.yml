@@ -7,9 +7,33 @@ theme: jekyll-theme-hacker
 title: Kamil Vavra | @vavkamil
 description: Offensive website security | Bug bounty | Ethical hacking
 
+twitter:
+  username: vavkamil
+  card: summary
+
+author: "vavkamil"
+
+social:
+  name: Kamil Vavra
+  links:
+    - https://twitter.com/vavkamil
+    - https://linkedin.com/in/vavkamil
+    - https://github.com/vavkamil
+    - https://reddit.com/u/_vavkamil_
+
+
 # Plugins
 plugins:
  - jekyll-sitemap
+ - jekyll-feed
+ - jekyll-seo-tag
+ - jekyll-gist
 
- # SEO
+# SEO
 permalink: /:year/:month/:day/:title/
+
+# Blog categories
+collections:
+  blog_categories:
+    output: true
+    permalink: /blog/category/:name/
