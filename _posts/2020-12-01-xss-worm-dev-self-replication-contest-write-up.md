@@ -93,7 +93,7 @@ There are some basic rules for users. They should be able to write the self-prop
 
 ![](/assets/img/2020/12/rules.png)
 
-After the registration, users are present with Swagger. They were supposed to write a code, which will send two POST requests, one to change to the color of the victim, the other to replicate its code and spread to another victim. The tricky part was *application/x-www-form-urlencoded*, as most of the contestants struggled to get the encoding right, so either the '+' sign was stripped, or the '#' representing hex value of the color was double encoded.
+After the registration, users are present with [Swagger documentation](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vavkamil/XSSworm.dev/main/static/swagger.yaml). They were supposed to write a code, which will send two POST requests, one to change to the color of the victim, the other to replicate its code and spread to another victim. The tricky part was *application/x-www-form-urlencoded*, as most of the contestants struggled to get the encoding right, so either the '+' sign was stripped, or the '#' representing hex value of the color was double encoded.
 
 ![](/assets/img/2020/12/swagger.png)
 
