@@ -15,7 +15,7 @@ When the whole covid-19 thing started, I was somehow interested in looking at va
 
 Since then, we have seen some other XSS worms, for example, on Yahoo, Twitter or Orkut. But nothing at the scale of The MySpace worm.
 
-In 2008, [@RSnake](https://twitter.com/rsnake?lang=en) published "*[Diminutive XSS Worm Replication Contest](https://web.archive.org/web/20080210014614/http://sla.ckers.org/forum/read.php?2,18790,18790)*" on sla.ckers.org. It was an awesome idea, but there was some [backslash](https://forums.theregister.com/forum/all/2008/01/05/worm_replication_contest/) as well :(
+In 2008, [@RSnake](https://twitter.com/rsnake?lang=en) published "*[Diminutive XSS Worm Replication Contest](https://web.archive.org/web/20080210014614/http://sla.ckers.org/forum/read.php?2,18790,18790)*" on sla.ckers.org. It was an awesome idea, but there was some [backlash](https://forums.theregister.com/forum/all/2008/01/05/worm_replication_contest/) as well :(
 
 But why am I talking about this? Well, in 2008, I was 16 years old. I knew only the basic English, but I was lucky enough to be mentored by the best hackers in the Czechia at the time. Couple of months after the RSnake's contest, one member of our community took the idea and created an interface where we could test our XSS worms and compete with others. It looked like this:
 
