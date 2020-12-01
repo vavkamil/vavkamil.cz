@@ -151,4 +151,4 @@ Here you can check my Proof of Concept of the worm:
 </script>
 ```
 
-You can check and try [the website](https://xssworm.dev), as I will keep the infrastructure alive for a while, or you can deploy it locally, as the whole thing is open-source. I'm a little bit ashamed of my programming skills, but here you go: https://github.com/vavkamil/XSSworm.dev
+You can check and try [the website](https://xssworm.dev), as I will keep the infrastructure alive for a while, or you can deploy it locally, as the whole thing is open-source. I'm a little bit ashamed of my programming skills, but here you go: [https://github.com/vavkamil/XSSworm.dev](https://github.com/vavkamil/XSSworm.dev)
