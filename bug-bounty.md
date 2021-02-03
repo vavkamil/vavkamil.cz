@@ -31,6 +31,14 @@ permalink: /bug-bounty/
 
 | Website           | Company                      | Vulnerability                         | Details                                            | Reward | References                                                               |
 |-------------------|------------------------------|---------------------------------------|----------------------------------------------------|--------|--------------------------------------------------------------------------|
+| mdBook            | Rust language                | XSS                                   | Reflected XSS in search function                  | No    | [CVE-2020-26297](https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory.html){:target="_blank"}
+| kubernetes-csi.github.io | Kubernetes            | XSS                                   | Reflected XSS in docs page                        | No    |
+| Trezor.io         | SatoshiLabs s.r.o.           | Open redirect + XSS                   | Wiki open redirect & docs XSS                     | No    | 
+| drive.protonmail.com | Proton Technologies AG    | XSS                                   | Reflected XSS via .svg file                       | Yes   | 
+| drive.protonmail.com | Proton Technologies AG    | RLO spoofing                          | Spoofing file extension via share link            | Yes   | 
+| trezord-go        | SatoshiLabs s.r.o.           | Misconfigured CORS                    | CORS bypass via null origin                       | No    | [github.com](https://github.com/trezor/trezord-go/commit/ddead55bc0d8c332ce8d4beb2491dd49cbdec49d){:target="_blank"}
+| Notino.cz         | Notino, s.r.o.               | XSS                                   | Reflected XSS in seach                            | No    | 
+| SRT 43UB6203      | Strong.tv                    | Denial of Service                     | Unauthenticated Remote DoS Exploit in smart TV    | No    | [Exploit](xss.vavkamil.cz/strong-tv-dos-poc.html){:target="_blank"}
 | Airbank.cz        | Siteone s.r.o.               | XSS                                   | Reflected Dom XSS via POST request                 | Yes    | [security.txt](https://www.airbank.cz/.well-known/security.txt){:target="_blank"}          |
 | Subreg.cz         | Gransy s.r.o.                | XSS                                   | Multiple Reflected & Dom based XSS                 | Yes    |                                                                          |
 | Airbank.cz        | Siteone s.r.o.               | Unrestricted file upload              | Insecure API end-point allowing to upload any file | Yes    | [security.txt](https://www.airbank.cz/.well-known/security.txt){:target="_blank"}          |
