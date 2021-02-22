@@ -18,7 +18,7 @@ I started browsing [popular](https://wordpress.org/plugins/browse/popular/) WP p
 
 After checking the [plugin page](https://wordpress.org/plugins/wp-gdpr-compliance/), too see if there is any attack surface, one screenshot was interesting:
 
-![](../assets/img/2021/02/gdpr-screenshot.png "Overview of the view and delete requests by your site's visitors.")
+![](/assets/img/2021/02/gdpr-screenshot.png "Overview of the view and delete requests by your site's visitors.")
 
 The description said: *Overview of the view and delete requests by your site's visitors.*, which indicated a dashboard in the admin panel with GDPR "delete requests" results, including the Email and IP Address of the user, could be a potential attack vector.
 
@@ -28,7 +28,7 @@ The description said: *Overview of the view and delete requests by your site's v
 
 After downloading the plugin and activating it in the [DVWP](https://github.com/vavkamil/dvwp) docker container, I published a page (with the form) to request deleting the user data and begin the black-box testing. Validation of the e-mail input was correct, but when I tried to spoof the IP address via `X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>`, the XSS payload executed. What a surprise, it took me less than 10 minutes to find a "*Blind XSS*" vulnerability triggered in the context of a privileged user.
 
-![](../assets/img/2021/02/gdpr-data-access-request.png "Data Access Requests")
+![](/assets/img/2021/02/gdpr-data-access-request.png "Data Access Requests")
 
 <hr>
 
@@ -86,7 +86,7 @@ X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>
 action=wpgdprc_process_action&security=cccf5a60ec&data={"type":"access_request","email":"xss@example.com","consent":true}
 ```
 
-![](../assets/img/2021/02/gdpr-xss-poc.png "Proof of Concept")
+![](/assets/img/2021/02/gdpr-xss-poc.png "Proof of Concept")
 
 <hr>
 
@@ -102,7 +102,7 @@ if ($ipAddress === false) {
 
 The user input is now correctly escaped, but the IP address column is still `varchar(255)`. Also, only the *PATCH* version was incremented, instead of the *MINOR* version, so it's hard to track the updated plugins' percentage via the advanced WordPress statistic. I believe it was a correct decision, but bumping it to `1.6` would be much better from the security point of view.
 
-![](../assets/img/2021/02/gdpr-changelog.png "Changelog")
+![](/assets/img/2021/02/gdpr-changelog.png "Changelog")
 
 <hr>
 
@@ -121,7 +121,7 @@ By observing a spike in the "[Downloads per day](https://wordpress.org/plugins/w
 | 2021-02-20 | 2076      |
 | 2021-02-21 | 1808      |
 
-![](../assets/img/2021/02/gdpr-downloads.png "Downloads Per Day")
+![](/assets/img/2021/02/gdpr-downloads.png "Downloads Per Day")
 
 <hr>
 
