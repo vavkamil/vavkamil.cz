@@ -34,7 +34,7 @@ After downloading the plugin and activating it in the [DVWP](https://github.com/
 
 ### Root cause analysis
 
-At that point, I finished the testing, and I quickly moved to a source code review to locate the vulnerable code and continue with the white-box testing. Quick *grep* command revealed a database column ```ip_address` varchar(255) NOT NULL``, which was a nice surprise to see because thanks to that, it was possible to store the whole XSS payload. The IP address from the form is assigned being via `$request->setIpAddress(Helper::getClientIpAddress());` and the `getClientIpAddress()` is pretty much a standard function to check several headers for proxies and stuff like that. But what was confusing is that there was a `self::validateIpAddress($ipAddress)` call to validate the IP. The `validateIpAddress()` function:
+At that point, I finished the testing, and I quickly moved to a source code review to locate the vulnerable code and continue with the white-box testing. Quick *grep* command revealed a database column `` `ip_address` varchar(255) NOT NULL ``, which was a nice surprise to see because thanks to that, it was possible to store the whole XSS payload. The IP address from the form is assigned being via `$request->setIpAddress(Helper::getClientIpAddress());` and the `getClientIpAddress()` is pretty much a standard function to check several headers for proxies and stuff like that. But what was confusing is that there was a `self::validateIpAddress($ipAddress)` call to validate the IP. The `validateIpAddress()` function:
 
 ```php
     /**
