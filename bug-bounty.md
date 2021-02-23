@@ -22,8 +22,8 @@ permalink: /bug-bounty/
 
 ## Write-ups & disclosed reports
 
+* [XSS on kubernetes-csi.github.io (mdBook)](https://hackerone.com/reports/1073514){:target="_blank"}
 * [All-in-One WP Migration < 7.15 - Arbitrary Backup Download](https://wpvulndb.com/vulnerabilities/10151){:target="_blank"}
-* [Disclosure of invoices and PII via android app API (IDOR)](#todo)
 * [Node.js ~ CRLF Injection in legacy url API (url.parse().hostname)](https://hackerone.com/reports/771596){:target="_blank"}
 * [Insufficient DKIM record with RSA 512-bit key used on WordPress.com](https://hackerone.com/reports/550937){:target="_blank"}
 
@@ -31,6 +31,7 @@ permalink: /bug-bounty/
 
 | Website           | Company                      | Vulnerability                         | Details                                            | Reward | References                                                               |
 |-------------------|------------------------------|---------------------------------------|----------------------------------------------------|--------|--------------------------------------------------------------------------|
+| Zive.cz           | CZECH NEWS CENTER a.s.       | Account takeover                      | Multiple XSS and broken logic in Single sign-on    | Yes    | [security.txt](https://www.zive.cz/.well-known/security.txt){:target="_blank"}
 | mdBook            | Rust language                | XSS                                   | Reflected XSS in search function                  | No    | [CVE-2020-26297](https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory.html){:target="_blank"}
 | kubernetes-csi.github.io | Kubernetes            | XSS                                   | Reflected XSS in docs page                        | No    |
 | Trezor.io         | SatoshiLabs s.r.o.           | Open redirect + XSS                   | Wiki open redirect & docs XSS                     | No    | 
