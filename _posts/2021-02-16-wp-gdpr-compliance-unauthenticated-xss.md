@@ -133,3 +133,7 @@ By observing a spike in the "[Downloads per day](https://wordpress.org/plugins/w
 * Saturday, February 13th, 2021 ~ Received a response confirming that the developer received the information and will begin working on a fix
 * Monday, February 15th, 2021 ~ The developer released a patched version of the plugin as of version 1.5.6
 * Tuesday, February 23rd, 2021 ~ Blog post with the details disclosed to the public
+
+### References
+
+[wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438](https://wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438)
