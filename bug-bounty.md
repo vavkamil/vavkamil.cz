@@ -22,6 +22,7 @@ permalink: /bug-bounty/
 
 ## Write-ups & disclosed reports
 
+* [WP GDPR Compliance < 1.5.6 - Unauthenticated Stored Cross-Site Scripting (XSS)](https://wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438){:target="_blank"}
 * [XSS on kubernetes-csi.github.io (mdBook)](https://hackerone.com/reports/1073514){:target="_blank"}
 * [All-in-One WP Migration < 7.15 - Arbitrary Backup Download](https://wpvulndb.com/vulnerabilities/10151){:target="_blank"}
 * [Node.js ~ CRLF Injection in legacy url API (url.parse().hostname)](https://hackerone.com/reports/771596){:target="_blank"}
