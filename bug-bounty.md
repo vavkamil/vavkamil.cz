@@ -32,6 +32,8 @@ permalink: /bug-bounty/
 
 | Website           | Company                      | Vulnerability                         | Details                                            | Reward | References                                                               |
 |-------------------|------------------------------|---------------------------------------|----------------------------------------------------|--------|--------------------------------------------------------------------------|
+| Rohlik.cz         | Velká Pecka s.r.o.           | Multiple vulnerabilitites             | XSS, multiple web cache deception, open redirect   | No     |
+| Airbank.cz        | Siteone s.r.o.               | Disclosed Twitter API keys            | API keys with full access & ability to tweet       | No     |
 | Zive.cz           | CZECH NEWS CENTER a.s.       | Account takeover                      | Multiple XSS and broken logic in Single sign-on    | Yes    | [security.txt](https://www.zive.cz/.well-known/security.txt){:target="_blank"}
 | mdBook            | Rust language                | XSS                                   | Reflected XSS in search function                  | No    | [CVE-2020-26297](https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory.html){:target="_blank"}
 | kubernetes-csi.github.io | Kubernetes            | XSS                                   | Reflected XSS in docs page                        | No    |
