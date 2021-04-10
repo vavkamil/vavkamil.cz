@@ -9,12 +9,64 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 ## Recent publis talks / courses
 
 ### Ethical hacking - web security
-- 2020-06-24 - 2020-06-24
-> Private 2 day course for 3-rd party company
+- 2020-11-09
+> Private online course
 
 #### Agenda
 
-| 2020-06-24           | 2020-06-24            |
+| 2020-11-09            |
+|-----------------------|
+| OWASP Top 10          |
+| Burp Suite Community  |
+| OWASP Juice Shop      |
+| Secure code review    |
+| Tor, bitcoin, darknet |
+| Data breaches         |
+| Phishing 101          |
+
+<hr>
+
+### Ethical hacking - web security
+- 2020-08-24 - 2020-08-25
+> Private 2 day course (Prague)
+
+#### Agenda
+
+| 2020-08-24           | 2020-08-25            |
+|----------------------|-----------------------|
+| OWASP Top 10         | Secure code review    |
+| Burp Suite Community | WordPress hacking     |
+| OWASP Juice Shop     | JavaScript hacking    |
+| Router Exploit Kits  | Tor, bitcoin, darknet |
+| Bug Bounty           | Data breaches         |
+| Open-source tools    | Phishing 101          |
+
+<hr>
+
+### Ethical hacking - web security
+- 2020-08-03 - 2020-08-04
+> Private 2 day course (Brno)
+
+#### Agenda
+
+| 2020-08-03           | 2020-08-04            |
+|----------------------|-----------------------|
+| OWASP Top 10         | Secure code review    |
+| Burp Suite Community | WordPress hacking     |
+| OWASP Juice Shop     | JavaScript hacking    |
+| Router Exploit Kits  | Tor, bitcoin, darknet |
+| Bug Bounty           | Data breaches         |
+| Open-source tools    | Phishing 101          |
+
+<hr>
+
+### Ethical hacking - web security
+- 2020-06-24 - 2020-06-25
+> Private 2 day course for 3-rd party company (Brno)
+
+#### Agenda
+
+| 2020-06-24           | 2020-06-25            |
 |----------------------|-----------------------|
 | OWASP Top 10         | Secure code review    |
 | Burp Suite Community | WordPress hacking     |
