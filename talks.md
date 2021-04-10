@@ -109,6 +109,24 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 
 <hr>
 
+### SABO Bootcamp
+- 2019-07-31 (Olomouc)
+
+#### Agenda
+
+- White/black hat hacking
+- Google dorks & phishing
+- OWASP Top 10
+- Offensive JavaScript
+- Kali Linux
+- Bug bounty
+- Burp Suite
+- DVWA
+- OWASP Juice-Shop
+- Web Security Academy
+
+<hr>
+
 ### CTJB
 - 2019-05
 > Hacker camp (ctjb.net)
