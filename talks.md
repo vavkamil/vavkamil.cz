@@ -8,6 +8,18 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 
 ## Recent publis talks / courses
 
+### OWASP Czech Chapter Meeting
+[August 5, 2021 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-162360236839)
+
+**I know where you live**
+
+_An introduction into the KARMA attack, exploiting the behavior of some Wi-Fi devices, where vulnerable clients broadcast a "preferred network list" (PNL), which contains the SSIDs of access points to which they have previously connected. We will revisit the old technique, current defenses applied by vendors and build a custom access point using Raspberry Pi & Python._
+
+[Slides](https://mark.show/https://xss.vavkamil.cz/owasp/i-know-where-you-live.md#/)
+[Resources](https://github.com/vavkamil/SpyPortal)
+
+---
+
 ### Ethical hacking - web security
 - 2020-11-09
 > Private online course
