@@ -37,7 +37,7 @@ One could argue that the confused deputy shouldn't blindly update plugins withou
 
 To confirm the hypothesis, I began to research if it's, in fact, a possible attack vector and how widespread it is.
 
-![script.png](script.png)
+![script.png](/assets/img/2021/11/script.png)
 
 ## The WordPress.org Plugins Directory
 
@@ -144,7 +144,7 @@ While scanning websites of HackerOne public bug bounty programs, it was reportin
 
 Instead of reinventing the wheel and knowing from the review process code that the WordPress team already has the data, I started looking around the website. Every plugin has an "Advanced View" tab, where one can see various graphs, such as active versions, downloads per day, install growth, etc.
 
-![downloads.png](downloads.png)
+![downloads.png](/assets/img/2021/11/downloads.png)
 
 Poking around the API revealed one publicly available endpoint, which in fact, returns *all_time* number of downloads for any unclaimed plugin slug:
 
@@ -160,7 +160,7 @@ The way it works is:
 4) Check if the slug is installed on more than 100 websites
 5) Profit?
 
-![nuclei.png](nuclei.png)
+![nuclei.png](/assets/img/2021/11/nuclei.png)
 
 ## Debugging WP updates with Burp
 
@@ -257,7 +257,7 @@ If you click on the update button, WordPress deletes the contents of the old plu
 
 But using the docker container to intercept and simulate the attack might be enough, as you can modify the response, so it will contain any version & remote zip file you want:
 
-![plugin_version.png](plugin_version.png)
+![plugin_version.png](/assets/img/2021/11/plugin_version.png)
 
 ## Publishing WordPress plugin PoC
 
@@ -291,13 +291,13 @@ $ svn ci -m 'feat(xml-rpc-settings): Add plugin files'
 
 Like that, I released the plugin; now, I had to wait until the WordPress Plugin Directory synced with SVN. After a while, I noticed a Wordfence Slack notification, telling me that it found a problem on a couple of websites and a new plugin update is available; bingo!
 
-![](wordfence.png)
+![](/assets/img/2021/11/wordfence.png)
 
 I was able to hijack a plugin installed on a couple of websites. Although there isn't any backdoor, actually you can check the plugin:
 
 https://wordpress.org/plugins/xml-rpc-settings
 
-![xml_rpc_settings.png](xml_rpc_settings.png)
+![xml_rpc_settings.png](/assets/img/2021/11/xml_rpc_settings.png)
 
 On the other hand, an attacker could now have a foothold into the website. Even worse, if the website admin enables automatic plugins updates, introduced in WordPress 5.5. That would allow the attacker to change plugin files anytime they wanted, without any user interaction.
 
@@ -361,13 +361,13 @@ httpx -random-agent -l chaos_all_hackerone.txt -match-string "wp-content" -o htt
 
 That resulted in approximately 427 WordPress websites. After verifying them with the Proof of Concept `wp_update_confusion.py` tool, I found 13 potential targets. That is not bad, considering the `[8.2 High](https://chandanbn.github.io/cvss/#CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:L)` severity.
 
-![severity.png](severity.png)
+![severity.png](/assets/img/2021/11/severity.png)
 
 After carefully reading the policy of each bug bounty program, I found out that more than half (7) of the potential targets are out of scope. That's a bummer, as some belong to well-known companies, and they will probably fix it anyway after I release this research.
 
 Either way, I ended up submitting six reports. One of them is the VDP program (not offering bounties).
 
-![twitter.png](twitter.png)
+![twitter.png](/assets/img/2021/11/twitter.png)
 
 https://twitter.com/vavkamil/status/1447160385954533378
 
@@ -375,13 +375,13 @@ After sharing the screenshot of redacted submitted reports with a #0day hashtag 
 
 Since Nagli is usually in the top 5 researchers with the highest HackerOne reputation, I decided to take the offer. Mainly to see how many vulnerable websites might be there. Giving away 50% of potential bounties might be somewhat expensive, but I was pretty much done with the scan anyway.
 
-![h1_leaderboard.png](h1_leaderboard.png)
+![h1_leaderboard.png](/assets/img/2021/11/h1_leaderboard.png)
 
 On the first try, we found more than twice as many vulnerable hosts as my previous scan attempt. I must say that the collaboration was awesome, I was impressed by how many high-profile targets he was able to find.
 
 All in all, we submitted close the 25 reports. Unfortunately, a lot of them were closed as Informative. Some argued that their release process would not update the plugins, most likely thanks to CI/CD automation. Some didn't understand the report, and some closed it because it was missing a clear Proof of Concept, arguing that it's only a theoretical issue.
 
-![feedback.png](feedback.png)
+![feedback.png](/assets/img/2021/11/feedback.png)
 
 But others appreciated the submission, applied a fix, and one company even awarded us with a bonus for the quality of the report. You can see example of the report here: [https://hackerone.com/reports/1364851](https://hackerone.com/reports/1364851)
 
