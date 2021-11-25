@@ -386,3 +386,5 @@ All in all, we submitted close the 25 reports. Unfortunately, a lot of them were
 But others appreciated the submission, applied a fix, and one company even awarded us with a bonus for the quality of the report. You can see example of the report here: [https://hackerone.com/reports/1364851](https://hackerone.com/reports/1364851)
 
 We ended up with approximately $4k in bounties, but most importantly, we made the Internet a little bit safer. It was very eye-opening how many top tech and world-known companies were potentially affected.
+
+UPDATE: blog post about the recond phase - [https://galnagli.com/Wordpress_Plugin_Update_Confusion/](https://galnagli.com/Wordpress_Plugin_Update_Confusion/)
