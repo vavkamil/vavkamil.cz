@@ -9,6 +9,15 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 ## Recent publis talks / courses
 
 ### OWASP Czech Chapter Meeting
+[November 25, 2021 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-199371514567)
+
+**WordPress Supply Chain Attack**
+
+_Novel attack vector affecting WordPress websites. This talk will focus on the research from the beginning, explaining the motivation and exploration phase. A new scanner tool will be released, along with the Docker container for local testing. Lastly, you will get a chance to see the redacted results from the bug bounty hunting, recon process, and struggle with triage of the reports. TBU, currently still a 0day :)_
+
+---
+
+### OWASP Czech Chapter Meeting
 [August 5, 2021 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-162360236839)
 
 **I know where you live**
