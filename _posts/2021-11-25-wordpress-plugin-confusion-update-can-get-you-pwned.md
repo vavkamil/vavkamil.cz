@@ -388,5 +388,6 @@ But others appreciated the submission, applied a fix, and one company even award
 We ended up with approximately $4k in bounties, but most importantly, we made the Internet a little bit safer. It was very eye-opening how many top tech and world-known companies were potentially affected.
 
 ### UPDATE:
- - Blog post about the recond phase - [https://galnagli.com/Wordpress_Plugin_Update_Confusion/](https://galnagli.com/Wordpress_Plugin_Update_Confusion/)
- - Someone somehow requested a CVE-2021-44223 for this - [https://nvd.nist.gov/vuln/detail/CVE-2021-44223](https://nvd.nist.gov/vuln/detail/CVE-2021-44223)
+ - [Blog post about the recond phase](https://galnagli.com/Wordpress_Plugin_Update_Confusion/)
+ - [Someone somehow requested a CVE-2021-44223 for this](https://nvd.nist.gov/vuln/detail/CVE-2021-44223)
+ - [**Please don’t ‘test’ submitting other people’s plugins.**](https://make.wordpress.org/plugins/2021/11/29/please-dont-test-submitting-other-peoples-plugins/)
