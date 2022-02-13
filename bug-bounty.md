@@ -4,13 +4,18 @@ title: "Bug bounty"
 permalink: /bug-bounty/
 ---
 
+## CVEs
+
+* [CVE-2021-44223](https://nvd.nist.gov/vuln/detail/CVE-2021-44223)
+* [CVE-2020-26297](https://nvd.nist.gov/vuln/detail/CVE-2020-26297)
+
 ## HackerOne
 
 * [HackerOne profile](https://hackerone.com/vavkamil){:target="_blank"}
 
 ### Higlights
 
-* Evernote / [Automattic](https://hackerone.com/reports/550937){:target="_blank"} / Starbucks / [Node.js](https://hackerone.com/reports/550937){:target="_blank"}
+* Evernote / [Automattic](https://hackerone.com/reports/550937){:target="_blank"} / Starbucks / [Node.js](https://hackerone.com/reports/550937){:target="_blank"} / [Kubernetes](https://hackerone.com/reports/1073514) / [Traffic Factory](https://hackerone.com/reports/1364851)
 
 ## Bugcrowd
 
@@ -22,6 +27,7 @@ permalink: /bug-bounty/
 
 ## Write-ups & disclosed reports
 
+* [WordPress Plugin Confusion: How an update can get you pwned](https://vavkamil.cz/2021/11/25/wordpress-plugin-confusion-update-can-get-you-pwned/)
 * [WP GDPR Compliance < 1.5.6 - Unauthenticated Stored Cross-Site Scripting (XSS)](https://wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438){:target="_blank"}
 * [XSS on kubernetes-csi.github.io (mdBook)](https://hackerone.com/reports/1073514){:target="_blank"}
 * [All-in-One WP Migration < 7.15 - Arbitrary Backup Download](https://wpvulndb.com/vulnerabilities/10151){:target="_blank"}
