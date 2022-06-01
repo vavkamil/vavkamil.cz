@@ -8,6 +8,29 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 
 ## Recent publis talks / courses
 
+### Security Meetup
+[April 27, 2022 | By @vavkamil](https://www.meetup.com/Information-security-Brno/events/284899441/)
+
+**Compromised Keys**
+
+_What would you do if you found random keys without knowing whom they belong to or where they grant access? A red team exercise applied in a real-world, social experiment with a twist._
+
+* [Slides](https://xss.vavkamil.cz/owasp/compromised-keys.pdf)
+* [Recording](https://www.youtube.com/watch?v=3MkbahCLvUA)
+
+---
+
+### OWASP Czech Chapter Meeting
+[April 05, 2022 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-301301901097)
+
+**Compromised Keys**
+
+_What would you do if you found random keys without knowing whom they belong to or where they grant access? A red team exercise applied in a real-world, social experiment with a twist._
+
+* [Slides](https://xss.vavkamil.cz/owasp/compromised-keys.pdf)
+
+---
+
 ### OWASP Czech Chapter Meeting
 [November 25, 2021 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-199371514567)
 
