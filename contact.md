@@ -14,6 +14,6 @@ You can even encrypt the message using my [PGP key]({{ site.baseurl }}/assets/pu
 
 <hr>
 
-If you want to follow me on social networks, I'm also on [Twitter](https://twitter.com/vavkamil){:target="_blank"} and [Reddit](https://reddit.com/u/_vavkamil_){:target="_blank"}.
+If you want to follow me on social networks, I'm also on [Twitter](https://twitter.com/vavkamil){:target="_blank"} and [Reddit](https://reddit.com/u/_vavkamil_){:target="_blank"} or <a rel="me" href="https://infosec.exchange/@vavkamil">Mastodon</a>.
 
 For job offers, you should probably connect with me via [LinkedIn](https://linkedin.com/in/vavkamil){:target="_blank"}.
