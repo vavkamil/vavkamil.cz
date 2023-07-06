@@ -8,6 +8,17 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 
 ## Recent publis talks / courses
 
+### OWASP Czech Chapter Meeting
+[Jun 22, 2023 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-642006387387)
+
+**Solving CAPTCHAs for Fun**
+
+_We will explore how traditional Captchas work and look at their evolution into the modern solutions we encounter daily. Let's compare a variety of vendors and the unique features they offer. But the question remains: are these CAPTCHAs sufficient in protecting your web applications against attackers and bots? And what about artificial intelligence?_
+
+* [Slides](https://github.com/vavkamil/owasp-captchas)
+
+---
+
 ### Security Meetup
 [April 27, 2022 | By @vavkamil](https://www.meetup.com/Information-security-Brno/events/284899441/)
 
