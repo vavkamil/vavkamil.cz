@@ -7,9 +7,7 @@ tags: [xss, javascript, bookmarklet, hijacking]
 author: vavkamil
 ---
 
-I noticed an exciting link shared on Hacker News titled "[Wait, what's a bookmarklet?](https://news.ycombinator.com/item?id=38014069)".
-
-I have been using them for a long time, and while reading that discussion, it was nice to see people sharing useful ones they use to make their everyday tasks easier.
+I noticed an exciting link shared on Hacker News titled "[Wait, what's a bookmarklet?](https://news.ycombinator.com/item?id=38014069)". I have been using them for a long time, and while reading that discussion, it was nice to see people sharing useful ones they use to make their everyday tasks easier.
 
 The security engineering mind got me thinking about the security implications of saving bookmarks with JavaScript from other websites, especially when readers share links to the GitHub gists.
 
@@ -20,9 +18,11 @@ But what if the victim is cautious and examines the content of bookmarklet JS be
 So, I was thinking about changing the content before the user saved it to bookmarks and was experimenting with the ondragstart Event. I came up with a very simple Proof of Concept for Chromium-based browsers and Firefox - [https://gist.github.com/vavkamil/0b167814cabf8787cd4c4ab629614c6e](https://gist.github.com/vavkamil/0b167814cabf8787cd4c4ab629614c6e).
 
 It's a simple PoC where the href attribute specifies the link's destination:
+
 `javascript: (() => { alert(1); })();`
 
 And after saved to bookmarks, it changes to:
+
 `javascript: (() => { alert(2); })();`
 
 You can see it hee: [https://xss.vavkamil.cz/bookmarklet.html](https://xss.vavkamil.cz/bookmarklet.html)
