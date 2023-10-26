@@ -21,11 +21,11 @@ It's a simple PoC where the href attribute specifies the link's destination:
 
 `javascript: (() => { alert(1); })();`
 
-And after saved to bookmarks, it changes to:
+And after saving to bookmarks, it changes to:
 
 `javascript: (() => { alert(2); })();`
 
-You can see it hee: [https://xss.vavkamil.cz/bookmarklet.html](https://xss.vavkamil.cz/bookmarklet.html)
+You can see it here: [https://xss.vavkamil.cz/bookmarklet.html](https://xss.vavkamil.cz/bookmarklet.html)
 
 ### Chromium Version 118.0.5993.88
 
