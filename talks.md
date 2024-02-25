@@ -9,6 +9,15 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 ## Recent publis talks / courses
 
 ### OWASP Czech Chapter Meeting
+[Nov 8, 2023 | By @vavkamil](https://www.eventbrite.com/e/747774031257/)
+
+**Hacking a Cruise Ship**
+
+_Have you ever wondered what happens in international waters? It's not just the waves that can be unpredictable, especially when an ethical hacker decides to spend a vacation on board. Cruising the high seas with curiosity and little to do, just a laptop, the majestic Norwegian fjords as the backdrop, and time on his hands, what possibly could go wrong?_
+
+---
+
+### OWASP Czech Chapter Meeting
 [Jun 22, 2023 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-642006387387)
 
 **Solving CAPTCHAs for Fun**
