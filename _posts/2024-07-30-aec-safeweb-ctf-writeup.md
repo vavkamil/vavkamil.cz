@@ -310,7 +310,7 @@ Add another param like this:
 
 ![ctf_16.png](/assets/img/2024/07/ctf_16.png)
 
-Now, each request from Intruder should have different (extracted) captcha number, and you just solved another level without any programming!
+Now, each request from Intruder should have a different (extracted) captcha number, and you just solved another level without any programming!
 
 ### Level 13
 
@@ -318,4 +318,25 @@ Now, each request from Intruder should have different (extracted) captcha number
 - Task: _Run the phpinfo() function on the PHP server._
 - Hint: _Process environment_
 
+
+Level #13 is another Local File Inclusion, but with a twist, we have to chain it with RCE.
+
+We have a URL like this:
+- `https://safeweb.aec.cz/level13.php?page=main.php`
+
+Meanwhile, the `page` parameter should be vulnerable to LFI. Usually, you will try to load any local file to verify that it's exploitable. You can get stuck here, as the CTF returns only one file.
+
+As the hint indicates, you must look for `/proc/self/environ` and nothing else. Escalating an LFI vulnerability to RCE was often possible using that file and reading environment variables.
+
+In this case, we can see environment variables related to the request: the IP address, User-Agent, and preferred language sent by the client.
+
+![ctf_17.png](/assets/img/2024/07/ctf_17.png)
+
+Changing the User-Agent string to any PHP payload should do the trick.
+
+### Level 14
+
+- Url: https://safeweb.aec.cz/level14.php
+- Task: _Private section of the site. Is the password the same as the name of the virus discussed in the article published on the AEC website on 6/19/2000?_
+- Hint: _Internet Archive_
 
