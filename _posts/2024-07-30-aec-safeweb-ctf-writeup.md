@@ -11,7 +11,7 @@ AEC Hacking Competition is a famous Czech CTF with 15 web application security c
 
 Today, only around 28 people out of several hundred could solve all the challenges. Many ethical hackers were stuck on some levels, maybe because the instructions were not clear or outdated.
 
-The CTF is from ~2018, and the authors haven't updated any of the challenges since. We could do better, especially for new people starting in the penetration testing field. I was the sixth person who solved all the challenges, and I received an e-mail recently from someone stuck on the first level asking for advice.
+The CTF is from ~2018, and the authors last updated the challenges a while ago. We could do better, especially for new people starting in the penetration testing field. I was the sixth person who solved all the challenges, and I received an e-mail recently from someone stuck on the first level asking for advice.
 
 So, after many years, I finally decided to try to solve them again and describe my steps. I did this mainly to help beginners see that it's easy if they think like ethical hackers and have the correct mindset and necessary skills. I would also like to see new levels that reflect the current application security state and the OWASP Top 10.
 
@@ -156,7 +156,7 @@ Send the authenticated GET request to Repeter, highlight the cookie value, and y
 
 Level #6 is a funny reference to Czech hacking history, when `Mr.Sysel` proved that a blog can be hacked with a limited number of characters.
 
-We have another login form, but it has four different inputs this time. By observing the form, each input has a limit of 30 characters, but the challenge is to execute:
+We have another login form with four different inputs this time. By observing the form, each input has a limit of 30 characters, but the challenge is to execute:
 
 `<script>alert(document.cookies)</script>`
 
@@ -237,7 +237,7 @@ It's not that easy, as the password value is dynamically computed during script 
 
 ![ctf_11.png](/assets/img/2024/07/ctf_11.png)
 
-I don't know if this is the easiest method to solve this level, but it saves a lot of time to debug what is happening.
+I don't know if this is the easiest method to solve this level, but it saves a lot of time when debugging what is happening.
 
 ---
 
@@ -282,14 +282,14 @@ Is it just me, or are the challenges getting easier? One would expect that they 
 - Task: _Upload a file to the server which, when loaded in the browser, will run any PHP code._
 - Hint: _Unknown extension_
 
-Nice, finally, something way more interesting. We have an insecure file upload and must execute PHP on the server.
+Nice. Finally, there is something way more interesting. We have an insecure file upload and must execute PHP on the server.
 
 First, create a `file.php` with the following contents:
 
 ```
 $ echo "<? phpinfo(); ?>" > file.php
 ```
-And try uploading that. We will get an error message saying that only the following file extensions are allowed: `.jpg, .jpeg, .png, .gif, .bmp`.
+And try uploading that. We will get an error message saying only the following file extensions are allowed: `.jpg, .jpeg, .png, .gif, .bmp`.
 
 Next, forward the POST request to Repeter and try to change the file extension to `.jpg`. We get the same error, indicating that the mime type is verified.
 
@@ -307,7 +307,7 @@ The backend code only checks that the `jpg` string is present at the end of the 
 
 ![ctf_13.png](/assets/img/2024/07/ctf_13.png)
 
-Smply renaming the file to something like:
+Simply renaming the file to something like:
 - `file.php.unknown-jpg`
 will do the trick. This challenge is complex, and a lot of people might get stuck.
 
@@ -321,7 +321,7 @@ will do the trick. This challenge is complex, and a lot of people might get stuc
 
 Level #12 is entirely different from what we saw before. To solve this challenge, we must write a script to bypass Captcha verification 500 times.
 
-In the form title, we see a six-digit number. Sending this number gets us one point out of 500. The number changes each time the form is submitted.
+The form title contains a six-digit number. Sending this number gets us one point out of 500. The number changes each time the form is submitted.
 
 You don't need programming experience; you can do all the steps in the Burp Suite. This challenge can be seen in the real world, where you must extract CSRF tokens from the response and use them in another.
 
@@ -343,7 +343,7 @@ We will use a combo of Macro and Intruder. Follow the white rabbit:
 
 ![ctf_15.png](/assets/img/2024/07/ctf_15.png)
 
-You should be all set. The Macro will extract the number, which you 14. can use in the Intruder. Send the POST request to Intruder.
+You should be all set. The Macro will extract the number, which you can use in the Intruder. Send the POST request to Intruder.
 
 Add another param like this:
 - `captcha=1&ok=Send&foo=§bar§`
@@ -422,6 +422,6 @@ Congratulations!
 
 All in all, I like the concept of solving the CTF to get a spot at the interview. Some of the challenges are easy, and some are somewhat strange. However, an experienced penetration tester should be able to complete them all in one to two hours.
 
-If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you won't see most of them that often nowadays.
+If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you will see only some of them that often nowadays.
 
 I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world.
