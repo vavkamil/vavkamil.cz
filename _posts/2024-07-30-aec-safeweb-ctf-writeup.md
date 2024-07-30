@@ -146,4 +146,26 @@ commented HTML */</script>
 
 ![ctf_08.png](/assets/img/2024/07/ctf_08.png)
 
+### Level 7
+
+- Url: https://safeweb.aec.cz/level7.php
+- Task: _Private section of the site. You can find the application form for the club here._
+- Hint: _In addition to the application, more interesting files can be found in the download section_
+
+We again have another login form. This time, we must find the password to access the private "Club" area. We have the following URL to download the application PDF:
+
+- `https://safeweb.aec.cz/download.php?file_id=42`
+
+![ctf_09.png](/assets/img/2024/07/ctf_09.png)
+
+Let's send this to Intruder to check if there are other file IDs. We can use Sniper with one payload set, type Number, and range of 1 - 100.
+
+![ctf_10.png](/assets/img/2024/07/ctf_10.png)
+
+After executing the Intruder attack, we can see another document with ID 87, a TXT file with a password:
+
+- https://safeweb.aec.cz/HesloDoKlubu.txt
+  - `Heslo: horiii`
+
+### Level 8
 
