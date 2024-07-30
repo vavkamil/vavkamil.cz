@@ -203,3 +203,18 @@ I don't know if this is the easiest method to solve this level, but it saves a l
 
 ### Level 9
 
+- Url: https://safeweb.aec.cz/level9.php
+- Task: _Private section of the site.
+You can check the correctness of the password using the application (for Windows here, for Linux here)_
+- Hint: _No knowledge of assembler is required_
+
+Oh no, this is a reverse engineering challenge. I sux at these, but based on the hint, it should be easy. So, let's download the `CrackMe` binary and run `strings` command on it.
+
+Looking at the Burp HTTP history, we can see the strings already. So a quick search for `password` reveals the `Popocatepetl`, which looks interesting!
+
+![ctf_12.png](/assets/img/2024/07/ctf_12.png)
+
+And look at that; it's, in fact, the correct password. I love this one.
+
+### Level 10
+
