@@ -162,10 +162,44 @@ Let's send this to Intruder to check if there are other file IDs. We can use Sni
 
 ![ctf_10.png](/assets/img/2024/07/ctf_10.png)
 
-After executing the Intruder attack, we can see another document with ID 87, a TXT file with a password:
+After executing the Intruder attack, we can see another document with ID `87`, a TXT file with a password:
 
 - https://safeweb.aec.cz/HesloDoKlubu.txt
   - `Heslo: horiii`
 
 ### Level 8
+
+- Url: https://safeweb.aec.cz/level8.php
+- Task: _Private section of the site. Log in…_
+- Hint: _The password is checked on the client side_
+
+Level #8 is tempting, yet another login form, but now the password is obfuscated in JavaScript. So, we must figure out how to obtain the plaintext client side. Looking at the code, we can see the obfuscated value of the password is compared against our form input at the end:
+
+```
+if(document.getElementById('password').value!=String.fromCharCode(c,d,b,f,a,g,e)){
+...
+```
+
+In this case, all we have to do is to get the value of:
+
+- `String.fromCharCode(c,d,b,f,a,g,e)`
+
+Using the browser JS console, we get the following error:
+
+- `ReferenceError: c is not defined`
+
+It's not that easy, as the password value is dynamically computed during script execution. But we can use JS Debugger like this:
+
+1. Go to the Sources tab in Chrome DevTools
+2. Add `String.fromCharCode(c,d,b,f,a,g,e)` as Watch expression
+3. Pause script execution
+4. Submit the form with any password
+5. Click on "Step over the next function call" multiple times
+6. You will see that the password value is `heureka` ;)
+
+![ctf_11.png](/assets/img/2024/07/ctf_11.png)
+
+I don't know if this is the easiest method to solve this level, but it saves a lot of time to debug what is happening.
+
+### Level 9
 
