@@ -89,6 +89,7 @@ After navigating to:
 There are two files:
 - login.php
 - topsecret.txt
+
 With the credentials:
 ```
 Login: nbusr
@@ -172,7 +173,7 @@ The first three inputs are vulnerable. Based on the hint, we have to use JS mult
 
 It sounds way too complicated, but what we are doing is pretty much:
 
-```javascript
+```html
 "><script>/* commented HTML
 commented HTML */ alert(document.cookie) /* commented HTML
 commented HTML */</script>
@@ -194,7 +195,7 @@ We again have another login form. This time, we must find the password to access
 
 ![ctf_09.png](/assets/img/2024/07/ctf_09.png)
 
-Let's send this to Intruder to check if there are other file IDs. We can use Sniper with one payload set, type Number, and range of 1 - 100.
+Let's send this to Intruder to check if there are other file IDs. We can use `Sniper` with one payload set, type `Number`, and range of `1 - 100`.
 
 ![ctf_10.png](/assets/img/2024/07/ctf_10.png)
 
@@ -213,7 +214,7 @@ After executing the Intruder attack, we can see another document with ID `87`, a
 
 Level #8 is tempting, yet another login form, but now the password is obfuscated in JavaScript. So, we must figure out how to obtain the plaintext client side. Looking at the code, we can see the obfuscated value of the password is compared against our form input at the end:
 
-```
+```javascript
 if(document.getElementById('password').value!=String.fromCharCode(c,d,b,f,a,g,e)){
 ...
 ```
@@ -286,7 +287,7 @@ Nice. Finally, there is something way more interesting. We have an insecure file
 
 First, create a `file.php` with the following contents:
 
-```
+```bash
 $ echo "<? phpinfo(); ?>" > file.php
 ```
 And try uploading that. We will get an error message saying only the following file extensions are allowed: `.jpg, .jpeg, .png, .gif, .bmp`.
@@ -349,7 +350,7 @@ Add another param like this:
 - `captcha=1&ok=Send&foo=§bar§`
 
 1. Use `Sniper`, for payload type `Numbers`
-2. `Sequence` from `1 `to 500`
+2. `Sequence` from `1 `to `500`
 3. Create a new resource pool
 4. Maximum concurrent requests: `1`
 5. Start the attack
@@ -424,4 +425,4 @@ All in all, I like the concept of solving the CTF to get a spot at the interview
 
 If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you will see only some of them that often nowadays.
 
-I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world.
+I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world. Good luck!
