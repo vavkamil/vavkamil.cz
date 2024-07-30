@@ -273,3 +273,49 @@ will do the trick. This challenge is complex, and a lot of people might get stuc
 - Task: _Write the captcha test five hundred times. Done: 0/500._
 - Hint: _Robot_
 
+Level #12 is entirely different from what we saw before. To solve this challenge, we must write a script to bypass Captcha verification 500 times.
+
+In the form title, we see a six-digit number. Sending this number gets us one point out of 500. The number changes each time the form is submitted.
+
+You don't need programming experience; you can do all the steps in the Burp Suite. This challenge can be seen in the real world, where you must extract CSRF tokens from the response and use them in another.
+
+We will use a combo of Macro and Intruder. Follow the white rabbit:
+1. Burp > Settings
+2. Sessions
+3. Macros > Add
+4. Add the GET request to `/level12.php`
+5. Configure item
+6. Add custom parameter location
+7. Parameter name: captcha
+8. Select the number to extract, click OK
+9. In Burp > Settings > Sessions
+10. Add Session handling rules
+11. Add Rule action; Run a macro, click OK
+12. Scope; Include all URLs
+
+![ctf_14.png](/assets/img/2024/07/ctf_14.png)
+
+![ctf_15.png](/assets/img/2024/07/ctf_15.png)
+
+You should be all set. The Macro will extract the number, which you 14. can use in the Intruder. Send the POST request to Intruder.
+
+Add another param like this:
+- `captcha=1&ok=Send&foo=§bar§`
+
+1. Use `Sniper`, for payload type `Numbers`
+2. `Sequence` from `1 `to 500`
+3. Create a new resource pool
+4. Maximum concurrent requests: `1`
+5. Start the attack
+
+![ctf_16.png](/assets/img/2024/07/ctf_16.png)
+
+Now, each request from Intruder should have different (extracted) captcha number, and you just solved another level without any programming!
+
+### Level 13
+
+- Url: https://safeweb.aec.cz/level13.php
+- Task: _Run the phpinfo() function on the PHP server._
+- Hint: _Process environment_
+
+
