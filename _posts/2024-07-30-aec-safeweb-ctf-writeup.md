@@ -15,6 +15,30 @@ The CTF is from ~2018, and the authors haven't updated any of the challenges sin
 
 So, after many years, I finally decided to try to solve them again and describe my steps. I did this mainly to help beginners see that it's easy if they think like ethical hackers and have the correct mindset and necessary skills. I would also like to see new levels that reflect the current application security state and the OWASP Top 10.
 
+---
+
+## Table of contents
+
+- [Level #1](#level-1)
+- [Level #2](#level-2)
+- [Level #3](#level-3)
+- [Level #4](#level-4)
+- [Level #5](#level-5)
+- [Level #6](#level-6)
+- [Level #7](#level-7)
+- [Level #8](#level-8)
+- [Level #9](#level-9)
+- [Level #10](#level-10)
+- [Level #11](#level-11)
+- [Level #12](#level-12)
+- [Level #13](#level-13)
+- [Level #14](#level-14)
+- [Level #15](#level-15)
+
+---
+
+![ctf_19.png](/assets/img/2024/07/ctf_19.png)
+
 ### Level 1
 
 - Url: https://safeweb.aec.cz/level1.php
@@ -34,6 +58,8 @@ To solve this, we can send the POST request to Burp's Intruder, with one payload
 
 After 9k requests, we can see that the correct credentials are `administrator:Krasty`, and we solved the first level.
 
+---
+
 ### Level 2
 
 - Url: https://safeweb.aec.cz/level2.php
@@ -45,6 +71,8 @@ Again, we have a login form with `user:pass` inputs, and based on the hint, we w
 ![ctf_03.png](/assets/img/2024/07/ctf_03.png)
 
 So, let's send the authentication request to Repeter and test it out. And just like that, we solved another level.
+
+---
 
 ### Level 3
 
@@ -68,6 +96,8 @@ Password: nbusr123
 ```
 
 These credentials are an excellent reference to a time when our National Security Agency (NBU) was compromised because they were literally the credentials they were using at the time. And thanks to them, we just solved another level.
+
+---
 
 ### Level 4
 
@@ -100,6 +130,8 @@ Table: users
 
 And just like that, we solved another level.
 
+---
+
 ### Level 5
 
 - Url: https://safeweb.aec.cz/level5.php
@@ -113,6 +145,8 @@ This level is another login form, but now we have guest access. The goal is to e
 Send the authenticated GET request to Repeter, highlight the cookie value, and you will see that it is our `base64` encoded username. We can change the value to `admin`, resend the request, and solve the level.
 
 ![ctf_06.png](/assets/img/2024/07/ctf_06.png)
+
+---
 
 ### Level 6
 
@@ -146,6 +180,8 @@ commented HTML */</script>
 
 ![ctf_08.png](/assets/img/2024/07/ctf_08.png)
 
+---
+
 ### Level 7
 
 - Url: https://safeweb.aec.cz/level7.php
@@ -166,6 +202,8 @@ After executing the Intruder attack, we can see another document with ID `87`, a
 
 - https://safeweb.aec.cz/HesloDoKlubu.txt
   - `Heslo: horiii`
+
+---
 
 ### Level 8
 
@@ -201,6 +239,8 @@ It's not that easy, as the password value is dynamically computed during script 
 
 I don't know if this is the easiest method to solve this level, but it saves a lot of time to debug what is happening.
 
+---
+
 ### Level 9
 
 - Url: https://safeweb.aec.cz/level9.php
@@ -215,6 +255,8 @@ Looking at the Burp HTTP history, we can see the strings already. So a quick sea
 ![ctf_12.png](/assets/img/2024/07/ctf_12.png)
 
 And look at that; it's, in fact, the correct password. I love this one.
+
+---
 
 ### Level 10
 
@@ -231,6 +273,8 @@ And we have to get the `/etc/passwd` file contents like this:
 - `https://safeweb.aec.cz/level10.php?page=../../etc/passwd%00`
 
 Is it just me, or are the challenges getting easier? One would expect that they would become more complicated as one progresses.
+
+---
 
 ### Level 11
 
@@ -266,6 +310,8 @@ The backend code only checks that the `jpg` string is present at the end of the 
 Smply renaming the file to something like:
 - `file.php.unknown-jpg`
 will do the trick. This challenge is complex, and a lot of people might get stuck.
+
+---
 
 ### Level 12
 
@@ -312,6 +358,8 @@ Add another param like this:
 
 Now, each request from Intruder should have a different (extracted) captcha number, and you just solved another level without any programming!
 
+---
+
 ### Level 13
 
 - Url: https://safeweb.aec.cz/level13.php
@@ -334,9 +382,46 @@ In this case, we can see environment variables related to the request: the IP ad
 
 Changing the User-Agent string to any PHP payload should do the trick.
 
+---
+
 ### Level 14
 
 - Url: https://safeweb.aec.cz/level14.php
 - Task: _Private section of the site. Is the password the same as the name of the virus discussed in the article published on the AEC website on 6/19/2000?_
 - Hint: _Internet Archive_
 
+Level #14 concerns OSINT; we must find an ancient blog article on a website. Following the hint, we should use `web.archive.org`.
+
+1. Go to: `https://web.archive.org/web/20240000000000*/https://aec.cz`
+2. Change year to 2000: `https://web.archive.org/web/20000000000000*/https://aec.cz`
+3. There is one snapshot from Jun 21st
+4. Open the link: `https://web.archive.org/web/20000621192659/http://www.aec.cz/`
+5. The virus name (password) is `VBS.Stages.A`
+
+This challenge might seem strange initially, but the Web Archive can be helpful during bug bounty hunting. On old website versions, you can find old hidden artifacts, URL parameters, sitemaps, and other stuff. There are many tools to automate that, and I have seen many bug bounty write-ups strike gold this way.
+
+---
+
+### Level 15
+
+- Url: https://safeweb.aec.cz/level15.php
+- Task: _Private section of the site. The password is the same as the name of the home directory (user) in which this login script is located on the server._
+- Hint: _Full Path Disclosure (FPD) - untreated variables_
+
+We have the last level before us. This challenge aims to exploit the Full Path Disclosure vulnerability to extract the username from the path.
+
+As in the previous task, this is not a severe vulnerability alone, but it often becomes critical when chained with other vulnerabilities.
+
+![ctf_18.png](/assets/img/2024/07/ctf_18.png)
+
+Send the POST request to Repetaer and try to change the password parameter to an array. You will see an error message with the Full Path, granting you the password and access to the Hall of Fame.
+
+Congratulations!
+
+---
+
+All in all, I like the concept of solving the CTF to get a spot at the interview. Some of the challenges are easy, and some are somewhat strange. However, an experienced penetration tester should be able to complete them all in one to two hours.
+
+If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you won't see most of them that often nowadays.
+
+I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world.
