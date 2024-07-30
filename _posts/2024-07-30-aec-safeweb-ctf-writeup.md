@@ -17,7 +17,7 @@ So, after many years, I finally decided to try to solve them again and describe 
 
 ---
 
-## Table of contents
+### Table of contents
 
 - [Level #1](#level-1)
 - [Level #2](#level-2)
@@ -39,7 +39,7 @@ So, after many years, I finally decided to try to solve them again and describe 
 
 ![ctf_19.png](/assets/img/2024/07/ctf_19.png)
 
-### Level 1
+## Level 1
 
 - Url: https://safeweb.aec.cz/level1.php
 - Task: _Log in as an information system admin._
@@ -60,7 +60,7 @@ After 9k requests, we can see that the correct credentials are `administrator:Kr
 
 ---
 
-### Level 2
+## Level 2
 
 - Url: https://safeweb.aec.cz/level2.php
 - Task: _Log in as the admin user_
@@ -74,7 +74,7 @@ So, let's send the authentication request to Repeter and test it out. And just l
 
 ---
 
-### Level 3
+## Level 3
 
 - Url: https://safeweb.aec.cz/level3.php
 - Task: _Log in as the admin user_
@@ -100,7 +100,7 @@ These credentials are an excellent reference to a time when our National Securit
 
 ---
 
-### Level 4
+## Level 4
 
 - Url: https://safeweb.aec.cz/level4.php?uid=1
 - Task: _Log in as the admin user_
@@ -133,7 +133,7 @@ And just like that, we solved another level.
 
 ---
 
-### Level 5
+## Level 5
 
 - Url: https://safeweb.aec.cz/level5.php
 - Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo_
@@ -149,7 +149,7 @@ Send the authenticated GET request to Repeter, highlight the cookie value, and y
 
 ---
 
-### Level 6
+## Level 6
 
 - Url: https://safeweb.aec.cz/level6.php
 - Task: _Invoke an XSS error where you automatically call the alert() function displaying the contents of the cookie._
@@ -183,7 +183,7 @@ commented HTML */</script>
 
 ---
 
-### Level 7
+## Level 7
 
 - Url: https://safeweb.aec.cz/level7.php
 - Task: _Private section of the site. You can find the application form for the club here._
@@ -206,7 +206,7 @@ After executing the Intruder attack, we can see another document with ID `87`, a
 
 ---
 
-### Level 8
+## Level 8
 
 - Url: https://safeweb.aec.cz/level8.php
 - Task: _Private section of the site. Log in…_
@@ -242,7 +242,7 @@ I don't know if this is the easiest method to solve this level, but it saves a l
 
 ---
 
-### Level 9
+## Level 9
 
 - Url: https://safeweb.aec.cz/level9.php
 - Task: _Private section of the site.
@@ -259,7 +259,7 @@ And look at that; it's, in fact, the correct password. I love this one.
 
 ---
 
-### Level 10
+## Level 10
 
 - Url: https://safeweb.aec.cz/level10.php
 - Task: _Find out the contents of the /etc/passwd file._
@@ -277,7 +277,7 @@ Is it just me, or are the challenges getting easier? One would expect that they 
 
 ---
 
-### Level 11
+## Level 11
 
 - Url: https://safeweb.aec.cz/level11.php
 - Task: _Upload a file to the server which, when loaded in the browser, will run any PHP code._
@@ -314,7 +314,7 @@ will do the trick. This challenge is complex, and a lot of people might get stuc
 
 ---
 
-### Level 12
+## Level 12
 
 - Url: https://safeweb.aec.cz/level12.php
 - Task: _Write the captcha test five hundred times. Done: 0/500._
@@ -361,7 +361,7 @@ Now, each request from Intruder should have a different (extracted) captcha numb
 
 ---
 
-### Level 13
+## Level 13
 
 - Url: https://safeweb.aec.cz/level13.php
 - Task: _Run the phpinfo() function on the PHP server._
@@ -385,7 +385,7 @@ Changing the User-Agent string to any PHP payload should do the trick.
 
 ---
 
-### Level 14
+## Level 14
 
 - Url: https://safeweb.aec.cz/level14.php
 - Task: _Private section of the site. Is the password the same as the name of the virus discussed in the article published on the AEC website on 6/19/2000?_
@@ -403,7 +403,7 @@ This challenge might seem strange initially, but the Web Archive can be helpful 
 
 ---
 
-### Level 15
+## Level 15
 
 - Url: https://safeweb.aec.cz/level15.php
 - Task: _Private section of the site. The password is the same as the name of the home directory (user) in which this login script is located on the server._
@@ -417,7 +417,7 @@ As in the previous task, this is not a severe vulnerability alone, but it often 
 
 Send the POST request to Repetaer and try to change the password parameter to an array. You will see an error message with the Full Path, granting you the password and access to the Hall of Fame.
 
-Congratulations!
+**Congratulations!**
 
 ---
 
@@ -425,4 +425,4 @@ All in all, I like the concept of solving the CTF to get a spot at the interview
 
 If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you will see only some of them that often nowadays.
 
-I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world. Good luck!
+I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world. **Good luck!**
