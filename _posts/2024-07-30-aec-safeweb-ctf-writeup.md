@@ -103,7 +103,7 @@ And just like that, we solved another level.
 ### Level 5
 
 - Url: https://safeweb.aec.cz/level5.php
-- Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo
+- Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo_
 - Hint: _Cookies_
 
 This level is another login form, but now we have guest access. The goal is to escalate permissions to the admin using Cookies. After successful authentication, we can observe that a server response sets a `login` cookie.
@@ -116,7 +116,34 @@ Send the authenticated GET request to Repeter, highlight the cookie value, and y
 
 ### Level 6
 
-- Url: https://safeweb.aec.cz/level5.php
-- Task: _Log in as the admin user. Your user credentials are: guest/tajneheslo
-- Hint: _Cookies_
+- Url: https://safeweb.aec.cz/level6.php
+- Task: _Invoke an XSS error where you automatically call the alert() function displaying the contents of the cookie._
+- Hint: _A multiline comment in JavaScript_
+
+Level #6 is a funny reference to Czech hacking history, when `Mr.Sysel` proved that a blog can be hacked with a limited number of characters.
+
+We have another login form, but it has four different inputs this time. By observing the form, each input has a limit of 30 characters, but the challenge is to execute:
+
+`<script>alert(document.cookies)</script>`
+
+which does have 40 characters. To verify which inputs are vulnerable to XSS, we will use these payloads:
+- `">foo`
+- `">bar`
+- `">baz`
+- `">qux`
+
+![ctf_07.png](/assets/img/2024/07/ctf_07.png)
+
+The first three inputs are vulnerable. Based on the hint, we have to use JS multiline comments. We will start the XSS payload in the first input, comment on the rest of the HTML code, end the comment in the second input, enter the payload, and comment on the rest. We will end the comment and the javascript payload in the last input.
+
+It sounds way too complicated, but what we are doing is pretty much:
+
+```javascript
+"><script>/* commented HTML
+commented HTML */ alert(document.cookie) /* commented HTML
+commented HTML */</script>
+```
+
+![ctf_08.png](/assets/img/2024/07/ctf_08.png)
+
 
