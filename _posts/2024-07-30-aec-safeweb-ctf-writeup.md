@@ -35,3 +35,36 @@ To solve this, we can send the POST request to Burp's Intruder, with one payload
 After 9k requests, we can see that the correct credentials are `administrator:Krasty`, and we solved the first level.
 
 ### Level 2
+
+- Url: https://safeweb.aec.cz/level2.php
+- Task: _Log in as the admin user_
+- Hint: _User-Agent_
+
+Again, we have a login form with `user:pass` inputs, and based on the hint, we will have to modify the user agent. The form's title, `D-Link Router - Firmware DI-604UP,` indicated an exploit against an old Wi-Fi router. After a bit of googling, it looks like **CVE-2013-026**, where a backdoor in the firmware allowed to bypass authentication if one sets `xmlset_roodkcableoj28840ybtide` string as User-Agent.
+
+![ctf_03.png](/assets/img/2024/07/ctf_03.png)
+
+So, let's send the authentication request to Repeter and test it out. And just like that, we solved another level.
+
+### Level 3
+
+- Url: https://safeweb.aec.cz/level3.php
+- Task: _Log in as the admin user_
+- Hint: _There are backups of sensitive data on the server_
+
+Level #3 is the same login form, and the hint indicates there is some backup file we can use to get the credentials. Observing the POST request in Burp, we can see the following path is used:
+- `POST /library/login.php HTTP/1.1`
+
+After navigating to:
+- `https://safeweb.aec.cz/library/`
+
+There are two files:
+- login.php
+- topsecret.txt
+With the credentials:
+```
+Login: nbusr
+Password: nbusr123
+```
+
+These credentials are an excellent reference to a time when our National Security Agency (NBU) was compromised because they were literally the credentials they were using at the time. And thanks to them, we just solved another level.
