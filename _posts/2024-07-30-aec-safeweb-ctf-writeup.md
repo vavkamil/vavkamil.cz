@@ -218,3 +218,58 @@ And look at that; it's, in fact, the correct password. I love this one.
 
 ### Level 10
 
+- Url: https://safeweb.aec.cz/level10.php
+- Task: _Find out the contents of the /etc/passwd file._
+- Hint: _Null Byte_
+
+Luckily, Level #10 is another web security challenge, and it looks like standard Local File Inclusion. We have the following URL:
+
+- `https://safeweb.aec.cz/level10.php?page=main`
+
+And we have to get the `/etc/passwd` file contents like this:
+
+- `https://safeweb.aec.cz/level10.php?page=../../etc/passwd%00`
+
+Is it just me, or are the challenges getting easier? One would expect that they would become more complicated as one progresses.
+
+### Level 11
+
+- Url: https://safeweb.aec.cz/level11.php
+- Task: _Upload a file to the server which, when loaded in the browser, will run any PHP code._
+- Hint: _Unknown extension_
+
+Nice, finally, something way more interesting. We have an insecure file upload and must execute PHP on the server.
+
+First, create a `file.php` with the following contents:
+
+```
+$ echo "<? phpinfo(); ?>" > file.php
+```
+And try uploading that. We will get an error message saying that only the following file extensions are allowed: `.jpg, .jpeg, .png, .gif, .bmp`.
+
+Next, forward the POST request to Repeter and try to change the file extension to `.jpg`. We get the same error, indicating that the mime type is verified.
+
+Change the:
+
+- `Content-Type: application/x-php`
+
+to:
+
+- `Content-Type: image/jpeg`
+
+and the file was uploaded, but no PHP code is executed on the server. Changing the file extension back to .`php` doesn't work, but surprisingly `.phpjpg` works.
+
+The backend code only checks that the `jpg` string is present at the end of the file extension. At this point, the hint `Unknown extension` is valuable. This vulnerability is known as "double extension", where, for Apache, the order of extensions is irrelevant. If the server doesn't know the extension, it will ignore it, and if there is `.php` extension, our file executes as a PHP script :)
+
+![ctf_13.png](/assets/img/2024/07/ctf_13.png)
+
+Smply renaming the file to something like:
+- `file.php.unknown-jpg`
+will do the trick. This challenge is complex, and a lot of people might get stuck.
+
+### Level 12
+
+- Url: https://safeweb.aec.cz/level12.php
+- Task: _Write the captcha test five hundred times. Done: 0/500._
+- Hint: _Robot_
+
