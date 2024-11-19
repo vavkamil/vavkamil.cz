@@ -9,6 +9,15 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 ## Recent publis talks / courses
 
 ### OWASP Czech Chapter Meeting
+[November 14, 2024 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-1074755475559)
+
+**SSRF Adventures: Chaining Your Way Through the Network**
+
+_Explore the journey of transforming rendering trouble into a critical security vulnerability. This talk will unravel how combining creative offensive techniques, strategic exploit chaining, and leveraging third-party services beyond the edge can lead to significant breakthroughs in application security defenses. Attendees will gain practical insights into using automation and DAST tools to uncover similar issues in real-world scenarios. This short talk promises valuable takeaways for penetration testers and eye-opening lessons for those dedicated to securing web applications and sensitive internal data._
+
+---
+
+### OWASP Czech Chapter Meeting
 [Nov 8, 2023 | By @vavkamil](https://www.eventbrite.com/e/747774031257/)
 
 **Hacking a Cruise Ship**
