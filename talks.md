@@ -9,6 +9,15 @@ Feel free to [contact]({{ site.baseurl }}/contact) me, if you want to arange som
 ## Recent publis talks / courses
 
 ### OWASP Czech Chapter Meeting
+[September 30, 2025 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-1688425318579)
+
+**Hacking a Pharmacy for Fun and Drugs**
+
+_Do you like using loyalty cards when you shop? After all, they promise discounts on selected items. But what happens when a pharmacy chain forces an ethical hacker to sign up for one? In this talk, you will see how a simple loyalty card opened the door to finding critical vulnerabilities._
+
+---
+
+### OWASP Czech Chapter Meeting
 [November 14, 2024 | By @vavkamil](https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-1074755475559)
 
 **SSRF Adventures: Chaining Your Way Through the Network**
