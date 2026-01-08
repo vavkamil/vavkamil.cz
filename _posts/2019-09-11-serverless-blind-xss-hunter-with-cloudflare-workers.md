@@ -5,6 +5,8 @@ date: 2019-09-11 00:00:00 -0000
 categories: ['Ethical hacking', 'Tools']
 tags: [blind xss, cloudflare, cloudflare worker, serverless, xss, xss hunter]
 author: vavkamil
+redirect_from:
+  - /2019/09/11/serverless-blind-xss-hunter-with-cloudflare-workers/
 ---
 
 <hr>

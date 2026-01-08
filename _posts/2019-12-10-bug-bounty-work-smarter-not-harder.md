@@ -5,6 +5,8 @@ date: 2019-12-10 00:00:00 -0000
 categories: ['Bug bounty', 'Ethical hacking', 'Public talks']
 tags: [bug bounty, bugbounty, public-talks]
 author: vavkamil
+redirect_from:
+  - /2019/12/10/bug-bounty-work-smarter-not-harder/
 ---
 
 <hr>

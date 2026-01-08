@@ -5,6 +5,8 @@ date: 2023-10-26 00:00:00 -0000
 categories: ['Ethical hacking', 'Tools', 'Security Research']
 tags: [xss, javascript, bookmarklet, hijacking]
 author: vavkamil
+redirect_from:
+  - /2023/10/26/bookmarklet-hijacking/
 ---
 
 I noticed an exciting link shared on Hacker News titled "[Wait, what's a bookmarklet?](https://news.ycombinator.com/item?id=38014069)". I have been using them for a long time, and while reading that discussion, it was nice to see people sharing useful ones they use to make their everyday tasks easier.

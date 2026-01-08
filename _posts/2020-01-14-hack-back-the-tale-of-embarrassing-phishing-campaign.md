@@ -5,6 +5,8 @@ date: 2020-01-14 00:00:00 -0000
 categories: ['Ethical hacking', 'Privacy']
 tags: [hack-back, phishing, PHP]
 author: vavkamil
+redirect_from:
+  - /2020/01/14/hack-back-the-tale-of-embarrassing-phishing-campaign/
 ---
 
 <hr>

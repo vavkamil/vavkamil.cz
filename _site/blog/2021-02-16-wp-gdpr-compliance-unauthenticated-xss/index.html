@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="icon" href="/assets/img/favicon.ico"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>WP GDPR Compliance &lt;= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS) | Kamil Vavra @vavkamil</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="WP GDPR Compliance &lt;= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS)" />
+<meta name="author" content="vavkamil" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="tl;dr: The GDPR Compliance &lt;= 1.5.5 plugin allowed unauthenticated users to exploit Stored Cross-Site Scripting (XSS) in the administration panel, which might lead to the privilege escalation. That was due to clients’ IP Addresses reflected in the plugin’s dashboard without being correctly validated or escaped." />
+<meta property="og:description" content="tl;dr: The GDPR Compliance &lt;= 1.5.5 plugin allowed unauthenticated users to exploit Stored Cross-Site Scripting (XSS) in the administration panel, which might lead to the privilege escalation. That was due to clients’ IP Addresses reflected in the plugin’s dashboard without being correctly validated or escaped." />
+<link rel="canonical" href="http://localhost:4000/blog/2021-02-16-wp-gdpr-compliance-unauthenticated-xss/" />
+<meta property="og:url" content="http://localhost:4000/blog/2021-02-16-wp-gdpr-compliance-unauthenticated-xss/" />
+<meta property="og:site_name" content="Kamil Vavra @vavkamil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-16T01:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="WP GDPR Compliance &lt;= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS)" />
+<meta name="twitter:site" content="@vavkamil" />
+<meta name="twitter:creator" content="@vavkamil" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"vavkamil"},"dateModified":"2021-02-16T01:00:00+01:00","datePublished":"2021-02-16T01:00:00+01:00","description":"tl;dr: The GDPR Compliance &lt;= 1.5.5 plugin allowed unauthenticated users to exploit Stored Cross-Site Scripting (XSS) in the administration panel, which might lead to the privilege escalation. That was due to clients’ IP Addresses reflected in the plugin’s dashboard without being correctly validated or escaped.","headline":"WP GDPR Compliance &lt;= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2021-02-16-wp-gdpr-compliance-unauthenticated-xss/"},"url":"http://localhost:4000/blog/2021-02-16-wp-gdpr-compliance-unauthenticated-xss/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Kamil Vavra | @vavkamil</h1>
+        </a>
+        <h2>Offensive website security | Bug bounty | Ethical hacking</h2>
+
+        <section id="downloads">
+          <a href="/talks" class="btn"><span class="icon">📢</span>Talks</a>
+          <a href="/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
+          <a href="/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
+          <a href="/blog" class="btn"><span class="icon">📖</span>Blog</a>
+          <a href="https://github.com/vavkamil" target="_blank" class="btn"><span class="icon">💻</span>GitHub</a>
+          <a href="https://www.linkedin.com/in/vavkamil/" target="_blank" class="btn"><span class="icon">🏆</span>LinkedIn</a>
+          <a href="/contact" class="btn"><span class="icon">📩</span>Contact</a><br><br>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <small>16 February 2021</small>
+<h1>WP GDPR Compliance <= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS)</h1>
+
+<p class="view">by vavkamil</p>
+
+<div>
+
+
+
+  <p>7 minutes to read</p>
+
+</div>
+
+<p>tl;dr: The GDPR Compliance &lt;= 1.5.5 plugin allowed unauthenticated users to exploit Stored Cross-Site Scripting (XSS) in the administration panel, which might lead to the privilege escalation. That was due to clients’ IP Addresses reflected in the plugin’s dashboard without being correctly validated or escaped.</p>
+
+<hr />
+
+<p>I have just recently joined a <a href="https://detectify.com/">Detectify</a> crowdsource team, and I must say the platform is impressive. So I promised myself that I would spend some of the weekends looking for WordPress vulnerabilities to contribute with modules to the scanner. For the vulnerability to be accepted, the plugin must have at least 200k  installations.</p>
+
+<p>I started browsing <a href="https://wordpress.org/plugins/browse/popular/">popular</a> WP plugins, looking for ones that meet the criteria. After a while, I saw a GDPR plugin with 200,000+ active installations, and it caught my attention because I remember that there were some with critical vulnerabilities when the whole cookie consent thing was made mandatory and developers were racing with new plugins.</p>
+
+<p>After checking the <a href="https://wordpress.org/plugins/wp-gdpr-compliance/">plugin page</a>, too see if there is any attack surface, one screenshot was interesting:</p>
+
+<p><img src="/assets/img/2021/02/gdpr-screenshot.png" alt="" title="Overview of the view and delete requests by your site's visitors." /></p>
+
+<p>The description said: <em>Overview of the view and delete requests by your site’s visitors.</em>, which indicated a dashboard in the admin panel with GDPR “delete requests” results, including the Email and IP Address of the user, could be a potential attack vector.</p>
+
+<hr />
+
+<h3 id="discovery-phase">Discovery phase</h3>
+
+<p>After downloading the plugin and activating it in the <a href="https://github.com/vavkamil/dvwp">DVWP</a> docker container, I published a page (with the form) to request deleting the user data and begin the black-box testing. Validation of the e-mail input was correct, but when I tried to spoof the IP address via <code class="language-plaintext highlighter-rouge">X-Forwarded-For: 1.1.1.1"&gt;&lt;img src=x onerror=alert(1)&gt;</code>, the XSS payload executed. What a surprise, it took me less than 10 minutes to find a “<em>Blind XSS</em>” vulnerability triggered in the context of a privileged user.</p>
+
+<p><img src="/assets/img/2021/02/gdpr-data-access-request.png" alt="" title="Data Access Requests" /></p>
+
+<hr />
+
+<h3 id="root-cause-analysis">Root cause analysis</h3>
+
+<p>At that point, I finished the testing, and I quickly moved to a source code review to locate the vulnerable code and continue with the white-box testing. Quick <em>grep</em> command revealed a database column <code class="language-plaintext highlighter-rouge">`ip_address` varchar(255) NOT NULL</code>, which was a nice surprise to see because thanks to that, it was possible to store the whole XSS payload. The IP address from the form is assigned being via <code class="language-plaintext highlighter-rouge">$request-&gt;setIpAddress(Helper::getClientIpAddress());</code> and the <code class="language-plaintext highlighter-rouge">getClientIpAddress()</code> is pretty much a standard function to check several headers for proxies and stuff like that. But what was confusing is that there was a <code class="language-plaintext highlighter-rouge">self::validateIpAddress($ipAddress)</code> call to validate the IP. The <code class="language-plaintext highlighter-rouge">validateIpAddress()</code> function:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="cd">/**
+     * Ensures an ip address is both a valid IP and does not fall within
+     * a private network range.
+     *
+     * @param string $ipAddress
+     * @return bool
+     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="n">validateIpAddress</span><span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$ipAddress</span><span class="p">)</span> <span class="o">===</span> <span class="s1">'unknown'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Generate ipv4 network address</span>
+        <span class="nv">$ipAddress</span> <span class="o">=</span> <span class="nb">ip2long</span><span class="p">(</span><span class="nv">$ipAddress</span><span class="p">);</span>
+        <span class="c1">// If the ip is set and not equivalent to 255.255.255.255</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">!==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="cd">/**
+             * Make sure to get unsigned long representation of ip
+             * due to discrepancies between 32 and 64 bit OSes and
+             * signed numbers (ints default to signed in PHP)
+             */</span>
+            <span class="nv">$ipAddress</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">'%u'</span><span class="p">,</span> <span class="nv">$ipAddress</span><span class="p">);</span>
+            <span class="c1">// Do private network range checking</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">50331647</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">167772160</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">184549375</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">2130706432</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">2147483647</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">2851995648</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">2852061183</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">2886729728</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">2887778303</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">3221225984</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">3221226239</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">3232235520</span> <span class="o">&amp;&amp;</span> <span class="nv">$ipAddress</span> <span class="o">&lt;=</span> <span class="mi">3232301055</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ipAddress</span> <span class="o">&gt;=</span> <span class="mi">4294967040</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>After looking at the code for a longer time than I would like to admit, I realized that the whole logic is fundamentally flawed. The interesting part is the <a href="https://www.php.net/manual/en/function.ip2long.php">ip2long</a> function, which generates a long integer representation of IPv4, which is then later checked via a list of known network ranges. But when the input is invalid, it will return <strong>false</strong>: <code class="language-plaintext highlighter-rouge">ip2long ( string $ip ) : int|false</code>. The <code class="language-plaintext highlighter-rouge">validateIpAddress()</code> is never catching that, so the valid IP is being validated, but the invalid IP will always return <strong>true</strong>, resulting in the payload stored in the database. And because the developer was confident in the check, it is never escaped when retrieved from the database and rendered in the admin dashboard.</p>
+
+<hr />
+
+<h3 id="proof-of-concept">Proof of Concept:</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /wp-admin/admin-ajax.php HTTP/1.1
+Host: 0.0.0.0:31337
+X-Forwarded-For: 1.1.1.1"&gt;&lt;img src=x onerror=alert(1)&gt;
+
+action=wpgdprc_process_action&amp;security=cccf5a60ec&amp;data={"type":"access_request","email":"xss@example.com","consent":true}
+</code></pre></div></div>
+
+<p><img src="/assets/img/2021/02/gdpr-xss-poc.png" alt="" title="Proof of Concept" /></p>
+
+<hr />
+
+<h3 id="fix">Fix</h3>
+
+<p>Fix for the vulnerability <a href="https://plugins.trac.wordpress.org/changeset/2474862/">was released</a>  in version 1.5.6 via adding to the check:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ($ipAddress === false) {
+    return false;
+}
+</code></pre></div></div>
+
+<p>The user input is now correctly escaped, but the IP address column is still <code class="language-plaintext highlighter-rouge">varchar(255)</code>. Also, only the <em>PATCH</em> version was incremented, instead of the <em>MINOR</em> version, so it’s hard to track the updated plugins’ percentage via the advanced WordPress statistic. I believe it was a correct decision, but bumping it to <code class="language-plaintext highlighter-rouge">1.6</code> would be much better from the security point of view.</p>
+
+<p><img src="/assets/img/2021/02/gdpr-changelog.png" alt="" title="Changelog" /></p>
+
+<hr />
+
+<p>When checking <a href="https://wpscan.com/vulnerability/678dac05-d1f7-4e73-a310-dffa8f5bb9c4">WPScan</a> to verify that it’s not a known vulnerability, I realized that this is, in fact, the (in)famous GDPR plugin, which resulted in a <a href="https://www.wordfence.com/blog/2018/11/privilege-escalation-flaw-in-wp-gdpr-compliance-plugin-exploited-in-the-wild/">full compromise</a>  of hundreds/thousands of websites back in 2018. But I must say that I was impressed by the fast response &amp; fix from the developer. Unfortunately for me, stored XSS is not a valid finding for Detectify. I did a quick recon for HackerOne in-scope items but didn’t find any hit. Maybe I will be lucky next time :)</p>
+
+<hr />
+
+<p>By observing a spike in the “<a href="https://wordpress.org/plugins/wp-gdpr-compliance/advanced/">Downloads per day</a>” graph during the week after the fix release, we can estimate that approximately ~50k websites updated the plugin, which is about 1/4 of all active installations. The stats are somewhat consistent with past releases and could indicate that we won’t see any more websites updating to the latest version, so it might be a good idea to spread the news.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Downloads</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2021-02-15</td>
+      <td>23541</td>
+    </tr>
+    <tr>
+      <td>2021-02-16</td>
+      <td>12869</td>
+    </tr>
+    <tr>
+      <td>2021-02-17</td>
+      <td>5757</td>
+    </tr>
+    <tr>
+      <td>2021-02-18</td>
+      <td>3964</td>
+    </tr>
+    <tr>
+      <td>2021-02-19</td>
+      <td>3107</td>
+    </tr>
+    <tr>
+      <td>2021-02-20</td>
+      <td>2076</td>
+    </tr>
+    <tr>
+      <td>2021-02-21</td>
+      <td>1808</td>
+    </tr>
+    <tr>
+      <td>2021-02-22</td>
+      <td>3192</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/img/2021/02/gdpr-downloads.png" alt="" title="Downloads Per Day" /></p>
+
+<hr />
+
+<h3 id="timeline">Timeline</h3>
+
+<ul>
+  <li>Friday, February 12th, 2021 ~ Notified a developer about the vulnerability</li>
+  <li>Friday, February 12th, 2021 ~ Finished testing and proposed a fix</li>
+  <li>Saturday, February 13th, 2021 ~ Received a response confirming that the developer received the information and will begin working on a fix</li>
+  <li>Monday, February 15th, 2021 ~ The developer released a patched version of the plugin as of version 1.5.6</li>
+  <li>Tuesday, February 23rd, 2021 ~ Blog post with the details disclosed to the public</li>
+</ul>
+
+<h3 id="references">References</h3>
+
+<p><a href="https://wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438">wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438</a></p>
+
+
+
+  <small>tags: <em>0day</em> - <em>exploit</em> - <em>vulnerability</em> - <em>WordPress</em></small>
+
+
+
+      </section>
+    </div>
+
+    <hr>
+    
+    
+    Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a><br />
+    &#127279; 2019&dash;2026 - <strong>@vavkamil</strong> - <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">Open-source</a> Github pages - Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+  </body>
+</html>

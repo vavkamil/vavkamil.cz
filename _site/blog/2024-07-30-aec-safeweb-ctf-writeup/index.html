@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="icon" href="/assets/img/favicon.ico"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>AEC SafeWeb CTF Write-up | Kamil Vavra @vavkamil</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="AEC SafeWeb CTF Write-up" />
+<meta name="author" content="vavkamil" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview." />
+<meta property="og:description" content="AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview." />
+<link rel="canonical" href="http://localhost:4000/blog/2024-07-30-aec-safeweb-ctf-writeup/" />
+<meta property="og:url" content="http://localhost:4000/blog/2024-07-30-aec-safeweb-ctf-writeup/" />
+<meta property="og:site_name" content="Kamil Vavra @vavkamil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-07-30T02:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="AEC SafeWeb CTF Write-up" />
+<meta name="twitter:site" content="@vavkamil" />
+<meta name="twitter:creator" content="@vavkamil" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"vavkamil"},"dateModified":"2024-07-30T02:00:00+02:00","datePublished":"2024-07-30T02:00:00+02:00","description":"AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview.","headline":"AEC SafeWeb CTF Write-up","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2024-07-30-aec-safeweb-ctf-writeup/"},"url":"http://localhost:4000/blog/2024-07-30-aec-safeweb-ctf-writeup/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Kamil Vavra | @vavkamil</h1>
+        </a>
+        <h2>Offensive website security | Bug bounty | Ethical hacking</h2>
+
+        <section id="downloads">
+          <a href="/talks" class="btn"><span class="icon">📢</span>Talks</a>
+          <a href="/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
+          <a href="/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
+          <a href="/blog" class="btn"><span class="icon">📖</span>Blog</a>
+          <a href="https://github.com/vavkamil" target="_blank" class="btn"><span class="icon">💻</span>GitHub</a>
+          <a href="https://www.linkedin.com/in/vavkamil/" target="_blank" class="btn"><span class="icon">🏆</span>LinkedIn</a>
+          <a href="/contact" class="btn"><span class="icon">📩</span>Contact</a><br><br>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <small>30 July 2024</small>
+<h1>AEC SafeWeb CTF Write-up</h1>
+
+<p class="view">by vavkamil</p>
+
+<div>
+
+
+
+  <p>16 minutes to read</p>
+
+</div>
+
+<p>AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview.</p>
+
+<p>Today, only around 28 people out of several hundred could solve all the challenges. Many ethical hackers were stuck on some levels, maybe because the instructions were not clear or outdated.</p>
+
+<p>The CTF is from ~2018, and the authors last updated the challenges a while ago. We could do better, especially for new people starting in the penetration testing field. The same challenges are also reused every year on <strong>KonferenceSecurity.cz CTF</strong>. I was the sixth person who solved all the challenges, and I received an e-mail recently from someone stuck on the first level asking for advice.</p>
+
+<p>So, after many years, I finally decided to try to solve them again and describe my steps. I did this mainly to help beginners see that it’s easy if they think like ethical hackers and have the correct mindset and necessary skills. I would also like to see new levels that reflect the current application security state and the OWASP Top 10.</p>
+
+<hr />
+
+<h3 id="table-of-contents">Table of contents</h3>
+
+<ul>
+  <li><a href="#level-1">Level #1</a></li>
+  <li><a href="#level-2">Level #2</a></li>
+  <li><a href="#level-3">Level #3</a></li>
+  <li><a href="#level-4">Level #4</a></li>
+  <li><a href="#level-5">Level #5</a></li>
+  <li><a href="#level-6">Level #6</a></li>
+  <li><a href="#level-7">Level #7</a></li>
+  <li><a href="#level-8">Level #8</a></li>
+  <li><a href="#level-9">Level #9</a></li>
+  <li><a href="#level-10">Level #10</a></li>
+  <li><a href="#level-11">Level #11</a></li>
+  <li><a href="#level-12">Level #12</a></li>
+  <li><a href="#level-13">Level #13</a></li>
+  <li><a href="#level-14">Level #14</a></li>
+  <li><a href="#level-15">Level #15</a></li>
+</ul>
+
+<hr />
+
+<p><img src="/assets/img/2024/07/ctf_19.png" alt="ctf_19.png" /></p>
+
+<h2 id="level-1">Level 1</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level1.php</li>
+  <li>Task: <em>Log in as an information system admin.</em></li>
+  <li>Hint: <em>A cross between a Jack Russel terrier and a dachshund.</em></li>
+</ul>
+
+<p>At the first level, we have a login form with <code class="language-plaintext highlighter-rouge">user:pass</code> inputs and a hint indicating a specific dog (which could be the password). We have to guess the username. The dog’s name is <code class="language-plaintext highlighter-rouge">Krasty</code>. It was the mascot of the company Seznam and used to be the most famous dog in Czechia. Unfortunately, he “retired” many years ago, so chances are most young people won’t get the idea.</p>
+
+<p>To solve this, we can send the POST request to Burp’s Intruder, with one payload set for <code class="language-plaintext highlighter-rouge">login</code> and the other for <code class="language-plaintext highlighter-rouge">password</code>. We will be using <code class="language-plaintext highlighter-rouge">Cluster bomb</code> attack with the following configuration:</p>
+
+<ul>
+  <li>Payload set 1: Usernames (List)</li>
+  <li>Payload set 2: Case modification (krasty)</li>
+</ul>
+
+<p><img src="/assets/img/2024/07/ctf_01.png" alt="ctf_01.png" /></p>
+
+<p><img src="/assets/img/2024/07/ctf_02.png" alt="ctf_02.png" /></p>
+
+<p>After 9k requests, we can see that the correct credentials are <code class="language-plaintext highlighter-rouge">administrator:Krasty</code>, and we solved the first level.</p>
+
+<hr />
+
+<h2 id="level-2">Level 2</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level2.php</li>
+  <li>Task: <em>Log in as the admin user</em></li>
+  <li>Hint: <em>User-Agent</em></li>
+</ul>
+
+<p>Again, we have a login form with <code class="language-plaintext highlighter-rouge">user:pass</code> inputs, and based on the hint, we will have to modify the user agent. The form’s title, <code class="language-plaintext highlighter-rouge">D-Link Router - Firmware DI-604UP,</code> indicated an exploit against an old Wi-Fi router. After a bit of googling, it looks like <strong>CVE-2013-026</strong>, where a backdoor in the firmware allowed to bypass authentication if one sets <code class="language-plaintext highlighter-rouge">xmlset_roodkcableoj28840ybtide</code> string as User-Agent.</p>
+
+<p><img src="/assets/img/2024/07/ctf_03.png" alt="ctf_03.png" /></p>
+
+<p>So, let’s send the authentication request to Repeter and test it out. And just like that, we solved another level.</p>
+
+<hr />
+
+<h2 id="level-3">Level 3</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level3.php</li>
+  <li>Task: <em>Log in as the admin user</em></li>
+  <li>Hint: <em>There are backups of sensitive data on the server</em></li>
+</ul>
+
+<p>Level #3 is the same login form, and the hint indicates there is some backup file we can use to get the credentials. Observing the POST request in Burp, we can see the following path is used:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">POST /library/login.php HTTP/1.1</code></li>
+</ul>
+
+<p>After navigating to:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://safeweb.aec.cz/library/</code></li>
+</ul>
+
+<p>There are two files:</p>
+<ul>
+  <li>login.php</li>
+  <li>topsecret.txt</li>
+</ul>
+
+<p>With the credentials:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Login: nbusr
+Password: nbusr123
+</code></pre></div></div>
+
+<p>These credentials are an excellent reference to a time when our National Security Agency (NBU) was compromised because they were literally the credentials they were using at the time. And thanks to them, we just solved another level.</p>
+
+<hr />
+
+<h2 id="level-4">Level 4</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level4.php?uid=1</li>
+  <li>Task: <em>Log in as the admin user</em></li>
+  <li>Hint: <em>SQL Injection</em></li>
+</ul>
+
+<p>Level #4 is the same login form but with a twist. The <code class="language-plaintext highlighter-rouge">uid</code> parameter fetches the username from the database and prefills the login input.</p>
+
+<p><img src="/assets/img/2024/07/ctf_04.png" alt="ctf_04.png" /></p>
+
+<p>We are looking at a classic SQL Injection here, and the best tool for this task is <code class="language-plaintext highlighter-rouge">sqlmap</code>. To do this, we can right-click on the GET request and use <code class="language-plaintext highlighter-rouge">Copy to file</code> in Burp. You can then use the request with <code class="language-plaintext highlighter-rouge">sqlmap</code> like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sqlmap --threads=10 -r sqli.txt --dbs
+$ sqlmap --threads=10 -r sqli.txt --tables -D testdb_2014_1
+$ sqlmap --threads=10 -r sqli.txt --columns -T users -D testdb_2014_1
+$ sqlmap --threads=10 -r sqli.txt --dump -T users -D testdb_2014_1
+
+Database: testdb_2014_1                                                                      
+Table: users
+[3 entries]
++----+-------+-------------+
+| id | login | password    |
++----+-------+-------------+
+| 1  | john  | Password    |
+| 2  | bob   | abc123      |
+| 0  | admin | asdfasdf123 |
++----+-------+-------------+
+</code></pre></div></div>
+
+<p>And just like that, we solved another level.</p>
+
+<hr />
+
+<h2 id="level-5">Level 5</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level5.php</li>
+  <li>Task: <em>Log in as the admin user. Your user credentials are: guest/tajneheslo</em></li>
+  <li>Hint: <em>Cookies</em></li>
+</ul>
+
+<p>This level is another login form, but now we have guest access. The goal is to escalate permissions to the admin using Cookies. After successful authentication, we can observe that a server response sets a <code class="language-plaintext highlighter-rouge">login</code> cookie.</p>
+
+<p><img src="/assets/img/2024/07/ctf_05.png" alt="ctf_05.png" /></p>
+
+<p>Send the authenticated GET request to Repeter, highlight the cookie value, and you will see that it is our <code class="language-plaintext highlighter-rouge">base64</code> encoded username. We can change the value to <code class="language-plaintext highlighter-rouge">admin</code>, resend the request, and solve the level.</p>
+
+<p><img src="/assets/img/2024/07/ctf_06.png" alt="ctf_06.png" /></p>
+
+<hr />
+
+<h2 id="level-6">Level 6</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level6.php</li>
+  <li>Task: <em>Invoke an XSS error where you automatically call the alert() function displaying the contents of the cookie.</em></li>
+  <li>Hint: <em>A multiline comment in JavaScript</em></li>
+</ul>
+
+<p>Level #6 is a funny reference to Czech hacking history, when <code class="language-plaintext highlighter-rouge">Mr.Sysel</code> proved that a blog can be hacked with a limited number of characters.</p>
+
+<p>We have another login form with four different inputs this time. By observing the form, each input has a limit of 30 characters, but the challenge is to execute:</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;script&gt;alert(document.cookies)&lt;/script&gt;</code></p>
+
+<p>which does have 40 characters. To verify which inputs are vulnerable to XSS, we will use these payloads:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"&gt;foo</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"&gt;bar</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"&gt;baz</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"&gt;qux</code></li>
+</ul>
+
+<p><img src="/assets/img/2024/07/ctf_07.png" alt="ctf_07.png" /></p>
+
+<p>The first three inputs are vulnerable. Based on the hint, we have to use JS multiline comments. We will start the XSS payload in the first input, comment on the rest of the HTML code, end the comment in the second input, enter the payload, and comment on the rest. We will end the comment and the javascript payload in the last input.</p>
+
+<p>It sounds way too complicated, but what we are doing is pretty much:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"&gt;<span class="nt">&lt;script&gt;</span><span class="cm">/* commented HTML
+commented HTML */</span> <span class="nf">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">)</span> <span class="cm">/* commented HTML
+commented HTML */</span><span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/2024/07/ctf_08.png" alt="ctf_08.png" /></p>
+
+<hr />
+
+<h2 id="level-7">Level 7</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level7.php</li>
+  <li>Task: <em>Private section of the site. You can find the application form for the club here.</em></li>
+  <li>Hint: <em>In addition to the application, more interesting files can be found in the download section</em></li>
+</ul>
+
+<p>We again have another login form. This time, we must find the password to access the private “Club” area. We have the following URL to download the application PDF:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://safeweb.aec.cz/download.php?file_id=42</code></li>
+</ul>
+
+<p><img src="/assets/img/2024/07/ctf_09.png" alt="ctf_09.png" /></p>
+
+<p>Let’s send this to Intruder to check if there are other file IDs. We can use <code class="language-plaintext highlighter-rouge">Sniper</code> with one payload set, type <code class="language-plaintext highlighter-rouge">Number</code>, and range of <code class="language-plaintext highlighter-rouge">1 - 100</code>.</p>
+
+<p><img src="/assets/img/2024/07/ctf_10.png" alt="ctf_10.png" /></p>
+
+<p>After executing the Intruder attack, we can see another document with ID <code class="language-plaintext highlighter-rouge">87</code>, a TXT file with a password:</p>
+
+<ul>
+  <li>https://safeweb.aec.cz/HesloDoKlubu.txt
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Heslo: horiii</code></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="level-8">Level 8</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level8.php</li>
+  <li>Task: <em>Private section of the site. Log in…</em></li>
+  <li>Hint: <em>The password is checked on the client side</em></li>
+</ul>
+
+<p>Level #8 is tempting, yet another login form, but now the password is obfuscated in JavaScript. So, we must figure out how to obtain the plaintext client side. Looking at the code, we can see the obfuscated value of the password is compared against our form input at the end:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">).</span><span class="nx">value</span><span class="o">!=</span><span class="nb">String</span><span class="p">.</span><span class="nf">fromCharCode</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span><span class="nx">d</span><span class="p">,</span><span class="nx">b</span><span class="p">,</span><span class="nx">f</span><span class="p">,</span><span class="nx">a</span><span class="p">,</span><span class="nx">g</span><span class="p">,</span><span class="nx">e</span><span class="p">)){</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>In this case, all we have to do is to get the value of:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String.fromCharCode(c,d,b,f,a,g,e)</code></li>
+</ul>
+
+<p>Using the browser JS console, we get the following error:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ReferenceError: c is not defined</code></li>
+</ul>
+
+<p>It’s not that easy, as the password value is dynamically computed during script execution. But we can use JS Debugger like this:</p>
+
+<ol>
+  <li>Go to the Sources tab in Chrome DevTools</li>
+  <li>Add <code class="language-plaintext highlighter-rouge">String.fromCharCode(c,d,b,f,a,g,e)</code> as Watch expression</li>
+  <li>Pause script execution</li>
+  <li>Submit the form with any password</li>
+  <li>Click on “Step over the next function call” multiple times</li>
+  <li>You will see that the password value is <code class="language-plaintext highlighter-rouge">heureka</code> ;)</li>
+</ol>
+
+<p><img src="/assets/img/2024/07/ctf_11.png" alt="ctf_11.png" /></p>
+
+<p>I don’t know if this is the easiest method to solve this level, but it saves a lot of time when debugging what is happening.</p>
+
+<hr />
+
+<h2 id="level-9">Level 9</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level9.php</li>
+  <li>Task: <em>Private section of the site.
+You can check the correctness of the password using the application (for Windows here, for Linux here)</em></li>
+  <li>Hint: <em>No knowledge of assembler is required</em></li>
+</ul>
+
+<p>Oh no, this is a reverse engineering challenge. I sux at these, but based on the hint, it should be easy. So, let’s download the <code class="language-plaintext highlighter-rouge">CrackMe</code> binary and run <code class="language-plaintext highlighter-rouge">strings</code> command on it.</p>
+
+<p>Looking at the Burp HTTP history, we can see the strings already. So a quick search for <code class="language-plaintext highlighter-rouge">password</code> reveals the <code class="language-plaintext highlighter-rouge">Popocatepetl</code>, which looks interesting!</p>
+
+<p><img src="/assets/img/2024/07/ctf_12.png" alt="ctf_12.png" /></p>
+
+<p>And look at that; it’s, in fact, the correct password. I love this one.</p>
+
+<hr />
+
+<h2 id="level-10">Level 10</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level10.php</li>
+  <li>Task: <em>Find out the contents of the /etc/passwd file.</em></li>
+  <li>Hint: <em>Null Byte</em></li>
+</ul>
+
+<p>Luckily, Level #10 is another web security challenge, and it looks like standard Local File Inclusion. We have the following URL:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://safeweb.aec.cz/level10.php?page=main</code></li>
+</ul>
+
+<p>And we have to get the <code class="language-plaintext highlighter-rouge">/etc/passwd</code> file contents like this:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://safeweb.aec.cz/level10.php?page=../../etc/passwd%00</code></li>
+</ul>
+
+<p>Is it just me, or are the challenges getting easier? One would expect that they would become more complicated as one progresses.</p>
+
+<hr />
+
+<h2 id="level-11">Level 11</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level11.php</li>
+  <li>Task: <em>Upload a file to the server which, when loaded in the browser, will run any PHP code.</em></li>
+  <li>Hint: <em>Unknown extension</em></li>
+</ul>
+
+<p>Nice. Finally, there is something way more interesting. We have an insecure file upload and must execute PHP on the server.</p>
+
+<p>First, create a <code class="language-plaintext highlighter-rouge">file.php</code> with the following contents:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"&lt;? phpinfo(); ?&gt;"</span> <span class="o">&gt;</span> file.php
+</code></pre></div></div>
+<p>And try uploading that. We will get an error message saying only the following file extensions are allowed: <code class="language-plaintext highlighter-rouge">.jpg, .jpeg, .png, .gif, .bmp</code>.</p>
+
+<p>Next, forward the POST request to Repeter and try to change the file extension to <code class="language-plaintext highlighter-rouge">.jpg</code>. We get the same error, indicating that the mime type is verified.</p>
+
+<p>Change the:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Content-Type: application/x-php</code></li>
+</ul>
+
+<p>to:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Content-Type: image/jpeg</code></li>
+</ul>
+
+<p>and the file was uploaded, but no PHP code is executed on the server. Changing the file extension back to .<code class="language-plaintext highlighter-rouge">php</code> doesn’t work, but surprisingly <code class="language-plaintext highlighter-rouge">.phpjpg</code> works.</p>
+
+<p>The backend code only checks that the <code class="language-plaintext highlighter-rouge">jpg</code> string is present at the end of the file extension. At this point, the hint <code class="language-plaintext highlighter-rouge">Unknown extension</code> is valuable. This vulnerability is known as “double extension”, where, for Apache, the order of extensions is irrelevant. If the server doesn’t know the extension, it will ignore it, and if there is <code class="language-plaintext highlighter-rouge">.php</code> extension, our file executes as a PHP script :)</p>
+
+<p><img src="/assets/img/2024/07/ctf_13.png" alt="ctf_13.png" /></p>
+
+<p>Simply renaming the file to something like:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">file.php.unknown-jpg</code>
+will do the trick. This challenge is complex, and a lot of people might get stuck.</li>
+</ul>
+
+<hr />
+
+<h2 id="level-12">Level 12</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level12.php</li>
+  <li>Task: <em>Write the captcha test five hundred times. Done: 0/500.</em></li>
+  <li>Hint: <em>Robot</em></li>
+</ul>
+
+<p>Level #12 is entirely different from what we saw before. To solve this challenge, we must write a script to bypass Captcha verification 500 times.</p>
+
+<p>The form title contains a six-digit number. Sending this number gets us one point out of 500. The number changes each time the form is submitted.</p>
+
+<p>You don’t need programming experience; you can do all the steps in the Burp Suite. This challenge can be seen in the real world, where you must extract CSRF tokens from the response and use them in another.</p>
+
+<p>We will use a combo of Macro and Intruder. Follow the white rabbit:</p>
+<ol>
+  <li>Burp &gt; Settings</li>
+  <li>Sessions</li>
+  <li>Macros &gt; Add</li>
+  <li>Add the GET request to <code class="language-plaintext highlighter-rouge">/level12.php</code></li>
+  <li>Configure item</li>
+  <li>Add custom parameter location</li>
+  <li>Parameter name: captcha</li>
+  <li>Select the number to extract, click OK</li>
+  <li>In Burp &gt; Settings &gt; Sessions</li>
+  <li>Add Session handling rules</li>
+  <li>Add Rule action; Run a macro, click OK</li>
+  <li>Scope; Include all URLs</li>
+</ol>
+
+<p><img src="/assets/img/2024/07/ctf_14.png" alt="ctf_14.png" /></p>
+
+<p><img src="/assets/img/2024/07/ctf_15.png" alt="ctf_15.png" /></p>
+
+<p>You should be all set. The Macro will extract the number, which you can use in the Intruder. Send the POST request to Intruder.</p>
+
+<p>Add another param like this:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">captcha=1&amp;ok=Send&amp;foo=§bar§</code></li>
+</ul>
+
+<ol>
+  <li>Use <code class="language-plaintext highlighter-rouge">Sniper</code>, for payload type <code class="language-plaintext highlighter-rouge">Numbers</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Sequence</code> from <code class="language-plaintext highlighter-rouge">1 </code>to <code class="language-plaintext highlighter-rouge">500</code></li>
+  <li>Create a new resource pool</li>
+  <li>Maximum concurrent requests: <code class="language-plaintext highlighter-rouge">1</code></li>
+  <li>Start the attack</li>
+</ol>
+
+<p><img src="/assets/img/2024/07/ctf_16.png" alt="ctf_16.png" /></p>
+
+<p>Now, each request from Intruder should have a different (extracted) captcha number, and you just solved another level without any programming!</p>
+
+<hr />
+
+<h2 id="level-13">Level 13</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level13.php</li>
+  <li>Task: <em>Run the phpinfo() function on the PHP server.</em></li>
+  <li>Hint: <em>Process environment</em></li>
+</ul>
+
+<p>Level #13 is another Local File Inclusion, but with a twist, we have to chain it with RCE.</p>
+
+<p>We have a URL like this:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://safeweb.aec.cz/level13.php?page=main.php</code></li>
+</ul>
+
+<p>Meanwhile, the <code class="language-plaintext highlighter-rouge">page</code> parameter should be vulnerable to LFI. Usually, you will try to load any local file to verify that it’s exploitable. You can get stuck here, as the CTF returns only one file.</p>
+
+<p>As the hint indicates, you must look for <code class="language-plaintext highlighter-rouge">/proc/self/environ</code> and nothing else. Escalating an LFI vulnerability to RCE was often possible using that file and reading environment variables.</p>
+
+<p>In this case, we can see environment variables related to the request: the IP address, User-Agent, and preferred language sent by the client.</p>
+
+<p><img src="/assets/img/2024/07/ctf_17.png" alt="ctf_17.png" /></p>
+
+<p>Changing the User-Agent string to any PHP payload should do the trick.</p>
+
+<hr />
+
+<h2 id="level-14">Level 14</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level14.php</li>
+  <li>Task: <em>Private section of the site. Is the password the same as the name of the virus discussed in the article published on the AEC website on 6/19/2000?</em></li>
+  <li>Hint: <em>Internet Archive</em></li>
+</ul>
+
+<p>Level #14 concerns OSINT; we must find an ancient blog article on a website. Following the hint, we should use <code class="language-plaintext highlighter-rouge">web.archive.org</code>.</p>
+
+<ol>
+  <li>Go to: <code class="language-plaintext highlighter-rouge">https://web.archive.org/web/20240000000000*/https://aec.cz</code></li>
+  <li>Change year to 2000: <code class="language-plaintext highlighter-rouge">https://web.archive.org/web/20000000000000*/https://aec.cz</code></li>
+  <li>There is one snapshot from Jun 21st</li>
+  <li>Open the link: <code class="language-plaintext highlighter-rouge">https://web.archive.org/web/20000621192659/http://www.aec.cz/</code></li>
+  <li>The virus name (password) is <code class="language-plaintext highlighter-rouge">VBS.Stages.A</code></li>
+</ol>
+
+<p>This challenge might seem strange initially, but the Web Archive can be helpful during bug bounty hunting. On old website versions, you can find old hidden artifacts, URL parameters, sitemaps, and other stuff. There are many tools to automate that, and I have seen many bug bounty write-ups strike gold this way.</p>
+
+<hr />
+
+<h2 id="level-15">Level 15</h2>
+
+<ul>
+  <li>Url: https://safeweb.aec.cz/level15.php</li>
+  <li>Task: <em>Private section of the site. The password is the same as the name of the home directory (user) in which this login script is located on the server.</em></li>
+  <li>Hint: <em>Full Path Disclosure (FPD) - untreated variables</em></li>
+</ul>
+
+<p>We have the last level before us. This challenge aims to exploit the Full Path Disclosure vulnerability to extract the username from the path.</p>
+
+<p>As in the previous task, this is not a severe vulnerability alone, but it often becomes critical when chained with other vulnerabilities.</p>
+
+<p><img src="/assets/img/2024/07/ctf_18.png" alt="ctf_18.png" /></p>
+
+<p>Send the POST request to Repetaer and try to change the password parameter to an array. You will see an error message with the Full Path, granting you the password and access to the Hall of Fame.</p>
+
+<p><strong>Congratulations!</strong></p>
+
+<hr />
+
+<p>All in all, I like the concept of solving the CTF to get a spot at the interview. Some of the challenges are easy, and some are somewhat strange. However, an experienced penetration tester should be able to complete them all in one to two hours.</p>
+
+<p>If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you will see only some of them that often nowadays.</p>
+
+<p>I believe that in 2024, we need something better that reflects the current state of OWASP’s Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world. <strong>Good luck!</strong></p>
+
+
+
+  <small>tags: <em>ctf</em> - <em>writeup</em> - <em>hacking</em> - <em>security</em></small>
+
+
+
+      </section>
+    </div>
+
+    <hr>
+    
+    
+    Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a><br />
+    &#127279; 2019&dash;2026 - <strong>@vavkamil</strong> - <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">Open-source</a> Github pages - Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+  </body>
+</html>

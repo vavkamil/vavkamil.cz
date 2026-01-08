@@ -5,6 +5,8 @@ date: 2019-10-09 00:00:00 -0000
 categories: ['Bug bounty', 'Ethical hacking', 'Tools']
 tags: [sql injection, SQLi, sqlmap]
 author: vavkamil
+redirect_from:
+  - /2019/10/09/understanding-the-full-potential-of-sqlmap-during-bug-bounty-hunting/
 ---
 
 <hr>

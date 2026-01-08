@@ -5,6 +5,8 @@ date: 2019-09-15 00:00:00 -0000
 categories: ['Bug bounty', 'Ethical hacking']
 tags: [android, burp suite, certificate pinning, frida, HTTPS, mitm, objection, proxy]
 author: vavkamil
+redirect_from:
+  - /2019/09/15/how-to-bypass-android-certificate-pinning-and-intercept-ssl-traffic/
 ---
 
 <hr>

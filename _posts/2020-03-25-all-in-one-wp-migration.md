@@ -5,6 +5,8 @@ date: 2020-03-25 00:00:00 -0000
 categories: ['Ethical hacking', 'Responsible disclosure']
 tags: [0day, exploit, vulnerability, WordPress]
 author: vavkamil
+redirect_from:
+  - /2020/03/25/all-in-one-wp-migration/
 ---
 
 <hr>

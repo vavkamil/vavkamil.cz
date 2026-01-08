@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="icon" href="/assets/img/favicon.ico"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>WordPress Plugin Confusion: How an update can get you pwned | Kamil Vavra @vavkamil</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="WordPress Plugin Confusion: How an update can get you pwned" />
+<meta name="author" content="vavkamil" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="tl;dr: Like the novel “Dependency Confusion” supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use wp_update_confusion.py to scan for potential targets. To protect your website, please read this announcement." />
+<meta property="og:description" content="tl;dr: Like the novel “Dependency Confusion” supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use wp_update_confusion.py to scan for potential targets. To protect your website, please read this announcement." />
+<link rel="canonical" href="http://localhost:4000/blog/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned/" />
+<meta property="og:url" content="http://localhost:4000/blog/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned/" />
+<meta property="og:site_name" content="Kamil Vavra @vavkamil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-25T01:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="WordPress Plugin Confusion: How an update can get you pwned" />
+<meta name="twitter:site" content="@vavkamil" />
+<meta name="twitter:creator" content="@vavkamil" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"vavkamil"},"dateModified":"2021-11-25T01:00:00+01:00","datePublished":"2021-11-25T01:00:00+01:00","description":"tl;dr: Like the novel “Dependency Confusion” supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use wp_update_confusion.py to scan for potential targets. To protect your website, please read this announcement.","headline":"WordPress Plugin Confusion: How an update can get you pwned","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned/"},"url":"http://localhost:4000/blog/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Kamil Vavra | @vavkamil</h1>
+        </a>
+        <h2>Offensive website security | Bug bounty | Ethical hacking</h2>
+
+        <section id="downloads">
+          <a href="/talks" class="btn"><span class="icon">📢</span>Talks</a>
+          <a href="/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
+          <a href="/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
+          <a href="/blog" class="btn"><span class="icon">📖</span>Blog</a>
+          <a href="https://github.com/vavkamil" target="_blank" class="btn"><span class="icon">💻</span>GitHub</a>
+          <a href="https://www.linkedin.com/in/vavkamil/" target="_blank" class="btn"><span class="icon">🏆</span>LinkedIn</a>
+          <a href="/contact" class="btn"><span class="icon">📩</span>Contact</a><br><br>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <small>25 November 2021</small>
+<h1>WordPress Plugin Confusion: How an update can get you pwned</h1>
+
+<p class="view">by vavkamil</p>
+
+<div>
+
+
+
+  <p>20 minutes to read</p>
+
+</div>
+
+<p>tl;dr: Like the novel “<a href="https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610">Dependency Confusion</a>” supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use <a href="https://github.com/vavkamil/wp-update-confusion">wp_update_confusion.py</a> to scan for potential targets. To protect your website, please read this <a href="https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/">announcement</a>.</p>
+
+<hr />
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ul>
+  <li><a href="#main-idea">Main idea</a></li>
+  <li><a href="#the-wordpressorg-plugins-directory">The WordPress.org Plugins Directory</a>
+    <ul>
+      <li><a href="#theme-approval-process">Theme approval process</a></li>
+      <li><a href="#plugin-approval-process">Plugin approval process</a></li>
+    </ul>
+  </li>
+  <li><a href="#scanner-to-detect-vulnerable-plugins">Scanner to detect vulnerable plugins</a></li>
+  <li><a href="#debugging-wp-updates-with-burp">Debugging WP updates with Burp</a></li>
+  <li><a href="#publishing-wordpress-plugin-poc">Publishing WordPress plugin PoC</a></li>
+  <li><a href="#how-to-defend-yourself">How to defend yourself</a>
+    <ul>
+      <li><a href="#protecting-themes">Protecting themes</a></li>
+      <li><a href="#protecting-plugins">Protecting plugins</a></li>
+    </ul>
+  </li>
+  <li><a href="#bug-bounty-hunting">Bug Bounty hunting</a></li>
+</ul>
+
+<hr />
+
+<h2 id="main-idea">Main idea</h2>
+
+<p>I recently did a regular secure code review of one WordPress instance and noticed a new internally developed plugin. It occurred to me that if an attacker would be able to impersonate the plugins’ slug and upload a malicious version to the WordPress Plugin Directory, we might see an update notification if the SVN version is bumped to a higher one than is used.</p>
+
+<p>That would introduce the “<a href="https://en.wikipedia.org/wiki/Confused_deputy_problem">Confused deputy problem</a>” attack scenario, where the privileged user, instructed to update all plugins regularly, inadvertently infects the instance with malware.</p>
+
+<p>One could argue that the confused deputy shouldn’t blindly update plugins without checking the changelog first, but to be honest, the updates are released so often it quickly becomes monotonous. And we shouldn’t put them in that position in the first place, as it’s security through obscurity, believing that an outside attacker can’t figure out the plugin’s name.</p>
+
+<p>To confirm the hypothesis, I began to research if it’s, in fact, a possible attack vector and how widespread it is.</p>
+
+<p><img src="/assets/img/2021/11/script.png" alt="script.png" /></p>
+
+<h2 id="the-wordpressorg-plugins-directory">The WordPress.org Plugins Directory</h2>
+
+<p>WordPress.org offers free hosting to anyone who wishes to develop a plugin. All code in the directory should be as secure as possible, but security is the ultimate responsibility of the plugin developer.</p>
+
+<p>The WordPress.org plugins directory is the easiest way for potential users to download and install any plugin. Once a new plugin is approved, a developer gets access to an (SVN) Subversion Repository. The SVN repository is a release repository, not a development one. All commits, code, or readme files, will trigger a regeneration of the zip files associated with the plugin.</p>
+
+<p>WordPress’ integration with the plugin directory means the user can update the plugin in a couple of clicks. Users are alerted to updates when the plugin version in SVN increases.</p>
+
+<p>In theory, anyone following the guidelines and passing the review process can upload the plugin and distribute the malicious version later. Unfortunately, while reading the developer documentation, I found the following info:</p>
+
+<blockquote>
+  <p>Why is my submission failing saying my plugin name already exists?
+<em>You’re trying to use a plugin with a permalink that exists <strong>outside</strong> WordPress.org and has a significant user base.</em>
+<em>It’s important to understand that the way the plugin update API works is that it compares the plugin folder name (i.e. the permalink) to every plugin it has hosted on WordPress.org. If there’s a match, then it checks for updates and users are prompted to upgrade.</em>
+<em>When that happens, users of the ‘original’ plugin (the one we don’t host) would upgrade to the one from WordPress.org and, if that isn’t what you actually wanted to do, you could break their sites.</em>
+<em>Sometimes this situation develops when a company or person releases their plugin privately (via Github for example) and decides they want to re-release it on WordPress.org. In those cases, we recommend you email us and we’ll walk you through how to get past the error.</em></p>
+</blockquote>
+
+<p>Implying that WordPress’ Security team is internally tracking all the unclaimed plugin names used in the wild, number of installations, and there is some magic threshold value preventing a large-scale supply chain attack. But it also validates the assumption that the attack vector is indeed possible.</p>
+
+<h3 id="theme-approval-process">Theme approval process</h3>
+
+<p>Most business websites using WordPress have a custom theme, and the slug name is almost always in the HTML source code to load JS/CSS files from the theme’s asset directory. Detecting the theme slug and taking over the unclaimed ones would be the easiest way.</p>
+
+<p>WordPress Theme Directory does have a rigorous <a href="https://make.wordpress.org/themes/handbook/review/#theme-review-process">Theme Review Process</a> &amp; <a href="https://make.wordpress.org/themes/handbook/review/required/">Theme Review Requirements</a>, to ensure quality and security. New themes are generally put to a higher standard to attract new users.</p>
+
+<p>It would be hard for me to develop a frontend appealing to a general audience and pass the review, so I decided not to worry about them.</p>
+
+<h3 id="plugin-approval-process">Plugin approval process</h3>
+
+<p>On the other hand, it’s impossible to detect most plugins via a passive check, and it will be tough to create a custom wordlist. But the review process for WordPress Plugin Directory is not that strict, and the <a href="https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/">guidelines</a> are relatively simple.</p>
+
+<p>While reading the docs, I was mainly interested in the restrictions for plugin names. Being already familiar with WordPress, I knew that the slug name could only contain lowercase alphanumeric characters divided by dash, but I also learned there are more restrictions:</p>
+
+<blockquote>
+  <p>Plugins must respect trademarks, copyrights, and project names.
+<em>Names cannot be “reserved” for future use or to protect brands.</em>
+<em>The use of trademarks or other projects as the sole or initial term of a plugin slug is prohibited unless proof of legal ownership/representation can be confirmed.</em>
+<em>This policy extends to plugin slugs, and we will not permit a slug to begin with another product’s term.</em></p>
+</blockquote>
+
+<p>That threw me off because apparently, there is a check for trademarked brands, which will protect most companies and prohibit uploading unclaimed plugins (assuming they use their company name as a prefix for internal plugins). I didn’t want to give up yet, so I started digging around, and it turns out the WordPress team is a fan of transparency, and the whole approval process is automated and, most importantly, fully open-sourced.</p>
+
+<p>By reviewing the <code class="language-plaintext highlighter-rouge">[class-upload-handler.php](https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/plugins/plugin-directory/shortcodes/class-upload-handler.php)</code> checks, we can see a couple of essential functions:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">process_upload()</code>
+    <ul>
+      <li>Determine the plugin slug based on the name of the plugin in the main plugin file. (alphanumeric and dash)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">88</span>	                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="o">=</span> <span class="nf">remove_accents</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span> <span class="p">);</span>
+<span class="mi">89</span>	                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="o">=</span> <span class="nb">preg_replace</span><span class="p">(</span> <span class="s1">'/[^a-z0-9 _.-]/i'</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="p">);</span>
+<span class="mi">90</span>	                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span> <span class="s1">'_'</span><span class="p">,</span> <span class="s1">'-'</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="p">);</span>
+<span class="mi">91</span>	                <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="o">=</span> <span class="nf">sanitize_title_with_dashes</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin_slug</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">has_reserved_slug()</code>
+    <ul>
+      <li>Make sure it doesn’t use a slug deemed not to be used by the public. (common WordPress paths like wp-admin are not allowed)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">388</span>	        <span class="k">public</span> <span class="k">function</span> <span class="n">has_reserved_slug</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">389</span>	                <span class="nv">$reserved_slugs</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<span class="mi">390</span>	                        <span class="c1">// Plugin Directory URL parameters.</span>
+<span class="mi">391</span>	                        <span class="s1">'about'</span><span class="p">,</span>
+<span class="mi">392</span>	                        <span class="s1">'admin'</span><span class="p">,</span>
+<span class="mi">393</span>	                        <span class="s1">'browse'</span><span class="p">,</span>
+<span class="mi">394</span>	                        <span class="s1">'category'</span><span class="p">,</span>
+<span class="mi">395</span>	                        <span class="s1">'developers'</span><span class="p">,</span>
+<span class="mi">396</span>	                        <span class="s1">'developer'</span><span class="p">,</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">has_trademarked_slug()</code>
+    <ul>
+      <li>Make sure it doesn’t use a TRADEMARK protected slug. (trademarked company names are not allowed)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">430</span>	        <span class="k">public</span> <span class="k">function</span> <span class="n">has_trademarked_slug</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">431</span>	                <span class="nv">$trademarked_slugs</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<span class="mi">432</span>	                        <span class="s1">'adobe-'</span><span class="p">,</span>
+<span class="mi">433</span>	                        <span class="s1">'adsense-'</span><span class="p">,</span>
+<span class="mi">434</span>	                        <span class="s1">'advanced-custom-fields-'</span><span class="p">,</span>
+<span class="mi">435</span>	                        <span class="s1">'adwords-'</span><span class="p">,</span>
+<span class="mi">436</span>	                        <span class="s1">'akismet-'</span><span class="p">,</span>
+<span class="mi">437</span>	                        <span class="s1">'all-in-one-wp-migration'</span><span class="p">,</span>
+<span class="mi">438</span>	                        <span class="s1">'amazon-'</span><span class="p">,</span>
+<span class="mi">439</span>	                        <span class="s1">'android-'</span><span class="p">,</span>
+<span class="mi">440</span>	                        <span class="s1">'apple-'</span><span class="p">,</span>
+<span class="mi">441</span>	                        <span class="s1">'applenews-'</span><span class="p">,</span>
+<span class="mi">442</span>	                        <span class="s1">'aws-'</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>Surprisingly, big enough (FAANG) style companies can request to add themselves to the list (<code class="language-plaintext highlighter-rouge">$trademarked_slugs</code>) of prohibited terms, and any uploads of plugins containing that name will automatically fail. Most importantly, there is also the check preventing uploads using popular plugin names already used in the wild:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">231</span>	                <span class="k">if</span> <span class="p">(</span> <span class="nb">function_exists</span><span class="p">(</span> <span class="s1">'wporg_stats_get_plugin_name_install_count'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+<span class="mi">232</span>	                        <span class="nv">$installs</span> <span class="o">=</span> <span class="nf">wporg_stats_get_plugin_name_install_count</span><span class="p">(</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plugin</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span> <span class="p">);</span>
+<span class="mi">233</span>	
+<span class="mi">234</span>	                        <span class="k">if</span> <span class="p">(</span> <span class="nv">$installs</span> <span class="o">&amp;&amp;</span> <span class="nv">$installs</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">100</span> <span class="p">)</span> <span class="p">{</span>
+<span class="mi">235</span>	                                <span class="nv">$error</span> <span class="o">=</span> <span class="nf">__</span><span class="p">(</span> <span class="s1">'Error: That plugin name is already in use.'</span><span class="p">,</span> <span class="s1">'wporg-plugins'</span> <span class="p">);</span>
+</code></pre></div></div>
+
+<p>In conclusion, the WordPress Plugin Confusion attack against internally developed plugins on business websites is indeed possible. Still, the security mechanism prevents large-scale supply chain attacks against unclaimed plugins installed on more than 100 websites.</p>
+
+<h2 id="scanner-to-detect-vulnerable-plugins">Scanner to detect vulnerable plugins</h2>
+
+<p>I wrote a simple tool <a href="https://github.com/vavkamil/wp-update-confusion">wp_update_confusion.py</a>, which will passively detect any plugins from the front page response and check if the plugin name contains only the allowed characters. It then pings the WordPress SVN to verify if the slug is already claimed or not.</p>
+
+<p>While scanning websites of HackerOne public bug bounty programs, it was reporting a ton of false positives. I quickly realized that it would be impossible to get any meaningful output without a database of paid WordPress plugins. And building one by myself would require a significant amount of time.</p>
+
+<p>Instead of reinventing the wheel and knowing from the review process code that the WordPress team already has the data, I started looking around the website. Every plugin has an “Advanced View” tab, where one can see various graphs, such as active versions, downloads per day, install growth, etc.</p>
+
+<p><img src="/assets/img/2021/11/downloads.png" alt="downloads.png" /></p>
+
+<p>Poking around the API revealed one publicly available endpoint, which in fact, returns <em>all_time</em> number of downloads for any unclaimed plugin slug:</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://api.wordpress.org/stats/plugin/1.0/downloads.php?slug={plugin_name}&amp;historical_summary=1</code></p>
+
+<p>In the end, having all the information needed to verify if we could take over the plugin resulted in much better results. Although I didn’t implement a brute-force option, which would be the best way how to earn bug bounties, so right now, it is only capable of detecting low hanging fruits :)</p>
+
+<p>The way it works is:</p>
+
+<p>1) Query the front-page and find all the plugins <code class="language-plaintext highlighter-rouge">re.findall("wp-content/plugins/(.*?)/", html)</code>
+2) Check if the slug is allowed
+3) Check if the slug is present in the SVN registry
+4) Check if the slug is installed on more than 100 websites
+5) Profit?</p>
+
+<p><img src="/assets/img/2021/11/nuclei.png" alt="nuclei.png" /></p>
+
+<h2 id="debugging-wp-updates-with-burp">Debugging WP updates with Burp</h2>
+
+<p>The next step was to debug how the plugin mechanism exactly works. The easiest solution would be to review the code, but since I’m not that familiar with PHP, a black-box style test sounded like a better idea.</p>
+
+<p>Since I like Burp Suite a lot, I decided to intercept the requests between the website and <code class="language-plaintext highlighter-rouge">wordpress.org API</code> via its proxy. Running the WordPress in Docker container is easy, but installing the SSL cert and routing all the external traffic via Burp wasn’t that simple.</p>
+
+<p>After a lot of debugging, I came up with the following:</p>
+
+<p>1) Configure <code class="language-plaintext highlighter-rouge">Proxy Listener</code> to listen on all interfaces</p>
+
+<p>2) Add IP address of the Proxy as <code class="language-plaintext highlighter-rouge">extra_hosts</code> in <code class="language-plaintext highlighter-rouge">docker-compose.yml</code></p>
+
+<p>3) Run <code class="language-plaintext highlighter-rouge">docker</code> and install the WordPress via <code class="language-plaintext highlighter-rouge">wp-cli</code></p>
+
+<p>4) Download &amp; install Burp Suite certificate</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c">#!/usr/bin/env sh</span>
+   
+   <span class="c"># Download &amp; install Burp Suite certificate</span>
+   wget <span class="nt">-q</span> http://burp:8080/cert <span class="nt">-O</span> cert.der
+   openssl x509 <span class="nt">-in</span> cert.der <span class="nt">-inform</span> DER <span class="nt">-out</span> cert.pem
+   <span class="nb">mkdir</span> /usr/local/share/ca-certificates/extra
+   <span class="nb">cp </span>cert.pem /usr/local/share/ca-certificates/extra/cert.crt
+   update-ca-certificates
+   <span class="nb">rm </span>cert.der cert.pem
+</code></pre></div></div>
+
+<p>5) Redirect all requests received by listener to my host</p>
+
+<p>6) Replace all occurrences of <code class="language-plaintext highlighter-rouge">*api.wordpress.org*</code> to my host</p>
+
+<p>You can see the final script here: <a href="https://github.com/vavkamil/wp2burp">https://github.com/vavkamil/wp2burp</a></p>
+
+<p>After that, I could see that when the websites is checking if there are any updates available, it issues the following request:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /plugins/update-check/1.1/ HTTP/2
+Host: api.wordpress.org
+User-Agent: WordPress/5.3; http://127.0.0.1:31337/
+Accept: */*
+Accept-Encoding: gzip, deflate
+Referer: https://api.wordpress.org/plugins/update-check/1.1/
+Connection: close
+Content-Length: 1778
+Content-Type: application/x-www-form-urlencoded
+Expect: 100-continue
+
+plugins={...}
+</code></pre></div></div>
+
+<p>Where the JSON data contains a list of all installed plugins, e.g.:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">	</span><span class="p">{</span><span class="w">
+      </span><span class="nl">"akismet\/akismet.php"</span><span class="p">:{</span><span class="w">
+         </span><span class="nl">"Name"</span><span class="p">:</span><span class="s2">"Akismet Anti-Spam"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"PluginURI"</span><span class="p">:</span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">akismet.com</span><span class="se">\/</span><span class="s2">"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"Version"</span><span class="p">:</span><span class="s2">"4.1.3"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"Description"</span><span class="p">:</span><span class="s2">"Used by millions, Akismet is quite possibly the best way in the world to &lt;strong&gt;protect your blog from spam&lt;</span><span class="se">\/</span><span class="s2">strong&gt;. It keeps your site protected even while you sleep. To get started: activate the Akismet plugin and then go to your Akismet Settings page to set up your API key."</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"Author"</span><span class="p">:</span><span class="s2">"Automattic"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"AuthorURI"</span><span class="p">:</span><span class="s2">"https:</span><span class="se">\/\/</span><span class="s2">automattic.com</span><span class="se">\/</span><span class="s2">wordpress-plugins</span><span class="se">\/</span><span class="s2">"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"TextDomain"</span><span class="p">:</span><span class="s2">"akismet"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"DomainPath"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"Network"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"RequiresWP"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"RequiresPHP"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"Title"</span><span class="p">:</span><span class="s2">"Akismet Anti-Spam"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"AuthorName"</span><span class="p">:</span><span class="s2">"Automattic"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If there is a new version available, the websites received the following response:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/2 200 OK
+Date: Sun, 10 Oct 2021 19:13:57 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Cf-Cache-Status: DYNAMIC
+Expect-Ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Report-To: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=NpTdm3rT6Twj%2FvltPnM2Lb627HEIH4tcXE%2FTqUW0ZSqB7QQlDef1ttcmizy5cx2qcGwpKR%2BmudmYA0tp0G5QVEJ8G4%2Fu%2Bh07GKDQfbBYlJext3lDiKXRNB0EHIi3lD35oLk%3D"}],"group":"cf-nel","max_age":604800}
+Nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+Server: cloudflare
+Cf-Ray: 69c22b4018442794-PRG
+Alt-Svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400
+
+{"plugins":{"akismet\/akismet.php":{"new_version":"4.2.1","package":"https:\/\/downloads.wordpress.org\/plugin\/akismet.4.2.1.zip"}}}
+
+</code></pre></div></div>
+
+<p>If you click on the update button, WordPress deletes the contents of the old plugin directory, and the .zip file containing a new version is downloaded and unzipped, effectively replacing all the files. Ethically exploiting this is tricky because, with any Proof of Concept, you will break the website.</p>
+
+<p>But using the docker container to intercept and simulate the attack might be enough, as you can modify the response, so it will contain any version &amp; remote zip file you want:</p>
+
+<p><img src="/assets/img/2021/11/plugin_version.png" alt="plugin_version.png" /></p>
+
+<h2 id="publishing-wordpress-plugin-poc">Publishing WordPress plugin PoC</h2>
+
+<p>I didn’t want to claim anyone’s plugin, as the update would inadvertently break the website (old plugin files will get deleted). Still, I had to simulate the attack to confirm that it works.</p>
+
+<p>Fortunately for me, I already wrote a simple WP plugin two years ago, “<a href="https://github.com/vavkamil/xml-rpc-settings">XML-RPC Settings</a>” to understand how the various “xmlrpc.php” attack vectors work and how to defend against them. I never bothered to upload it to WordPress Plugin Directory, but there was a possibility that someone installed it from my GitHub. For example, it was on this blog before I migrated to GitHub pages. To be sure, I installed the plugin on six different websites a while ago when I was thinking about starting this research.</p>
+
+<p>After reading WordPress developer guidelines and updating the readme, I submitted the plugin for review. The exact timeline was:</p>
+
+<ul>
+  <li>October 3rd, 2021
+    <ul>
+      <li>Successful Plugin Submission</li>
+    </ul>
+  </li>
+  <li>October 5th, 2021
+    <ul>
+      <li>Review in Progress, issues with plugin code (wrong stable version tag, not unique enough function names)</li>
+    </ul>
+  </li>
+  <li>October 5th, 2021
+    <ul>
+      <li>Fixed the version and asked for another review</li>
+    </ul>
+  </li>
+  <li>October 7th, 2021
+    <ul>
+      <li>Your review has been successfully completed.</li>
+    </ul>
+  </li>
+  <li>October 7th, 2021
+    <ul>
+      <li>Congratulations, the plugin hosting request for XML-RPC Settings has been approved.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>One hour after the plugin was approved, I was granted commit access to your Subversion (SVN) repository and uploaded my plugin:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>subversion
+<span class="nv">$ </span>svn co https://plugins.svn.wordpress.org/xml-rpc-settings wordpress/
+<span class="nv">$ </span><span class="nb">cp </span>xml-rpc-settings/<span class="k">*</span> wordpress/.
+<span class="nv">$ </span><span class="nb">cd </span>wordpress
+<span class="nv">$ </span>svn add trunk/<span class="k">*</span>
+<span class="nv">$ </span>svn ci <span class="nt">-m</span> <span class="s1">'feat(xml-rpc-settings): Add plugin files'</span>
+</code></pre></div></div>
+
+<p>Like that, I released the plugin; now, I had to wait until the WordPress Plugin Directory synced with SVN. After a while, I noticed a Wordfence Slack notification, telling me that it found a problem on a couple of websites and a new plugin update is available; bingo!</p>
+
+<p><img src="/assets/img/2021/11/wordfence.png" alt="" /></p>
+
+<p>I was able to hijack a plugin installed on a couple of websites. Although there isn’t any backdoor, actually you can check the plugin:</p>
+
+<p>https://wordpress.org/plugins/xml-rpc-settings</p>
+
+<p><img src="/assets/img/2021/11/xml_rpc_settings.png" alt="xml_rpc_settings.png" /></p>
+
+<p>On the other hand, an attacker could now have a foothold into the website. Even worse, if the website admin enables automatic plugins updates, introduced in WordPress 5.5. That would allow the attacker to change plugin files anytime they wanted, without any user interaction.</p>
+
+<h2 id="how-to-defend-yourself">How to defend yourself</h2>
+
+<p>As this is essentially vulnerable by design, I wouldn’t expect the fix from the WordPress side. If you are a big enough company, you can contact them and get your trademark in the <code class="language-plaintext highlighter-rouge">$trademarked_slugs</code> list. Since uploading a “dummy” plugin to the registry is not allowed, one must find another way. You can follow a couple of recommendations to keep your site secured.</p>
+
+<h3 id="protecting-themes">Protecting themes</h3>
+
+<p>The theme slug is the name of the theme in lower case, with spaces replaced by a hyphen (-). It is also the folder name for the theme. The themes team can decline themes based on the name and request that the name is changed if they decide that the name is inappropriate or too similar to an existing theme or brand.</p>
+
+<ul>
+  <li>Theme names must not use: WordPress, Theme, Twenty*</li>
+  <li>Spell “WordPress” correctly in all public-facing text: all one word, with both an uppercase W and P</li>
+  <li>No violation of trademarks.</li>
+</ul>
+
+<p>That means that you can rename your custom theme in the following way: <code class="language-plaintext highlighter-rouge">theme-internal_name</code> to be on the safe side.</p>
+
+<h3 id="protecting-plugins">Protecting plugins</h3>
+
+<p>WordPress 5.8, released on July 20, 2021, introduced a new “Update URI” plugin header.</p>
+
+<blockquote>
+  <p>This allows third-party plugins to avoid accidentally being overwritten with an update of a plugin of a similar name from the WordPress.org Plugin Directory.</p>
+</blockquote>
+
+<p>It effectively gives the website maintainer an effective way to prevent the supply chain attack, as the internal plugin will never ask for updates.</p>
+
+<p>The main PHP file should include the header comment <code class="language-plaintext highlighter-rouge">Update URI: false</code>, example:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="cd">/**
+ * Plugin Name: Internal Plugin
+ * Version:     1.0
+ * Update URI:  false
+ */</span>
+</code></pre></div></div>
+
+<p>You can read the full announcement here: <a href="https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/">https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/</a></p>
+
+<p>If you can’t, for any legacy reasons, update to WordPress 5.8, and use the   <code class="language-plaintext highlighter-rouge">Update URI</code> mitigation, you still have some options:</p>
+
+<p>The plugin slug can only contain lower case alphanumeric characters and dash as a delimiter. Some of the keywords are prohibited as well, which could help us in this case. That means that you can rename your custom plugins in the following ways:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">internal_plugin_name</code></li>
+  <li><code class="language-plaintext highlighter-rouge">InternalPluginName</code></li>
+  <li><code class="language-plaintext highlighter-rouge">wp-internal-plugin-name</code></li>
+</ul>
+
+<p>It is also possible to leverage a <a href="https://developer.wordpress.org/reference/hooks/upgrader_package_options/">hook</a> and write a custom update function, blocking the internal WP API call and replacing it with your own, similar to how a paid plugin offers custom updates from their servers.</p>
+
+<p>Some plugins do that for you, for example, <a href="https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/">Easy Updates Manager</a>, which allows you to block updates for specific plugins.</p>
+
+<p>That being said, you should always create a fresh backup and read the changelog before updating any plugins.</p>
+
+<h2 id="bug-bounty-hunting">Bug Bounty hunting</h2>
+
+<p>Since I don’t have my own recon DB anymore, I dumped about 200k subdomains from <a href="https://chaos.projectdiscovery.io/#/">Chaos</a> (public HackerOne programs with bounties) and scanned them with <a href="https://github.com/projectdiscovery/httpx">httpx</a>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpx <span class="nt">-random-agent</span> <span class="nt">-l</span> chaos_all_hackerone.txt <span class="nt">-match-string</span> <span class="s2">"wp-content"</span> <span class="nt">-o</span> httpx_wordpress.txt
+</code></pre></div></div>
+
+<p>That resulted in approximately 427 WordPress websites. After verifying them with the Proof of Concept <code class="language-plaintext highlighter-rouge">wp_update_confusion.py</code> tool, I found 13 potential targets. That is not bad, considering the <code class="language-plaintext highlighter-rouge">[8.2 High](https://chandanbn.github.io/cvss/#CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:L)</code> severity.</p>
+
+<p><img src="/assets/img/2021/11/severity.png" alt="severity.png" /></p>
+
+<p>After carefully reading the policy of each bug bounty program, I found out that more than half (7) of the potential targets are out of scope. That’s a bummer, as some belong to well-known companies, and they will probably fix it anyway after I release this research.</p>
+
+<p>Either way, I ended up submitting six reports. One of them is the VDP program (not offering bounties).</p>
+
+<p><img src="/assets/img/2021/11/twitter.png" alt="twitter.png" /></p>
+
+<p>https://twitter.com/vavkamil/status/1447160385954533378</p>
+
+<p>After sharing the screenshot of redacted submitted reports with a #0day hashtag on Twitter, I received a message from <a href="https://twitter.com/naglinagli">@naglinagli</a> offering a collaboration. The offer was access to his extensive recon database to scan the host with my payload in exchange for splitting any future bug bounty payouts.</p>
+
+<p>Since Nagli is usually in the top 5 researchers with the highest HackerOne reputation, I decided to take the offer. Mainly to see how many vulnerable websites might be there. Giving away 50% of potential bounties might be somewhat expensive, but I was pretty much done with the scan anyway.</p>
+
+<p><img src="/assets/img/2021/11/h1_leaderboard.png" alt="h1_leaderboard.png" /></p>
+
+<p>On the first try, we found more than twice as many vulnerable hosts as my previous scan attempt. I must say that the collaboration was awesome, I was impressed by how many high-profile targets he was able to find.</p>
+
+<p>All in all, we submitted close the 25 reports. Unfortunately, a lot of them were closed as Informative. Some argued that their release process would not update the plugins, most likely thanks to CI/CD automation. Some didn’t understand the report, and some closed it because it was missing a clear Proof of Concept, arguing that it’s only a theoretical issue.</p>
+
+<p><img src="/assets/img/2021/11/feedback.png" alt="feedback.png" /></p>
+
+<p>But others appreciated the submission, applied a fix, and one company even awarded us with a bonus for the quality of the report. You can see example of the report here: <a href="https://hackerone.com/reports/1364851">https://hackerone.com/reports/1364851</a></p>
+
+<p>We ended up with approximately $4k in bounties, but most importantly, we made the Internet a little bit safer. It was very eye-opening how many top tech and world-known companies were potentially affected.</p>
+
+<hr />
+
+<p><img src="/assets/img/2021/11/owasp.jpg" alt="talk" /></p>
+
+<p>This research was presented as a talk at the <a href="https://vavkamil.cz/talks/">OWASP Czech Chapter meeting</a> on 25th November 2021.</p>
+
+<h3 id="update">UPDATE:</h3>
+<ul>
+  <li><a href="https://galnagli.com/Wordpress_Plugin_Update_Confusion/">Blog post about the recond phase</a></li>
+  <li><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44223">Someone somehow requested a CVE-2021-44223 for this</a></li>
+  <li><a href="https://make.wordpress.org/plugins/2021/11/29/please-dont-test-submitting-other-peoples-plugins/"><strong>Please don’t ‘test’ submitting other people’s plugins.</strong></a></li>
+</ul>
+
+
+
+  <small>tags: <em>wordpress</em> - <em>dependency confusion</em> - <em>update confusion</em> - <em>supply chain attack</em></small>
+
+
+
+      </section>
+    </div>
+
+    <hr>
+    
+    
+    Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a><br />
+    &#127279; 2019&dash;2026 - <strong>@vavkamil</strong> - <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">Open-source</a> Github pages - Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+  </body>
+</html>

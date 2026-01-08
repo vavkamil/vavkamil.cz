@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="icon" href="/assets/img/favicon.ico"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" />
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>I know where you live | Kamil Vavra @vavkamil</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="I know where you live" />
+<meta name="author" content="vavkamil" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An introduction into the KARMA attack, exploiting the behavior of some Wi-Fi devices, where vulnerable clients broadcast a “preferred network list” (PNL), which contains the SSIDs of access points to which they have previously connected. We will revisit the old technique, current defenses applied by vendors and build a custom access point using Raspberry Pi &amp; Python." />
+<meta property="og:description" content="An introduction into the KARMA attack, exploiting the behavior of some Wi-Fi devices, where vulnerable clients broadcast a “preferred network list” (PNL), which contains the SSIDs of access points to which they have previously connected. We will revisit the old technique, current defenses applied by vendors and build a custom access point using Raspberry Pi &amp; Python." />
+<link rel="canonical" href="http://localhost:4000/talks/2021-08-05-where-you-live/" />
+<meta property="og:url" content="http://localhost:4000/talks/2021-08-05-where-you-live/" />
+<meta property="og:site_name" content="Kamil Vavra @vavkamil" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-05T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="I know where you live" />
+<meta name="twitter:site" content="@vavkamil" />
+<meta name="twitter:creator" content="@vavkamil" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"vavkamil"},"dateModified":"2021-08-05T00:00:00+02:00","datePublished":"2021-08-05T00:00:00+02:00","description":"An introduction into the KARMA attack, exploiting the behavior of some Wi-Fi devices, where vulnerable clients broadcast a “preferred network list” (PNL), which contains the SSIDs of access points to which they have previously connected. We will revisit the old technique, current defenses applied by vendors and build a custom access point using Raspberry Pi &amp; Python.","headline":"I know where you live","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/talks/2021-08-05-where-you-live/"},"url":"http://localhost:4000/talks/2021-08-05-where-you-live/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>Kamil Vavra | @vavkamil</h1>
+        </a>
+        <h2>Offensive website security | Bug bounty | Ethical hacking</h2>
+
+        <section id="downloads">
+          <a href="/talks" class="btn"><span class="icon">📢</span>Talks</a>
+          <a href="/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
+          <a href="/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
+          <a href="/blog" class="btn"><span class="icon">📖</span>Blog</a>
+          <a href="https://github.com/vavkamil" target="_blank" class="btn"><span class="icon">💻</span>GitHub</a>
+          <a href="https://www.linkedin.com/in/vavkamil/" target="_blank" class="btn"><span class="icon">🏆</span>LinkedIn</a>
+          <a href="/contact" class="btn"><span class="icon">📩</span>Contact</a><br><br>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <style>
+    img {
+        border: 1px solid #7CFF00;
+        margin: 10px 0px 20px 40px
+    }
+</style>
+<h1>I know where you live</h1>
+
+<img src="/assets/img/talks/2021-08-05-where-you-live.png"
+     align="right"
+     height="230"
+     width=""
+     alt=""
+     title="">
+
+    <h3>OWASP Czech Chapter Meeting</h3>
+    <small>5 August 2021 | Brno, Czechia</small>
+    <small> - <em><a target="_blank" href="https://www.eventbrite.com/e/owasp-czech-chapter-meeting-registration-162360236839">Official schedule</a></em></small>
+    
+
+<br>
+<small><small>
+    Slides: <a target="_blank" href="https://vavkamil.cz/assets/slides/2021-08-05-where-you-live.pdf">https://vavkamil.cz/assets/slides/2021-08-05-where-you-live.pdf</a>
+    
+        <br>
+        Recording:
+        <a target="_blank" href="https://vimeo.com/647349400">https://vimeo.com/647349400</a>
+    
+</small></small>
+<p><em>An introduction into the KARMA attack, exploiting the behavior of some Wi-Fi devices, where vulnerable clients broadcast a “preferred network list” (PNL), which contains the SSIDs of access points to which they have previously connected. We will revisit the old technique, current defenses applied by vendors and build a custom access point using Raspberry Pi &amp; Python.</em></p>
+
+<hr />
+
+<p><br /></p>
+<h3 id="source-code">Source code</h3>
+
+<ul>
+  <li><a target="_blank" href="https://github.com/vavkamil/SpyPortal">https://github.com/vavkamil/SpyPortal</a></li>
+</ul>
+
+<h3 id="slides">Slides</h3>
+
+<ul>
+  <li><a target="_blank" href="https://vavkamil.cz/assets/slides/2021-08-05-where-you-live.pdf">https://vavkamil.cz/assets/slides/2021-08-05-where-you-live.pdf</a></li>
+</ul>
+
+<iframe src="/assets/slides/2021-08-05-where-you-live.pdf" width="100%" height="600px" style="border: none;">
+</iframe>
+
+
+      </section>
+    </div>
+
+    <hr>
+    
+    
+    Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a><br />
+    &#127279; 2019&dash;2026 - <strong>@vavkamil</strong> - <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">Open-source</a> Github pages - Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+  </body>
+</html>

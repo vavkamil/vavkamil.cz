@@ -28,12 +28,17 @@ plugins:
  - jekyll-feed
  - jekyll-seo-tag
  - jekyll-gist
+ - jekyll-redirect-from
 
 # SEO
-permalink: /:year/:month/:day/:title/
+permalink: /blog/:year-:month-:day-:title/
 
-# Blog categories
+# Collections
 collections:
   blog_categories:
     output: true
     permalink: /blog/category/:name/
+  talks:
+    output: true
+    permalink: /talks/:name/
+

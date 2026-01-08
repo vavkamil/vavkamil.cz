@@ -5,6 +5,8 @@ date: 2021-02-16 00:00:00 -0000
 categories: ['Ethical hacking', 'Responsible disclosure', 'Bug bounty']
 tags: [0day, exploit, vulnerability, WordPress]
 author: vavkamil
+redirect_from:
+  - /2021/02/16/wp-gdpr-compliance-unauthenticated-xss/
 ---
 
 tl;dr: The GDPR Compliance <= 1.5.5 plugin allowed unauthenticated users to exploit Stored Cross-Site Scripting (XSS) in the administration panel, which might lead to the privilege escalation. That was due to clients' IP Addresses reflected in the plugin's dashboard without being correctly validated or escaped.
