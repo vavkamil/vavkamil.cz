@@ -1,0 +1,40 @@
+---
+layout: default
+---
+
+<style>
+    img {
+        border: 1px solid rgba(124, 255, 0, 0.2);
+        margin: 10px 0px 20px 40px
+    }
+</style>
+<h1>{{ page.title }}</h1>
+
+{% assign slug = page.url
+| remove_first: "/talks/"
+| remove: "/" %}
+<img src="{{ '/assets/img/talks/' | append: slug | append: '.png' | relative_url }}"
+     align="right"
+     height="230"
+     width=""
+     alt="{{ talk.title }}"
+     title="">
+{% for e in page.events %}
+    <h3>{{ e.event }}</h3>
+    <small>{{ e.date | date: "%-d %B %Y" }} | {{ e.location }}</small>
+    {% if e.link %}<small> - <em><a target="_blank" href="{{ e.link }}">Official schedule</a></em></small>{% endif %}
+    {% unless forloop.last %}
+    <br>
+    <br>
+{% endunless %}
+{% endfor %}
+<br>
+<small><small>
+    Slides: <a target="_blank" href="{{ page.slides }}">{{ page.slides }}</a>
+    {% if page.video %}
+        <br>
+        Recording:
+        <a target="_blank" href="{{ page.video }}">{{ page.video }}</a>
+    {% endif %}
+</small></small>
+{{ content }}

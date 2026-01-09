@@ -2,9 +2,11 @@
 layout: post
 title: "AEC SafeWeb CTF Write-up"
 date: 2024-07-30 00:00:00 -0000
-categories: ['Ethical hacking', 'Security Research', 'Responsible disclosure']
-tags: [ctf, writeup, hacking, security]
+categories: ['Ethical hacking', 'Responsible disclosure']
+tags: [ctf, writeup, hacking, challenge]
 author: vavkamil
+redirect_from:
+  - /2024/07/30/aec-safeweb-ctf-writeup/
 ---
 
 AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview.
@@ -12,6 +14,8 @@ AEC Hacking Competition is a famous Czech CTF with 15 web application security c
 Today, only around 28 people out of several hundred could solve all the challenges. Many ethical hackers were stuck on some levels, maybe because the instructions were not clear or outdated.
 
 The CTF is from ~2018, and the authors last updated the challenges a while ago. We could do better, especially for new people starting in the penetration testing field. The same challenges are also reused every year on **KonferenceSecurity.cz CTF**. I was the sixth person who solved all the challenges, and I received an e-mail recently from someone stuck on the first level asking for advice.
+
+<br>
 
 So, after many years, I finally decided to try to solve them again and describe my steps. I did this mainly to help beginners see that it's easy if they think like ethical hackers and have the correct mindset and necessary skills. I would also like to see new levels that reflect the current application security state and the OWASP Top 10.
 
@@ -39,6 +43,9 @@ So, after many years, I finally decided to try to solve them again and describe 
 
 ![ctf_19.png](/assets/img/2024/07/ctf_19.png)
 
+<hr>
+<br>
+
 ## Level 1
 
 - Url: https://safeweb.aec.cz/level1.php
@@ -58,7 +65,8 @@ To solve this, we can send the POST request to Burp's Intruder, with one payload
 
 After 9k requests, we can see that the correct credentials are `administrator:Krasty`, and we solved the first level.
 
----
+<hr>
+<br>
 
 ## Level 2
 
@@ -72,7 +80,8 @@ Again, we have a login form with `user:pass` inputs, and based on the hint, we w
 
 So, let's send the authentication request to Repeter and test it out. And just like that, we solved another level.
 
----
+<hr>
+<br>
 
 ## Level 3
 
@@ -98,7 +107,8 @@ Password: nbusr123
 
 These credentials are an excellent reference to a time when our National Security Agency (NBU) was compromised because they were literally the credentials they were using at the time. And thanks to them, we just solved another level.
 
----
+<hr>
+<br>
 
 ## Level 4
 
@@ -131,7 +141,8 @@ Table: users
 
 And just like that, we solved another level.
 
----
+<hr>
+<br>
 
 ## Level 5
 
@@ -147,7 +158,8 @@ Send the authenticated GET request to Repeter, highlight the cookie value, and y
 
 ![ctf_06.png](/assets/img/2024/07/ctf_06.png)
 
----
+<hr>
+<br>
 
 ## Level 6
 
@@ -181,7 +193,8 @@ commented HTML */</script>
 
 ![ctf_08.png](/assets/img/2024/07/ctf_08.png)
 
----
+<hr>
+<br>
 
 ## Level 7
 
@@ -204,7 +217,8 @@ After executing the Intruder attack, we can see another document with ID `87`, a
 - https://safeweb.aec.cz/HesloDoKlubu.txt
   - `Heslo: horiii`
 
----
+<hr>
+<br>
 
 ## Level 8
 
@@ -240,7 +254,8 @@ It's not that easy, as the password value is dynamically computed during script 
 
 I don't know if this is the easiest method to solve this level, but it saves a lot of time when debugging what is happening.
 
----
+<hr>
+<br>
 
 ## Level 9
 
@@ -257,7 +272,8 @@ Looking at the Burp HTTP history, we can see the strings already. So a quick sea
 
 And look at that; it's, in fact, the correct password. I love this one.
 
----
+<hr>
+<br>
 
 ## Level 10
 
@@ -275,7 +291,8 @@ And we have to get the `/etc/passwd` file contents like this:
 
 Is it just me, or are the challenges getting easier? One would expect that they would become more complicated as one progresses.
 
----
+<hr>
+<br>
 
 ## Level 11
 
@@ -312,7 +329,8 @@ Simply renaming the file to something like:
 - `file.php.unknown-jpg`
 will do the trick. This challenge is complex, and a lot of people might get stuck.
 
----
+<hr>
+<br>
 
 ## Level 12
 
@@ -359,7 +377,8 @@ Add another param like this:
 
 Now, each request from Intruder should have a different (extracted) captcha number, and you just solved another level without any programming!
 
----
+<hr>
+<br>
 
 ## Level 13
 
@@ -383,7 +402,8 @@ In this case, we can see environment variables related to the request: the IP ad
 
 Changing the User-Agent string to any PHP payload should do the trick.
 
----
+<hr>
+<br>
 
 ## Level 14
 
@@ -401,7 +421,8 @@ Level #14 concerns OSINT; we must find an ancient blog article on a website. Fol
 
 This challenge might seem strange initially, but the Web Archive can be helpful during bug bounty hunting. On old website versions, you can find old hidden artifacts, URL parameters, sitemaps, and other stuff. There are many tools to automate that, and I have seen many bug bounty write-ups strike gold this way.
 
----
+<hr>
+<br>
 
 ## Level 15
 
@@ -417,12 +438,17 @@ As in the previous task, this is not a severe vulnerability alone, but it often 
 
 Send the POST request to Repetaer and try to change the password parameter to an array. You will see an error message with the Full Path, granting you the password and access to the Hall of Fame.
 
-**Congratulations!**
+<hr>
+<br>
 
----
+## **Congratulations!**
 
 All in all, I like the concept of solving the CTF to get a spot at the interview. Some of the challenges are easy, and some are somewhat strange. However, an experienced penetration tester should be able to complete them all in one to two hours.
 
+<br>
+
 If you are starting your career now, it might seem complicated, and you will eventually get stuck on some of these. On the one hand, you should have a general overview of most of the stuff used within the CTF; on the other, they are pretty old, and you will see only some of them that often nowadays.
+
+<br>
 
 I believe that in 2024, we need something better that reflects the current state of OWASP's Top 10, the learning paths that young ethical hackers looking for penetration testing careers take, and the security challenges we see in the real world. **Good luck!**
