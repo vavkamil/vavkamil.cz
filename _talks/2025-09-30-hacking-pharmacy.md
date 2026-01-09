@@ -2,7 +2,7 @@
 layout: talk
 title: "Hacking a Pharmacy for Fun and Drugs"
 latest_event_date: 2025-09-30
-slides: "#foo"
+slides: "https://vavkamil.cz/assets/slides/2025-09-30-hacking-pharmacy.pdf"
 events:
   - date: 2025-09-30
     event: "OWASP Czech Chapter Meeting"
@@ -19,12 +19,9 @@ _Do you like using loyalty cards when you shop? After all, they promise discount
 
 - <a target="_blank" href="{{ page.slides }}">{{ page.slides }}</a>
 
-TODO
-<!-- 
 <iframe
-  src="https://foo"
+  src="/assets/slides/2025-09-30-hacking-pharmacy.pdf"
   width="100%"
   height="600px"
   style="border: none;">
 </iframe>
- -->

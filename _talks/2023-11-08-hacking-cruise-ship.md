@@ -2,7 +2,7 @@
 layout: talk
 title: "Hacking a Cruise Ship"
 latest_event_date: 2023-11-08
-slides: "#foo"
+slides: "https://vavkamil.cz/assets/slides/2023-11-08-hacking-cruise-ship.pdf"
 events:
   - date: 2023-11-08
     event: "OWASP Czech Chapter Meeting"
@@ -22,12 +22,9 @@ _Have you ever wondered what happens in international waters? It’s not just th
 
 - <a target="_blank" href="{{ page.slides }}">{{ page.slides }}</a>
 
-TODO
-<!-- 
 <iframe
-  src="https://foo"
+  src="/assets/slides/2023-11-08-hacking-cruise-ship.pdf"
   width="100%"
   height="600px"
   style="border: none;">
 </iframe>
- -->
