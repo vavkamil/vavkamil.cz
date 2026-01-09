@@ -2,24 +2,38 @@
 layout: default
 ---
 
-<small>{{ page.date | date: "%-d %B %Y" }}</small>
+<style>
+    img {
+        border: 1px solid rgba(124, 255, 0, 0.2);
+        margin: 10px 0px 20px 40px;
+    }
+</style>
 <h1>{{ page.title }}</h1>
 
-<p class="view">by {{ page.author | default: site.author }}</p>
+{% assign slug = page.url
+| remove_first: "/blog/"
+| remove: "/" %}
+<img src="{{ '/assets/img/posts/' | append: slug | append: '.png' | relative_url }}"
+     align="right"
+     height="230"
+     width=""
+     alt="{{ talk.title }}"
+     title="">
 
-<div>
+<h3>
+    <em>{{ page.categories | join: " - " }}</em>
+</h3>
+<small><time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%-d %B %Y" }}</time>
+<span>|</span>
 {% capture words %}
-  {{ content | number_of_words | minus: 180 }}
+  {{ page.content | number_of_words | minus: 180 }}
 {% endcapture %}
-
 {% unless words contains "-" %}
-  <p>{{ words | plus: 180 | divided_by: 180 | append: " minutes to read" }}</p>
+  {{ words | plus: 180 | divided_by: 180 | append: " minutes to read" }}
 {% endunless %}
-</div>
-
-{{content}}
-
-{% if page.tags %}
-  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
-{% endif %}
-
+<span>| by {{ page.author | default: site.author }}</span>
+<br>
+    {% if page.tags %}<small>Tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>{% endif %}
+</small>
+<hr>
+{{ content }}

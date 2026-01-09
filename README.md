@@ -1,11 +1,50 @@
-## vavkamil.cz
+# vavkamil.cz
 
-My personal blog about offensive web security
+> My personal blog about offensive web security, ethical hacking, and vulnerability research.
 
-Preview: [vavkamil.cz](https://vavkamil.cz/)
+🌐 **Live site:** https://vavkamil.cz  
+🛠 **Source:** This repository (open-source Jekyll blog, deployed via GitHub Pages)
 
-### Technology stack
+---
 
-* [GitHub Pages](https://docs.github.com/en/github/working-with-github-pages)
-* [Jekyll](https://jekyllrb.com/)
-* [The Hacker theme](https://github.com/pages-themes/hacker)
+## About
+
+This repository contains the full source code and content for **vavkamil.cz**, my personal website and long-running security blog.
+
+I write mostly about:
+
+- Offensive web application security
+- Bug bounty hunting & responsible disclosure
+- Vulnerability research & real-world exploitation
+- Supply-chain attacks, XSS, SSRF, logic bugs, and weird edge cases
+- Write-ups of research, incidents, and CTFs
+- Public talks & conference presentations
+
+The site has been online in various forms for years and is intentionally kept **simple, static, and transparent**.
+
+---
+
+## Content Overview
+
+### 📝 Blog Posts
+
+Blog posts live in `_posts/` and cover topics such as:
+
+---
+
+### 🎤 Public Talks
+
+Talks are stored in `_talks/` and include slides, abstracts, and metadata.
+
+Many talks were presented at conferences, meetups, and OWASP chapter events.
+
+---
+
+## Technology Stack
+
+The site is intentionally boring (in a good way):
+
+- **Cloudflare** — security & CDN
+- **GitHub Pages** — hosting & deployment
+- **Jekyll** — static site generator
+- **[pages-themes/hacker](https://github.com/pages-themes/hacker)** — base theme (customized)
