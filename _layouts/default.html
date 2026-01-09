@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}"/>
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ '/feed.xml' | relative_url }}" />
-
+<style>
+  #footer {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    opacity: 0.3;
+  }
+</style>
 {% seo %}
   </head>
 
@@ -21,10 +27,10 @@
         <h2>{{ site.description | default: site.github.project_tagline }}</h2>
 
         <section id="downloads">
+          <a href="{{ site.baseurl }}/blog" class="btn"><span class="icon">📖</span>Blog</a>
           <a href="{{ site.baseurl }}/talks" class="btn"><span class="icon">📢</span>Talks</a>
           <a href="{{ site.baseurl }}/whoami" class="btn"><span class="icon">🕵️</span>Whoami</a>
           <a href="{{ site.baseurl }}/bug-bounty" class="btn"><span class="icon">💰</span>Bug bounty</a>
-          <a href="{{ site.baseurl }}/blog" class="btn"><span class="icon">📖</span>Blog</a>
           <a href="https://github.com/vavkamil" target="_blank" class="btn"><span class="icon">💻</span>GitHub</a>
           <a href="https://www.linkedin.com/in/vavkamil/" target="_blank" class="btn"><span class="icon">🏆</span>LinkedIn</a>
           <a href="{{ site.baseurl }}/contact" class="btn"><span class="icon">📩</span>Contact</a><br><br>
@@ -43,7 +49,10 @@
     {% if site.feed and site.feed.path %}
       {% assign feed_path = site.feed.path %}
     {% endif %}
-    Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a><br />
-    &#127279; 2019&dash;{{ site.time | date: "%Y" }} - <strong>@{{ site.author }}</strong> - <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">Open-source</a> Github pages - Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a> - Subscribe via <a href="{{ feed_path | absolute_url }}">RSS</a>
+    <div id="footer"><small>
+    Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a> &amp; <a href="https://github.com/pages-themes/hacker" target="_blank">The Hacker theme</a><br>
+    🄯 Copyleft 2019 - {{ site.time | date: "%Y" }}. No rights reserved.<br>
+    Github pages <a href="https://github.com/vavkamil/vavkamil.cz" target="_blank">source code</a> | Subscribe via <a href="{{ feed_path | absolute_url }}">RSS</a>
+  </small></div>
   </body>
 </html>

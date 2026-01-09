@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Blog category: Privacy"
-name: Privacy
+title: "Blog category: Security research"
+name: Security research
 ---
 
 xxx

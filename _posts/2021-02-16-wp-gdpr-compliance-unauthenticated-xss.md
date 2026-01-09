@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "WP GDPR Compliance <= 1.5.5 - Unauthenticated Cross-Site Scripting (XSS)"
+title: "WP GDPR Compliance <= 1.5.5 - Unauthenticated XSS"
 date: 2021-02-16 00:00:00 -0000
-categories: ['Ethical hacking', 'Responsible disclosure', 'Bug bounty']
+categories: ['Ethical hacking', 'Responsible disclosure']
 tags: [0day, exploit, vulnerability, WordPress]
 author: vavkamil
 redirect_from:
@@ -15,6 +15,7 @@ tl;dr: The GDPR Compliance <= 1.5.5 plugin allowed unauthenticated users to expl
 
 I have just recently joined a [Detectify](https://detectify.com/) crowdsource team, and I must say the platform is impressive. So I promised myself that I would spend some of the weekends looking for WordPress vulnerabilities to contribute with modules to the scanner. For the vulnerability to be accepted, the plugin must have at least 200k  installations.
 
+<br>
 
 I started browsing [popular](https://wordpress.org/plugins/browse/popular/) WP plugins, looking for ones that meet the criteria. After a while, I saw a GDPR plugin with 200,000+ active installations, and it caught my attention because I remember that there were some with critical vulnerabilities when the whole cookie consent thing was made mandatory and developers were racing with new plugins.
 
@@ -25,18 +26,20 @@ After checking the [plugin page](https://wordpress.org/plugins/wp-gdpr-complianc
 The description said: *Overview of the view and delete requests by your site's visitors.*, which indicated a dashboard in the admin panel with GDPR "delete requests" results, including the Email and IP Address of the user, could be a potential attack vector.
 
 <hr>
-
+<br>
 ### Discovery phase
 
-After downloading the plugin and activating it in the [DVWP](https://github.com/vavkamil/dvwp) docker container, I published a page (with the form) to request deleting the user data and begin the black-box testing. Validation of the e-mail input was correct, but when I tried to spoof the IP address via `X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>`, the XSS payload executed. What a surprise, it took me less than 10 minutes to find a "*Blind XSS*" vulnerability triggered in the context of a privileged user.
+After downloading the plugin and activating it in the [DVWP](https://github.com/vavkamil/dvwp) docker container, I published a page (with the form) to request deleting the user data and begin the black-box testing. Validation of the e-mail input was correct, but when I tried to spoof the IP address via<br>
+`X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>`,<br>the XSS payload executed. What a surprise, it took me less than 10 minutes to find a "*Blind XSS*" vulnerability triggered in the context of a privileged user.
 
-![](/assets/img/2021/02/gdpr-data-access-request.png "Data Access Requests")
+<center><img src="/assets/img/2021/02/gdpr-data-access-request.png" title="Data Access Requests"></center>
 
 <hr>
-
+<br>
 ### Root cause analysis
 
-At that point, I finished the testing, and I quickly moved to a source code review to locate the vulnerable code and continue with the white-box testing. Quick *grep* command revealed a database column `` `ip_address` varchar(255) NOT NULL ``, which was a nice surprise to see because thanks to that, it was possible to store the whole XSS payload. The IP address from the form is assigned being via `$request->setIpAddress(Helper::getClientIpAddress());` and the `getClientIpAddress()` is pretty much a standard function to check several headers for proxies and stuff like that. But what was confusing is that there was a `self::validateIpAddress($ipAddress)` call to validate the IP. The `validateIpAddress()` function:
+At that point, I finished the testing, and I quickly moved to a source code review to locate the vulnerable code and continue with the white-box testing. Quick *grep* command revealed a database column<br>
+`` `ip_address` varchar(255) NOT NULL ``,<br>which was a nice surprise to see because thanks to that, it was possible to store the whole XSS payload. The IP address from the form is assigned being via<br>`$request->setIpAddress(Helper::getClientIpAddress());`<br>and the<br>`getClientIpAddress()`<br>is pretty much a standard function to check several headers for proxies and stuff like that. But what was confusing is that there was a<br>`self::validateIpAddress($ipAddress)`<br>call to validate the IP.<br>The `validateIpAddress()` function:
 
 ```php
     /**
@@ -74,13 +77,14 @@ At that point, I finished the testing, and I quickly moved to a source code revi
     }
 ```
 
-After looking at the code for a longer time than I would like to admit, I realized that the whole logic is fundamentally flawed. The interesting part is the [ip2long](https://www.php.net/manual/en/function.ip2long.php) function, which generates a long integer representation of IPv4, which is then later checked via a list of known network ranges. But when the input is invalid, it will return **false**: `ip2long ( string $ip ) : int|false`. The `validateIpAddress()` is never catching that, so the valid IP is being validated, but the invalid IP will always return **true**, resulting in the payload stored in the database. And because the developer was confident in the check, it is never escaped when retrieved from the database and rendered in the admin dashboard.
+After looking at the code for a longer time than I would like to admit, I realized that the whole logic is fundamentally flawed. The interesting part is the [ip2long](https://www.php.net/manual/en/function.ip2long.php) function, which generates a long integer representation of IPv4, which is then later checked via a list of known network ranges. But when the input is invalid, it will return **false**:
+<br>`ip2long ( string $ip ) : int|false`. The `validateIpAddress()`<br>is never catching that, so the valid IP is being validated, but the invalid IP will always return **true**, resulting in the payload stored in the database. And because the developer was confident in the check, it is never escaped when retrieved from the database and rendered in the admin dashboard.
 
 <hr>
-
+<br>
 ### Proof of Concept:
 
-```
+```http
 POST /wp-admin/admin-ajax.php HTTP/1.1
 Host: 0.0.0.0:31337
 X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>
@@ -88,15 +92,15 @@ X-Forwarded-For: 1.1.1.1"><img src=x onerror=alert(1)>
 action=wpgdprc_process_action&security=cccf5a60ec&data={"type":"access_request","email":"xss@example.com","consent":true}
 ```
 
-![](/assets/img/2021/02/gdpr-xss-poc.png "Proof of Concept")
+<center><img src="/assets/img/2021/02/gdpr-xss-poc.png" title="Proof of Concept"></center>
 
 <hr>
-
+<br>
 ### Fix
 
 Fix for the vulnerability [was released](https://plugins.trac.wordpress.org/changeset/2474862/)  in version 1.5.6 via adding to the check:
 
-```
+```php
 if ($ipAddress === false) {
     return false;
 }
@@ -104,13 +108,14 @@ if ($ipAddress === false) {
 
 The user input is now correctly escaped, but the IP address column is still `varchar(255)`. Also, only the *PATCH* version was incremented, instead of the *MINOR* version, so it's hard to track the updated plugins' percentage via the advanced WordPress statistic. I believe it was a correct decision, but bumping it to `1.6` would be much better from the security point of view.
 
-![](/assets/img/2021/02/gdpr-changelog.png "Changelog")
+<center><img src="/assets/img/2021/02/gdpr-changelog.png" title="Changelog"></center>
 
 <hr>
-
+<br>
 When checking [WPScan](https://wpscan.com/vulnerability/678dac05-d1f7-4e73-a310-dffa8f5bb9c4) to verify that it's not a known vulnerability, I realized that this is, in fact, the (in)famous GDPR plugin, which resulted in a [full compromise](https://www.wordfence.com/blog/2018/11/privilege-escalation-flaw-in-wp-gdpr-compliance-plugin-exploited-in-the-wild/)  of hundreds/thousands of websites back in 2018. But I must say that I was impressed by the fast response & fix from the developer. Unfortunately for me, stored XSS is not a valid finding for Detectify. I did a quick recon for HackerOne in-scope items but didn't find any hit. Maybe I will be lucky next time :)
 
 <hr>
+<br>
 By observing a spike in the "[Downloads per day](https://wordpress.org/plugins/wp-gdpr-compliance/advanced/)" graph during the week after the fix release, we can estimate that approximately ~50k websites updated the plugin, which is about 1/4 of all active installations. The stats are somewhat consistent with past releases and could indicate that we won't see any more websites updating to the latest version, so it might be a good idea to spread the news.
 
 | Date       | Downloads |
@@ -124,17 +129,20 @@ By observing a spike in the "[Downloads per day](https://wordpress.org/plugins/w
 | 2021-02-21 | 1808      |
 | 2021-02-22 | 3192      |
 
-![](/assets/img/2021/02/gdpr-downloads.png "Downloads Per Day")
+<center><img src="/assets/img/2021/02/gdpr-downloads.png" title="Downloads Per Day"></center>
 
 <hr>
 
 ### Timeline
 
-* Friday, February 12th, 2021 ~ Notified a developer about the vulnerability
-* Friday, February 12th, 2021 ~ Finished testing and proposed a fix
-* Saturday, February 13th, 2021 ~ Received a response confirming that the developer received the information and will begin working on a fix
-* Monday, February 15th, 2021 ~ The developer released a patched version of the plugin as of version 1.5.6
-* Tuesday, February 23rd, 2021 ~ Blog post with the details disclosed to the public
+<ul><small>
+    <li>Friday, February 12th, 2021 ~ Notified a developer about the vulnerability</li>
+    <li>Friday, February 12th, 2021 ~ Finished testing and proposed a fix</li>
+    <li>Saturday, February 13th, 2021 ~ Response confirming that the vendor received the info and will begin working on a fix</li>
+    <li>Monday, February 15th, 2021 ~ The developer released a patched version of the plugin as of version 1.5.6</li>
+    <li>Tuesday, February 23rd, 2021 ~ Blog post with the details disclosed to the public</li>
+    </small>
+</ul>
 
 ### References
 

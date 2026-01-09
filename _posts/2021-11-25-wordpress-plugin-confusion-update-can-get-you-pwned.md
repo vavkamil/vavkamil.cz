@@ -2,7 +2,7 @@
 layout: post
 title: "WordPress Plugin Confusion: How an update can get you pwned"
 date: 2021-11-25 00:00:00 -0000
-categories: ['Ethical hacking', 'Tools', 'Bug bounty']
+categories: ['Bug bounty', 'Responsible disclosure']
 tags: [wordpress, dependency confusion, update confusion, supply chain attack]
 author: vavkamil
 redirect_from:
@@ -12,6 +12,9 @@ redirect_from:
 tl;dr: Like the novel "[Dependency Confusion](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610)" supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use [wp_update_confusion.py](https://github.com/vavkamil/wp-update-confusion) to scan for potential targets. To protect your website, please read this [announcement](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/).
 
 <hr>
+
+
+Slides here: [https://vavkamil.cz/talks/2021-11-25-wordpress-supply-chain/](https://vavkamil.cz/talks/2021-11-25-wordpress-supply-chain/)
 
 ## Table of contents
 
@@ -28,6 +31,7 @@ tl;dr: Like the novel "[Dependency Confusion](https://medium.com/@alex.birsan/de
 - [Bug Bounty hunting](#bug-bounty-hunting)
 
 <hr>
+<br>
 
 ## Main idea
 
@@ -35,17 +39,23 @@ I recently did a regular secure code review of one WordPress instance and notice
 
 That would introduce the "[Confused deputy problem](https://en.wikipedia.org/wiki/Confused_deputy_problem)" attack scenario, where the privileged user, instructed to update all plugins regularly, inadvertently infects the instance with malware.
 
+<br>
+
 One could argue that the confused deputy shouldn't blindly update plugins without checking the changelog first, but to be honest, the updates are released so often it quickly becomes monotonous. And we shouldn't put them in that position in the first place, as it's security through obscurity, believing that an outside attacker can't figure out the plugin's name.
 
 To confirm the hypothesis, I began to research if it's, in fact, a possible attack vector and how widespread it is.
 
-![script.png](/assets/img/2021/11/script.png)
+<center><img src="/assets/img/2021/11/script.png"></center>
 
+<hr>
+<br>
 ## The WordPress.org Plugins Directory
 
 WordPress.org offers free hosting to anyone who wishes to develop a plugin. All code in the directory should be as secure as possible, but security is the ultimate responsibility of the plugin developer.
 
 The WordPress.org plugins directory is the easiest way for potential users to download and install any plugin. Once a new plugin is approved, a developer gets access to an (SVN) Subversion Repository. The SVN repository is a release repository, not a development one. All commits, code, or readme files, will trigger a regeneration of the zip files associated with the plugin.
+
+<br>
 
 WordPress’ integration with the plugin directory means the user can update the plugin in a couple of clicks. Users are alerted to updates when the plugin version in SVN increases.
 
@@ -59,17 +69,27 @@ In theory, anyone following the guidelines and passing the review process can up
 
 Implying that WordPress' Security team is internally tracking all the unclaimed plugin names used in the wild, number of installations, and there is some magic threshold value preventing a large-scale supply chain attack. But it also validates the assumption that the attack vector is indeed possible.
 
+<hr>
+<br>
+
 ### Theme approval process
 
 Most business websites using WordPress have a custom theme, and the slug name is almost always in the HTML source code to load JS/CSS files from the theme's asset directory. Detecting the theme slug and taking over the unclaimed ones would be the easiest way.
+
+<br>
 
 WordPress Theme Directory does have a rigorous [Theme Review Process](https://make.wordpress.org/themes/handbook/review/#theme-review-process) & [Theme Review Requirements](https://make.wordpress.org/themes/handbook/review/required/), to ensure quality and security. New themes are generally put to a higher standard to attract new users.
 
 It would be hard for me to develop a frontend appealing to a general audience and pass the review, so I decided not to worry about them.
 
+<hr>
+<br>
+
 ### Plugin approval process
 
 On the other hand, it's impossible to detect most plugins via a passive check, and it will be tough to create a custom wordlist. But the review process for WordPress Plugin Directory is not that strict, and the [guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/) are relatively simple.
+
+<br>
 
 While reading the docs, I was mainly interested in the restrictions for plugin names. Being already familiar with WordPress, I knew that the slug name could only contain lowercase alphanumeric characters divided by dash, but I also learned there are more restrictions:
 
@@ -79,6 +99,8 @@ While reading the docs, I was mainly interested in the restrictions for plugin n
 > _This policy extends to plugin slugs, and we will not permit a slug to begin with another product’s term._
 
 That threw me off because apparently, there is a check for trademarked brands, which will protect most companies and prohibit uploading unclaimed plugins (assuming they use their company name as a prefix for internal plugins). I didn't want to give up yet, so I started digging around, and it turns out the WordPress team is a fan of transparency, and the whole approval process is automated and, most importantly, fully open-sourced.
+
+<br>
 
 By reviewing the `[class-upload-handler.php](https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/plugins/plugin-directory/shortcodes/class-upload-handler.php)` checks, we can see a couple of essential functions:
 
@@ -138,6 +160,9 @@ Surprisingly, big enough (FAANG) style companies can request to add themselves t
 
 In conclusion, the WordPress Plugin Confusion attack against internally developed plugins on business websites is indeed possible. Still, the security mechanism prevents large-scale supply chain attacks against unclaimed plugins installed on more than 100 websites.
 
+<hr>
+<br>
+
 ## Scanner to detect vulnerable plugins
 
 I wrote a simple tool [wp_update_confusion.py](https://github.com/vavkamil/wp-update-confusion), which will passively detect any plugins from the front page response and check if the plugin name contains only the allowed characters. It then pings the WordPress SVN to verify if the slug is already claimed or not.
@@ -162,7 +187,10 @@ The way it works is:
 4) Check if the slug is installed on more than 100 websites
 5) Profit?
 
-![nuclei.png](/assets/img/2021/11/nuclei.png)
+<center><img src="/assets/img/2021/11/nuclei.png"></center>
+
+<hr>
+<br>
 
 ## Debugging WP updates with Burp
 
@@ -200,7 +228,7 @@ You can see the final script here: [https://github.com/vavkamil/wp2burp](https:/
 
 After that, I could see that when the websites is checking if there are any updates available, it issues the following request:
 
-```
+```php
 POST /plugins/update-check/1.1/ HTTP/2
 Host: api.wordpress.org
 User-Agent: WordPress/5.3; http://127.0.0.1:31337/
@@ -238,7 +266,7 @@ Where the JSON data contains a list of all installed plugins, e.g.:
 
 If there is a new version available, the websites received the following response:
 
-```
+```php
 HTTP/2 200 OK
 Date: Sun, 10 Oct 2021 19:13:57 GMT
 Content-Type: application/json
@@ -260,6 +288,9 @@ If you click on the update button, WordPress deletes the contents of the old plu
 But using the docker container to intercept and simulate the attack might be enough, as you can modify the response, so it will contain any version & remote zip file you want:
 
 ![plugin_version.png](/assets/img/2021/11/plugin_version.png)
+
+<hr>
+<br>
 
 ## Publishing WordPress plugin PoC
 
@@ -303,9 +334,15 @@ https://wordpress.org/plugins/xml-rpc-settings
 
 On the other hand, an attacker could now have a foothold into the website. Even worse, if the website admin enables automatic plugins updates, introduced in WordPress 5.5. That would allow the attacker to change plugin files anytime they wanted, without any user interaction.
 
+<hr>
+<br>
+
 ## How to defend yourself
 
 As this is essentially vulnerable by design, I wouldn't expect the fix from the WordPress side. If you are a big enough company, you can contact them and get your trademark in the `$trademarked_slugs` list. Since uploading a "dummy" plugin to the registry is not allowed, one must find another way. You can follow a couple of recommendations to keep your site secured.
+
+<hr>
+<br>
 
 ### Protecting themes
 
@@ -316,6 +353,9 @@ The theme slug is the name of the theme in lower case, with spaces replaced by a
 - No violation of trademarks.
 
 That means that you can rename your custom theme in the following way: `theme-internal_name` to be on the safe side.
+
+<hr>
+<br>
 
 ### Protecting plugins
 
@@ -352,6 +392,9 @@ It is also possible to leverage a [hook](https://developer.wordpress.org/referen
 Some plugins do that for you, for example, [Easy Updates Manager](https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/), which allows you to block updates for specific plugins.
 
 That being said, you should always create a fresh backup and read the changelog before updating any plugins.
+
+<hr>
+<br>
 
 ## Bug Bounty hunting
 
@@ -399,3 +442,4 @@ This research was presented as a talk at the [OWASP Czech Chapter meeting](https
  - [Blog post about the recond phase](https://galnagli.com/Wordpress_Plugin_Update_Confusion/)
  - [Someone somehow requested a CVE-2021-44223 for this](https://nvd.nist.gov/vuln/detail/CVE-2021-44223)
  - [**Please don’t ‘test’ submitting other people’s plugins.**](https://make.wordpress.org/plugins/2021/11/29/please-dont-test-submitting-other-peoples-plugins/)
+

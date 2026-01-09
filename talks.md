@@ -64,7 +64,7 @@ permalink: /talks/
              height="230"
              alt="{{ talk.title }}"
              title=""
-             style="border: 1px solid #7CFF00;
+             style="border: 1px solid rgba(124, 255, 0, 0.2);
                     margin: 10px 0px 40px 40px">
     </a>
     <h2>

@@ -2,7 +2,7 @@
 layout: post
 title: "Bookmarklet hijacking"
 date: 2023-10-26 00:00:00 -0000
-categories: ['Ethical hacking', 'Tools', 'Security Research']
+categories: ['Security research', 'Tools']
 tags: [xss, javascript, bookmarklet, hijacking]
 author: vavkamil
 redirect_from:
@@ -13,9 +13,13 @@ I noticed an exciting link shared on Hacker News titled "[Wait, what's a bookmar
 
 The security engineering mind got me thinking about the security implications of saving bookmarks with JavaScript from other websites, especially when readers share links to the GitHub gists.
 
+<br>
+
 We already know executing any non-trusted JavaScript is a wrong move. People were being tricked into pasting stuff into the browser console on popular websites and got hacked that way. There were even massive phishing campaigns using malicious [bookmarklets against Discord users](https://breakdev.org/hacked-discord-bookmarklet-attacks/).
 
 But what if the victim is cautious and examines the content of bookmarklet JS before saving them to bookmarks? People often hover over links to see if they lead to malicious sites.
+
+<br>
 
 So, I was thinking about changing the content before the user saved it to bookmarks and was experimenting with the ondragstart Event. I came up with a very simple Proof of Concept for Chromium-based browsers and Firefox - [https://gist.github.com/vavkamil/0b167814cabf8787cd4c4ab629614c6e](https://gist.github.com/vavkamil/0b167814cabf8787cd4c4ab629614c6e).
 
@@ -29,15 +33,26 @@ And after saving to bookmarks, it changes to:
 
 You can see it here: [https://xss.vavkamil.cz/bookmarklet.html](https://xss.vavkamil.cz/bookmarklet.html)
 
-### Chromium Version 118.0.5993.88
+<hr>
+<br>
 
-<video src="/assets/img/2023/10/bookmarklets_chromium.webm"></video>
+### PoC: Chromium Version 118.0.5993.88
 
-### Mozilla Firefox 119.0
+<video controls src="/assets/img/2023/10/bookmarklets_chromium.webm"></video>
 
-<video src="/assets/img/2023/10/bookmarklets_firefox.webm"></video>
+<hr>
+<br>
 
-```javascript
+### PoC: Mozilla Firefox 119.0
+
+<video controls src="/assets/img/2023/10/bookmarklets_firefox.webm"></video>
+
+<hr>
+<br>
+
+### Source code
+
+```html
 <html>
 <head>
     <title>Bookmarklet hijacking PoC</title>

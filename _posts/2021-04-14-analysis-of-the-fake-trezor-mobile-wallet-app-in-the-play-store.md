@@ -2,7 +2,7 @@
 layout: post
 title: "Analysis of the Fake Trezor Mobile Wallet app in the Play Store"
 date: 2021-04-14 00:00:00 -0000
-categories: ['Ethical hacking']
+categories: ['Ethical hacking', 'Security research']
 tags: [trezor, bitcoin, scam, cryptocurrency]
 author: vavkamil
 redirect_from:
@@ -18,14 +18,14 @@ A story about a person losing 7.1 bitcoin worth ~$600,000 due to a fake "Trezor"
 I saw another fake Trezor app pop-up on Google Play Store yesterday. People on Reddit were downloading the app to see what it does and to warn others. That caught my attention because it's generally not a good idea to install something like this blindly.
 
 <hr>
-
+<br>
 ### Android app
 
-![](/assets/img/2021/04/google-play-store.png "google-play-store")
+<center><img src="/assets/img/2021/04/google-play-store.png" title="google-play-store"></center>
 
 The Play Store listing had an almost five-star rating, a couple of primarily fake reviews, and around ~500 downloads. It looked somewhat believable to the casual user.
 
-![](/assets/img/2021/04/play-store-reviews.png "play-store-reviews")
+<center><img src="/assets/img/2021/04/play-store-reviews.png" title="play-store-reviews"></center>
 
 I pulled the .apk file from Play Store and decompiled it. From the first look, it was not malware, which was good. 
 
@@ -39,14 +39,14 @@ And on the line 1196:
 
 `this.f2862z = "https://sliu3err-restaurant.com";`
 
-![](/assets/img/2021/04/website-passphrase.png "website-passphrase")
+<center><img src="/assets/img/2021/04/website-passphrase.png" title="website-passphrase"></center>
 
 So the Android application was just a WebView for the phishing website. The only functionality was to enter the 12/24 backup word phrase to connect the Trezor. Anyone who uses Trezor should know that you are never supposed to enter it anywhere, but sadly, people are still falling for it.
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Warning to all Trezor owners using Android devices!<br><br>This app is malicious and has no relation to Trezor or SatoshiLabs. Please, don&#39;t install it.<br><br>Remember that you should never share your seed with anyone until your Trezor device asks you to do it! <a href="https://t.co/6C3iKfPDnR">pic.twitter.com/6C3iKfPDnR</a></p>&mdash; Trezor (@Trezor) <a href="https://twitter.com/Trezor/status/1351123945911705602?ref_src=twsrc%5Etfw">January 18, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 <hr>
-
+<br>
 ### Server compromise
 
 After getting access to the web server, just to look around and see how the backend works, I was surprised by how basic it was. In the "index.php" file was an IP logger:
@@ -111,12 +111,12 @@ Essentially, when the victim installed the Android app and entered the Trezor se
 
 While having access to the Telegram API token, I invited myself to the chat group. Unfortunately, I or the bot couldn't see previous messages, so all I could do was say hello to the scammer. Their name was "Pinern nuere" with the username "caerwe3423".
 
-![](/assets/img/2021/04/telegram-conversation.png "telegram-conversation")
+<center><img src="/assets/img/2021/04/telegram-conversation.png" title="telegram-conversation"></center>
 
 There was nothing more to do, so I just disabled the bot, so it no longer could forward the passphrases and called it a night. In the morning, the fake app was no longer on Play Store, so mission accomplished.
 
 <hr>
-
+<br>
 ### Statistics
 
 Since I grabbed the IP logs from a couple of days, I can share some stats. The backend was reused for all the variations of the scam. Most of the hits were from phones, with a wide range of Android versions worldwide:
@@ -154,12 +154,10 @@ Since I grabbed the IP logs from a couple of days, I can share some stats. The b
 I don't know how many of them were compromised, but hopefully zero.
 
 <hr>
-
+<br>
 ### Indicators of compromise
-
 * https://play.google.com/store/apps/details?id=com.rzor.tr
 * https://play.google.com/store/apps/details?id=com.tzr.trz2
-
 * hXXps://sliuerr-restaurant.com
 * hXXps://sliu3rr-restaurant.com
 * hXXps://sliu3err-restaurant.com
