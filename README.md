@@ -44,8 +44,7 @@ Many talks were presented at conferences, meetups, and OWASP chapter events.
 
 The site is intentionally boring (in a good way):
 
+- **Cloudflare** — security & CDN
 - **GitHub Pages** — hosting & deployment
 - **Jekyll** — static site generator
-- **pages-themes/hacker** — base theme (customized)
-- **Pure Markdown** — content first, no CMS
-- **No tracking, no ads**
+- **[pages-themes/hacker](https://github.com/pages-themes/hacker)** — base theme (customized)
