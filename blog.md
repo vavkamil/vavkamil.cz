@@ -35,6 +35,9 @@ permalink: /blog/
         opacity: 0.8;
         white-space: nowrap;
     }
+li {
+    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+}
 </style>
 Mostly posts about web application security, ethical hacking, and security research:
 
@@ -122,6 +125,6 @@ Mostly posts about web application security, ethical hacking, and security resea
   <br><br>
   <em>{{ post.excerpt | strip_html | truncatewords: 100 }}</em>
 </article>
+<br><br><br>
 <hr>
-<br>
 {% endfor %}

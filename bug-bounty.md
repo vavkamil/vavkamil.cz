@@ -4,6 +4,8 @@ title: "Bug bounty"
 permalink: /bug-bounty/
 ---
 
+19+ years of hands-on ethical hacking experience. Mostly responsible disclosure.
+
 ## CVEs
 
 * [CVE-2021-44223](https://nvd.nist.gov/vuln/detail/CVE-2021-44223) / 9.8 Critical / Vendor: WordPress / Product: WordPress
@@ -14,21 +16,20 @@ permalink: /bug-bounty/
 
 ## HackerOne & Bugcrowd
 
-* [HackerOne profile](https://hackerone.com/vavkamil){:target="_blank"}
-* [Bugcrowd profile](https://bugcrowd.com/vavkamil){:target="_blank"}
+* [HackerOne profile](https://hackerone.com/vavkamil){:target="_blank"} / [Bugcrowd profile](https://bugcrowd.com/vavkamil){:target="_blank"}
 
-### Higlights
+#### Disclosed reports
 
-* Evernote / [Automattic](https://hackerone.com/reports/550937){:target="_blank"} / Starbucks / [Node.js](https://hackerone.com/reports/550937){:target="_blank"} / [Kubernetes](https://hackerone.com/reports/1073514) / [Traffic Factory](https://hackerone.com/reports/1364851)
-
-* Smartsheet / Quora / Fitbit / Spotify / Bugcrowd / LastPass / SendSafely / Tesla
-
+* [Automattic](https://hackerone.com/reports/550937){:target="_blank"} / [Node.js](https://hackerone.com/reports/550937){:target="_blank"} / [Kubernetes](https://hackerone.com/reports/1073514){:target="_blank"} / [Traffic Factory](https://hackerone.com/reports/1364851){:target="_blank"} / [mdBook](https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory/){:target="_blank"}<br>[WP GDPR Compliance](https://wpscan.com/vulnerability/69655879-9fd5-49a3-96ce-81e43b8d8438/){:target="_blank"} / [All-in-One WP Migration](https://wpscan.com/vulnerability/ef4734a3-f12c-49ef-a49b-f00bd4a21ed9/){:target="_blank"}
 <hr>
 <br>
 
 ## Responsible Disclosure Higlights
 
 <style>
+    a {
+        text-decoration: none;
+    }
     #main>.inner>section {
         padding: 3em 0 4em 0;
     }
@@ -75,6 +76,9 @@ permalink: /bug-bounty/
     	margin-top: -0.75em;
     	margin-left: -0.75em;
     }
+td {
+    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+}
 </style>
 
 
@@ -465,6 +469,32 @@ permalink: /bug-bounty/
 <hr>
 <br>
 
+
+<article>
+  <h3>
+    <a href="/blog/2020-09-07-hacking-nodejs-url-api/">
+      Hacking Node.js legacy URL API
+    </a>
+  </h3>
+  <a href="/blog/2020-09-07-hacking-nodejs-url-api/">
+      <img src="/assets/img/posts/2020-09-07-hacking-nodejs-url-api.png" align="right" height="230" alt="Hacking Node.js legacy URL API" title="" style="border: 1px solid rgba(124, 255, 0, 0.2);
+                  margin: 0px 0px 40px 40px">
+  </a>
+  <em><small>
+  <time datetime="2020-09-07">September 07, 2020</time>
+  <span> | </span>
+  8 minutes to read
+</small></em>
+  <br>
+  <br>
+  <em>Our security engineers ensure the highest possible safety of our services. Their weapon of choice? Penetration testing. It is a simulation of a cyber-attack conducted by authorized developers to discover and penetrate any security vulnerabilities in the system/app/service the team is developing. Other proactive steps include secure code review, dependency scanning, SAST, and asset monitoring.
+</em>
+</article>
+<br>
+
+<hr>
+<br>
+
 <article>
   
 
@@ -495,24 +525,7 @@ permalink: /bug-bounty/
 <hr>
 <br>
 
-bar
-
-baz
-
-
-* [XSS on kubernetes-csi.github.io (mdBook)](https://hackerone.com/reports/1073514){:target="_blank"}
-* [Node.js ~ CRLF Injection in legacy url API (url.parse().hostname)](https://hackerone.com/reports/771596){:target="_blank"}
-* [Insufficient DKIM record with RSA 512-bit key used on WordPress.com](https://hackerone.com/reports/550937){:target="_blank"}
-
-
-<hr>
-<br>
-
-
-<hr>
-<br>
-
-## Vulnerability Details
+## Responsible Disclosure Details
 
 | Website           | Vulnerability Details                                                        | References                                                               |
 |-------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|

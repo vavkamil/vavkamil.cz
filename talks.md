@@ -35,6 +35,9 @@ permalink: /talks/
         opacity: 0.8;
         white-space: nowrap;
     }
+li {
+    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+}
 </style>
 15+ talks. 13+ years. Mostly offensive web security, bug bounty, and security research:
 {% assign talks_sorted = site.talks | sort: "latest_event_date" | reverse %}

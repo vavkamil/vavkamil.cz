@@ -3,19 +3,42 @@ layout: page
 title: "whoami"
 permalink: /whoami/
 ---
+<style>
+    a {
+        text-decoration: none;
+    }
+    img {
+        border: 1px solid rgba(124, 255, 0, 0.2);
+        margin: 10px 0px 20px 40px;
+    }
+    #avatar {
+        float: right;
+        width: 33% !important;
 
-<img align="right" height="250" src="{{ site.baseurl }}/assets/img/avatar.jpg" border="1" alt="avatar" title="Kamil Vavra">
+        height: auto;
+        filter: grayscale(100%);
+        transition: transform 0.3s,
+            filter 0.3s;
+    }
 
-Hi there,
+    #avatar:hover {
+        filter: none;
+        transform: scale(1.05) rotate(3deg);
+    }
+</style>
+<img id="avatar" align="right" height="" src="{{ site.baseurl }}/assets/img/avatar.jpg" border="1" alt="avatar" title="Kamil Vavra">
 
-My name is Kamil, I'm an ethical hacker living in Brno, Czech republic. Currently working as Application Security Engineer.
+Hi there, my name is Kamil Vavra.
 
-I’m interested in offensive security, bug bounty, and web application penetration testing.
+I’m an independent offensive security expert with **19+ years of hands-on ethical hacking experience**, specializing in offensive web application security.
 
-White hat probably since ~15yo, when I first learned about XSS & SQLi. Since then, reported many security vulnerabilities to top companies all around the world.
+White-hat hacker based in Brno, Czechia, currently working as a Senior Application Security Engineer. My work focuses on deep, manual web application testing, vulnerability research, and helping product teams secure real-world production systems.
 
-I used to write code in Perl a lot, but have been learning Python for a while. You can check my projects on [GitHub](https://github.com/vavkamil){:target="_blank"} or follow me on [Twitter](https://twitter.com/vavkamil){:target="_blank"}.
+I have been involved in offensive security since my early teens, when I first learned about XSS and SQL injection. Since then, I’ve discovered and responsibly reported thousands of security vulnerabilities to leading companies worldwide, helping protect products used by millions of people.
 
-Regarding [bug bounty]({{ site.baseurl }}/bug-bounty), I’m on both Bugcrowd (started in 2015) and HackerOne and I do a lot of responsible disclosure as well.
+My main interests include offensive security, [bug bounty]({{ site.baseurl }}/bug-bounty) hunting, and web application security. I do a lot of security research, publish [blog]({{ site.baseurl }}/blog) posts, and regularly engage in responsible disclosure.
 
-Lastly, sometimes I do [public talks]({{ site.baseurl }}/talks) and courses about ethical hacking (I'm also an OWASP Czech Chapter Leader). If you wanna reach me, check the [contact]({{ site.baseurl }}/contact) page. 
+I enjoy sharing knowledge through public [talks]({{ site.baseurl }}/talks) on security conferences, and I’m also an OWASP Czech Chapter Leader. Occasionally, I write code. You can find my projects on [GitHub](https://github.com/vavkamil){:target="_blank"} or add me on [LinkedIn](https://linkedin.com/in/vavkamil){:target="_blank"}.
+
+<hr>
+<small><em>Certifications: <a target="_blank" href="https://portswigger.net/web-security/e/c/d1af2e3f879e4c25">Burp Suite Certified Practitioner</a></em></small>
