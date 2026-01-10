@@ -414,21 +414,46 @@ permalink: /bug-bounty/
     </thead>
     <tbody>
         <tr>
-            <td>Rohlik.cz</td>
-            <td>Multiple XSS, web cache deception, open redirects</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Airbank.cz</td>
-            <td>Disclosed Twitter API keys (full access & ability to tweet)</td>
+            <td>WordPress.org</td>
+            <td>WordPress Plugin Confusion / CVE-2021-44223</td>
             <td><a target="_blank"
-                href="https://www.zive.cz/.well-known/security.txt">
-            security.txt</a></td>
+                href="https://vavkamil.cz/blog/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned/">
+            [write-up]</a></td>
         </tr>
         <tr>
-            <td>Zive.cz</td>
-            <td>Multiple XSS and broken logic in SSO (Account takeover)</td>
-            <td></td>
+            <td>Node.js</td>
+            <td>Hacking Node.js legacy URL API</td>
+            <td><a target="_blank"
+                href="https://vavkamil.cz/blog/2020-09-07-hacking-nodejs-url-api/">
+            [write-up]</a></td>
+        </tr>
+        <tr>
+            <td>Costa</td>
+            <td>Hacking a Cruise Ship</td>
+            <td><a target="_blank"
+                href="https://vavkamil.cz/talks/2023-11-08-hacking-cruise-ship/">
+            [write-up]</a></td>
+        </tr>
+        <tr>
+            <td>Drmax.cz</td>
+            <td>0click Account Takeover via API (password reset)</td>
+            <td><a target="_blank"
+                href="https://vavkamil.cz/talks/2025-09-30-hacking-pharmacy/">
+            [write-up]</a></td>
+        </tr>
+        <tr>
+            <td>Strong.tv</td>
+            <td>Unauthenticated Remote DoS Exploit in SRT 43UB6203 smart TV</td>
+            <td><a target="_blank"
+                href="https://vavkamil.cz/blog/2021-03-11-exploiting-remote-dos-vulnerability-in-my-not-so-smart-tv/">
+            [write-up]</a></td>
+        </tr>
+        <tr>
+            <td>o2.cz</td>
+            <td>Disclosure of invoices and PII via android app API (IDORs)</td>
+            <td><a target="_blank"
+                href="https://vavkamil.cz/blog/2019-09-15-how-to-bypass-android-certificate-pinning-and-intercept-ssl-traffic/">
+            [write-up]</a></td>
         </tr>
         <tr>
             <td>mdBook (Rust)</td>
@@ -440,39 +465,105 @@ permalink: /bug-bounty/
         <tr>
             <td>Kubernetes</td>
             <td>Reflected XSS in docs page  kubernetes-csi.github.io</td>
+            <td><a target="_blank"
+                href="https://hackerone.com/reports/1073514">
+            h1 report</a></td>
+        </tr>
+        <tr>
+            <td>WordPress.com</td>
+            <td>Insufficient DKIM record with RSA 512-bit key used</td>
+            <td><a target="_blank"
+                href="https://hackerone.com/reports/550937">
+            h1 report</a></td>
+        </tr>
+        <tr>
+            <td>Trezor.io</td>
+            <td>Misconfigured CORS - CORS bypass via null origin</td>
+            <td><a target="_blank"
+                href="https://github.com/trezor/trezord-go/commit/ddead55bc0d8c332ce8d4beb2491dd49cbdec49d">
+            GitHub issue</a></td>
+        </tr>
+        <tr>
+            <td>Pirati</td>
+            <td>Reflected XSS Found via source code review</td>
+            <td><a target="_blank"
+                href="https://github.com/pirati-web/socialnisystem.cz/issues/1">
+            GitHub issue</a></td>
+        </tr>
+        <tr>
+            <td>Whalebone.io</td>
+            <td>Swagger UI XSS</td>
             <td></td>
+        </tr>
+        <tr>
+            <td>Marshall</td>
+            <td>Orders API IDOR - PII Disclosure</td>
+            <td><a target="_blank"
+                href="https://www.marshall.com/us/en/policies/security">
+            Security</a></td>
+        </tr>
+        <tr>
+            <td>cz.nic</td>
+            <td>IDOR hidden whois data for CZ tld</td>
+            <td><a target="_blank"
+                href="https://www.nic.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Seznam.cz</td>
+            <td>XSS, Cookie bomb (DoS)</td>
+            <td><a target="_blank"
+                href="https://seznam.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Rohlik.cz</td>
+            <td>Multiple XSS, web cache deception, open redirects</td>
+            <td><a target="_blank"
+                href="https://www.rohlik.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Airbank.cz</td>
+            <td>Disclosed Twitter API keys (full access & ability to tweet)</td>
+            <td><a target="_blank"
+                href="https://www.airbank.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Zive.cz</td>
+            <td>Multiple XSS and broken logic in SSO (Account takeover)</td>
+            <td><a target="_blank"
+                href="https://www.zive.cz/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Trezor.io</td>
             <td>Wiki Open redirect & docs XSS</td>
-            <td></td>
+            <td><a target="_blank"
+                href="https://trezor.io/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Protonmail</td>
             <td>Reflected XSS via .svg file (Drive)</td>
-            <td></td>
+            <td><a target="_blank"
+                href="https://proton.me/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Protonmail</td>
             <td>RLO spoofing - Spoofing file extension via share link (Drive)</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>trezord-go</td>
-            <td>Misconfigured CORS - CORS bypass via null origin</td>
             <td><a target="_blank"
-                href="https://github.com/trezor/trezord-go/commit/ddead55bc0d8c332ce8d4beb2491dd49cbdec49d">
-            github.com/trezor</a></td>
+                href="https://proton.me/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
-            <td>Notino.cz</td><td>Reflected XSS in seach</td><td></td>
-        </tr>
-        <tr>
-            <td>Strong.tv</td>
-            <td>Unauthenticated Remote DoS Exploit in SRT 43UB6203 smart TV</td>
+            <td>Notino.cz</td>
+            <td>Reflected XSS in seach</td>
             <td><a target="_blank"
-                href="https://xss.vavkamil.cz/strong-tv-dos-poc.html">
-            Exploit</a></td>
+                href="https://www.notino.cz/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Airbank.cz</td>
@@ -480,11 +571,6 @@ permalink: /bug-bounty/
             <td><a target="_blank"
                 href="https://www.airbank.cz/.well-known/security.txt">
             security.txt</a></td>
-        </tr>
-        <tr>
-            <td>Subreg.cz</td>
-            <td>Multiple Reflected & Dom based XSS</td>
-            <td></td>
         </tr>
         <tr>
             <td>Airbank.cz</td>
@@ -501,16 +587,6 @@ permalink: /bug-bounty/
             security.txt</a></td>
         </tr>
         <tr>
-            <td>Prospanek.cz</td>
-            <td>Reflected XSS in search</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Damejidlo.cz</td>
-            <td>Reflected XSS in restaurants archive</td>
-            <td></td>
-        </tr>
-        <tr>
             <td>Gopay.com</td>
             <td>Stored XSS in WordPress (CVE-2019-11869)</td>
             <td><a target="_blank"
@@ -520,7 +596,9 @@ permalink: /bug-bounty/
         <tr>
             <td>Trezor.io</td>
             <td>Disclosure of user IPs via debug MessageEvent (Domain takeover)</td>
-            <td></td>
+            <td><a target="_blank"
+                href="https://trezor.io/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Rohlik.cz</td>
@@ -528,33 +606,6 @@ permalink: /bug-bounty/
             <td><a target="_blank"
                 href="https://www.rohlik.cz/.well-known/security.txt">
             security.txt</a></td>
-        </tr>
-        <tr>
-            <td>o2.cz</td>
-            <td>Disclosure of invoices and PII via android app API (IDORs)</td>
-            <td>writeup</td>
-        </tr>
-        <tr>
-            <td>Idos.cz</td>
-            <td>Multiple XSS, Arbitrary File Download, Source-code disclosure</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Pirati</td>
-            <td>Reflected XSS Found via source code review</td>
-            <td><a target="_blank"
-                href="https://github.com/pirati-web/socialnisystem.cz/issues/1">
-            github</a></td>
-        </tr>
-        <tr>
-            <td>UPC.cz</td>
-            <td>Reflected XSS / Unvalidated redirect</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>cd.cz</td>
-            <td>Misconfigured API (PII leak in JavaScript, CORS)</td>
-            <td></td>
         </tr>
         <tr>
             <td>CSFD.cz</td>
@@ -580,16 +631,13 @@ permalink: /bug-bounty/
         <tr>
             <td>Mall.cz</td>
             <td>XSS in Angular Template</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Fler.cz</td>
-            <td>CORS misconfiguration - Disclosure of PII via JavaScript exploit</td>
-            <td></td>
+            <td><a target="_blank"
+                href="https://allegro.cz/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
             <td>Alza.cz</td>
-            <td>XSS filter bypass</td>
+            <td>XSS filter bypass, orders IDOR (PII)</td>
             <td><a target="_blank"
                 href="https://www.alza.cz/.well-known/security.txt">
             security.txt</a></td>
@@ -602,13 +650,111 @@ permalink: /bug-bounty/
             security.txt</a></td>
         </tr>
         <tr>
-            <td>Drmax.cz</td>
+            <td>Seznam.cz</td>
+            <td>Account takeover / Multiple XSS -> CSP bypass -> CSRF</td>
+            <td><a target="_blank"
+                href="https://seznam.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Kiwi.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://www.kiwi.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Deepnote.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://deepnote.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Liferay.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://www.liferay.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Sportega.cz</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://www.sportega.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Apify.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://apify.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Printify.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://printify.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Printful.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://printful.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>TunaSec.com</td>
+            <td>Multiple vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://tunasec.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Engeto.cz</td>
+            <td>Multiple vulnerabilities</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Subreg.cz</td>
+            <td>Multiple Reflected & Dom based XSS</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Prospanek.cz</td>
+            <td>Reflected XSS in search</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Damejidlo.cz</td>
+            <td>Reflected XSS in restaurants archive</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>idos.cz</td>
+            <td>Multiple XSS, Arbitrary File Download, Source-code disclosure</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>UPC.cz</td>
+            <td>Reflected XSS / Unvalidated redirect</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>cd.cz</td>
+            <td>Misconfigured API (PII leak in JavaScript, CORS)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Fler.cz</td>
             <td>CORS misconfiguration - Disclosure of PII via JavaScript exploit</td>
             <td></td>
         </tr>
         <tr>
-            <td>Seznam.cz</td>
-            <td>Account takeover / XSS -> CSP bypass -> CSRF -> account takeover</td>
+            <td>Drmax.cz</td>
+            <td>CORS misconfiguration - Disclosure of PII via JavaScript exploit</td>
             <td></td>
         </tr>
         <tr>
@@ -617,41 +763,120 @@ permalink: /bug-bounty/
             <td></td>
         </tr>
         <tr>
-            <td>Daybyme.com</td>
-            <td>CSRF, IDOR / Stored XSS with significant impact</td>
-            <td></td>
-        </tr>
-        <tr>
             <td>Tsbohemia.cz</td>
             <td>Dom based XSS in search function</td>
             <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Philips-hue</td>
+            <td>CORS misconfiguration</td>
+            <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Nivea</td>
+            <td>SQLi</td>
+            <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Cloudflare.com</td>
+            <td>??</td>
+            <td><a target="_blank"
+                href="https://www.cloudflare.com/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Spotify</td>
+            <td>??</td>
+            <td><a target="_blank"
+                href="https://www.spotify.com/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Atlassian</td>
+            <td>??</td>
+            <td><a target="_blank"
+                href="https://www.atlassian.com/.well-known/security.txt">
+            security.txt</a></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Evernote</td>
+            <td>??</td>
+            <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Starbucks</td>
+            <td>??</td>
+            <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>Fitbit</td>
+            <td>??</td>
+            <td></td>
         </tr>
         <tr>
-            <td>foo</td><td>bar</td><td></td>
+            <td>LastPass</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Tesla</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Ford</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Logitech</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Sony</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Wordpress</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Smartsheet</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Quora</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Bugcrowd</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>SendSafely</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Recorded Future</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Mars</td>
+            <td>??</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Pinterest</td>
+            <td>??</td>
+            <td></td>
         </tr>
     </tbody>
 </table>

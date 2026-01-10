@@ -21,15 +21,12 @@ permalink: /talks/
         margin: 0.25rem 0;
     }
 
-    /* Fixed-width year column */
     .talks-toc-year {
         width: 3.5rem;
         color: #7CFF00;
-        /* optional, match your theme */
         flex-shrink: 0;
     }
 
-    /* Push event name to the right */
     .talks-toc-event {
         margin-left: auto;
         opacity: 0.8;
@@ -91,7 +88,7 @@ permalink: /talks/
             {% assign year = talk.latest_event_date | date: "%Y" %}
             <li>
                 <span class="talks-toc-year">{{ year }}</span>
-                <a href="{{ talk.url | relative_url }}">{{ talk.title }}</a>
+                <a href="{{ talk.url | relative_url }}" {% unless talk.slides %}style="text-decoration: line-through;"{% endunless %}>{{ talk.title }}</a>
                 <span class="talks-toc-event"><small>{{ talk.events[0].event }}</small></span>
             </li>
         {% endfor %}
