@@ -68,6 +68,7 @@ permalink: /bug-bounty/
         filter: none;
         transform: scale(1.05) rotate(3deg);
     }
+
     .row {
     	display:flex;
     	flex-wrap: wrap;
@@ -76,315 +77,193 @@ permalink: /bug-bounty/
     	margin-top: -0.75em;
     	margin-left: -0.75em;
     }
-td {
-    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
-}
+
+    td {
+        border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+    }
 </style>
 
 
 <div class="row">
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="spotify.com">
-            <img src="/assets/img/logos/spotify_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="spotify.com">
+        <img src="/assets/img/logos/spotify_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="sony.com">
-            <img src="/assets/img/logos/sony_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="sony.com">
+        <img src="/assets/img/logos/sony_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="tesla.com">
-            <img src="/assets/img/logos/tesla_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="tesla.com">
+        <img src="/assets/img/logos/tesla_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="starbucks.com">
-            <img src="/assets/img/logos/starbucks_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="starbucks.com">
+        <img src="/assets/img/logos/starbucks_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="nivea.com">
-            <img src="/assets/img/logos/nivea_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="nivea.com">
+        <img src="/assets/img/logos/nivea_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="ford.com">
-            <img src="/assets/img/logos/ford_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="ford.com">
+        <img src="/assets/img/logos/ford_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="mars.com">
-            <img src="/assets/img/logos/mars_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="mars.com">
+        <img src="/assets/img/logos/mars_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="lastpass.com">
-            <img src="/assets/img/logos/lastpass_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="lastpass.com">
+        <img src="/assets/img/logos/lastpass_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="pinterest.com">
-            <img src="/assets/img/logos/pinterest_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="pinterest.com">
+        <img src="/assets/img/logos/pinterest_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="bugcrowd.com">
-            <img src="/assets/img/logos/bugcrowd_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="bugcrowd.com">
+        <img src="/assets/img/logos/bugcrowd_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="nodejs.org">
-            <img src="/assets/img/logos/nodejs_org.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="nodejs.org">
+        <img src="/assets/img/logos/nodejs_org.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="kubernetes.io">
-            <img src="/assets/img/logos/kubernetes_io.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="kubernetes.io">
+        <img src="/assets/img/logos/kubernetes_io.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="cloudflare.com">
-            <img src="/assets/img/logos/cloudflare_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="cloudflare.com">
+        <img src="/assets/img/logos/cloudflare_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="atlassian.com">
-            <img src="/assets/img/logos/atlassian_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="atlassian.com">
+        <img src="/assets/img/logos/atlassian_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="wordpress.org">
-            <img src="/assets/img/logos/wordpress_org.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="wordpress.org">
+        <img src="/assets/img/logos/wordpress_org.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="automattic.com">
-            <img src="/assets/img/logos/automattic_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="automattic.com">
+        <img src="/assets/img/logos/automattic_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="marshall.com">
-            <img src="/assets/img/logos/marshall_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="marshall.com">
+        <img src="/assets/img/logos/marshall_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="protonmail.com">
-            <img src="/assets/img/logos/protonmail_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="protonmail.com">
+        <img src="/assets/img/logos/protonmail_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="evernote.com">
-            <img src="/assets/img/logos/evernote_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="evernote.com">
+        <img src="/assets/img/logos/evernote_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="fitbit.com">
-            <img src="/assets/img/logos/fitbit_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="fitbit.com">
+        <img src="/assets/img/logos/fitbit_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="logitech.com">
-            <img src="/assets/img/logos/logitech_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="logitech.com">
+        <img src="/assets/img/logos/logitech_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="philips-hue.com">
-            <img src="/assets/img/logos/philips-hue_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="philips-hue.com">
+        <img src="/assets/img/logos/philips-hue_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="quora.com">
-            <img src="/assets/img/logos/quora_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="quora.com">
+        <img src="/assets/img/logos/quora_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="recordedfuture.com">
-            <img src="/assets/img/logos/recordedfuture_com.png"
-                 width=""
-                 height=""
-                 alt="" />
-        </div>
+    <div class="logo-card" title="recordedfuture.com">
+        <img src="/assets/img/logos/recordedfuture_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="upc.cz">
-            <img src="/assets/img/logos/vodafone_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="upc.cz">
+        <img src="/assets/img/logos/vodafone_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="t-mobile.cz">
-            <img src="/assets/img/logos/tmobile_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="t-mobile.cz">
+        <img src="/assets/img/logos/tmobile_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="o2.cz">
-            <img src="/assets/img/logos/o2_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="o2.cz">
+        <img src="/assets/img/logos/o2_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="seznam.cz">
-            <img src="/assets/img/logos/seznam_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="seznam.cz">
+        <img src="/assets/img/logos/seznam_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="alza.cz">
-            <img src="/assets/img/logos/alza_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="alza.cz">
+        <img src="/assets/img/logos/alza_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="kiwi.com">
-            <img src="/assets/img/logos/kiwi_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="kiwi.com">
+        <img src="/assets/img/logos/kiwi_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="notino.cz">
-            <img src="/assets/img/logos/notino_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="notino.cz">
+        <img src="/assets/img/logos/notino_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="rohlik.cz">
-            <img src="/assets/img/logos/rohlik_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="rohlik.cz">
+        <img src="/assets/img/logos/rohlik_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="damejidlo.cz">
-            <img src="/assets/img/logos/foodora_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="damejidlo.cz">
+        <img src="/assets/img/logos/foodora_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="drmax.cz">
-            <img src="/assets/img/logos/drmax_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="drmax.cz">
+        <img src="/assets/img/logos/drmax_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="csfd.cz">
-            <img src="/assets/img/logos/csfd_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="csfd.cz">
+        <img src="/assets/img/logos/csfd_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="mall.cz">
-            <img src="/assets/img/logos/mall_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="mall.cz">
+        <img src="/assets/img/logos/mall_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="airbank.cz">
-            <img src="/assets/img/logos/airbank_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="airbank.cz">
+        <img src="/assets/img/logos/airbank_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="nic.cz">
-            <img src="/assets/img/logos/nic_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="nic.cz">
+        <img src="/assets/img/logos/nic_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="cd.cz">
-            <img src="/assets/img/logos/cd_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="cd.cz">
+        <img src="/assets/img/logos/cd_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="idos.cz">
-            <img src="/assets/img/logos/idos_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="idos.cz">
+        <img src="/assets/img/logos/idos_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="pirati.cz">
-            <img src="/assets/img/logos/pirati_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="pirati.cz">
+        <img src="/assets/img/logos/pirati_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="heureka.cz">
-            <img src="/assets/img/logos/heureka_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="heureka.cz">
+        <img src="/assets/img/logos/heureka_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="gopay.com">
-            <img src="/assets/img/logos/gopay_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="gopay.com">
+        <img src="/assets/img/logos/gopay_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="zive.cz">
-            <img src="/assets/img/logos/zive_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="zive.cz">
+        <img src="/assets/img/logos/zive_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="prospanek.cz">
-            <img src="/assets/img/logos/prospanek_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="prospanek.cz">
+        <img src="/assets/img/logos/prospanek_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="sportega.cz">
-            <img src="/assets/img/logos/sportega_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="sportega.cz">
+        <img src="/assets/img/logos/sportega_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="tsbohemia.cz">
-            <img src="/assets/img/logos/tsbohemia.cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="tsbohemia.cz">
+        <img src="/assets/img/logos/tsbohemia.cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="tele3.cz">
-            <img src="/assets/img/logos/tele3_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="tele3.cz">
+        <img src="/assets/img/logos/tele3_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="rust-lang.org">
-            <img src="/assets/img/logos/rustlang_org.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="rust-lang.org">
+        <img src="/assets/img/logos/rustlang_org.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="trezor.io">
-            <img src="/assets/img/logos/trezor_io.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="trezor.io">
+        <img src="/assets/img/logos/trezor_io.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="apify.com">
-            <img src="/assets/img/logos/apify_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="apify.com">
+        <img src="/assets/img/logos/apify_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="deepnote.com">
-            <img src="/assets/img/logos/deepnote_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="deepnote.com">
+        <img src="/assets/img/logos/deepnote_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="liferay.com">
-            <img src="/assets/img/logos/liferay_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="liferay.com">
+        <img src="/assets/img/logos/liferay_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="whalebone.io">
-            <img src="/assets/img/logos/whalebone_io.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="whalebone.io">
+        <img src="/assets/img/logos/whalebone_io.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="active24.cz">
-            <img src="/assets/img/logos/active24_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="active24.cz">
+        <img src="/assets/img/logos/active24_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="subreg.cz">
-            <img src="/assets/img/logos/subreg_cz.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="subreg.cz">
+        <img src="/assets/img/logos/subreg_cz.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="printful.com">
-            <img src="/assets/img/logos/printful_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="printful.com">
+        <img src="/assets/img/logos/printful_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="printify.com">
-            <img src="/assets/img/logos/printify_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="printify.com">
+        <img src="/assets/img/logos/printify_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="costacruises.com">
-            <img src="/assets/img/logos/costacruises_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="costacruises.com">
+        <img src="/assets/img/logos/costacruises_com.png" width="" height="" alt="" />
     </div>
-    <div class="col-1 col-2-medium col-4-small">
-        <div class="logo-card" title="smartsheet.com">
-            <img src="/assets/img/logos/smartsheet_com.png" width="" height="" alt="" />
-        </div>
+    <div class="logo-card" title="smartsheet.com">
+        <img src="/assets/img/logos/smartsheet_com.png" width="" height="" alt="" />
     </div>
 </div>
 
@@ -527,42 +406,252 @@ td {
 
 ## Responsible Disclosure Details
 
-| Website           | Vulnerability Details                                                        | References                                                               |
-|-------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| Rohlik.cz         | Multiple XSS, web cache deception, open redirects                            | 
-| Airbank.cz        | Disclosed Twitter API keys (full access & ability to tweet)                  | 
-| Zive.cz           | Multiple XSS and broken logic in SSO (Account takeover)                      | [security.txt](https://www.zive.cz/.well-known/security.txt){:target="_blank"}
-| mdBook (Rust)     | Reflected XSS in search function                                             | [CVE-2020-26297](https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory.html){:target="_blank"}
-| Kubernetes        | Reflected XSS in docs page  kubernetes-csi.github.io                         | 
-| Trezor.io         | Wiki Open redirect & docs XSS                                                | 
-| Protonmail        | Reflected XSS via .svg file (Drive)                                          | 
-| Protonmail        | RLO spoofing - Spoofing file extension via share link (Drive)                | 
-| trezord-go        | Misconfigured CORS - CORS bypass via null origin                             | [github.com](https://github.com/trezor/trezord-go/commit/ddead55bc0d8c332ce8d4beb2491dd49cbdec49d){:target="_blank"}
-| Notino.cz         | Reflected XSS in seach                                                       | 
-| Strong.tv         | Unauthenticated Remote DoS Exploit in SRT 43UB6203 smart TV                  | [Exploit](xss.vavkamil.cz/strong-tv-dos-poc.html){:target="_blank"}
-| Airbank.cz        | Reflected Dom XSS via POST request                                           | [security.txt](https://www.airbank.cz/.well-known/security.txt){:target="_blank"}          |
-| Subreg.cz         | Multiple Reflected & Dom based XSS                                            |                                                                    |
-| Airbank.cz        | Unrestricted file upload API allows to upload any file                        | [security.txt](https://www.airbank.cz/.well-known/security.txt){:target="_blank"}          |
-| Active24.cz       | Dom based XSS in domain search                                                | [security.txt](https://www.active24.cz/.well-known/security.txt){:target="_blank"}         |
-| Prospanek.cz      | Reflected XSS in search                                                       |                                                                       |
-| Damejidlo.cz      | Reflected XSS in restaurants archive                                          |                                                                      |
-| Gopay.com         | Stored XSS in WordPress (CVE-2019-11869)                                      | [security.txt](https://www.gopay.com/.well-known/security.txt){:target="_blank"}           |
-| Trezor.io         | Disclosure of user IPs via debug MessageEvent (Domain takeover)               | [Leaderboard](https://trezor.io/security/){:target="_blank"}                               |
-| Rohlik.cz         | Access to Google calendar revealing sensitive info                            | [security.txt](https://www.rohlik.cz/.well-known/security.txt){:target="_blank"}           |
-| o2.cz             | Disclosure of invoices and PII via android app API (IDORs)                    | [Write-up](#todo)                                                        |
-| Idos.cz           | Multiple XSS, Arbitrary File Download, Source-code disclosure                 |                                                                        |
-| Socialnisystem.cz | Reflected XSS Found via source code review                                    | [GitHub issue](https://github.com/pirati-web/socialnisystem.cz/issues/1){:target="_blank"} |
-| Eshop.upc.cz      | Reflected XSS / Unvalidated redirect                                          |                                                                         |
-| Cd.cz             | Misconfigured API (PII leak in JavaScript, CORS)                              |                                                                      |
-| CSFD.cz           | Multiple XSS, IDOR vulnerabilities (Account takeover)                         | [Hall of Fame](https://www.csfd.cz/vyvojari/){:target="_blank"}                            |
-| T-mobile.cz       | Multiple CSRF, XSS vulnerabilities                                            | [Hall of Fame](https://www.t-mobile.cz/bug-bounty/zed-slavy){:target="_blank"}             |
-| Zive.cz           | Multiple XSS vulnerabilities                                                   | [security.txt](https://www.zive.cz/.well-known/security.txt){:target="_blank"}             |
-| Mall.cz           | XSS in Angular Template                                                        | [Hacktrophy](https://hacktrophy.com/){:target="_blank"}                                    |
-| Fler.cz           | CORS misconfiguration - Disclosure of PII via JavaScript exploit               |                                                                     |
-| Alza.cz           | XSS filter bypass                                                              | [security.txt](https://www.alza.cz/.well-known/security.txt){:target="_blank"}             |
-| Heureka.cz        | Multiple XSS vulnerabilities                                                   | [security.txt](https://heureka.cz/.well-known/security.txt){:target="_blank"}              |
-| Drmax.cz          | CORS misconfiguration - Disclosure of PII via JavaScript exploit               |                                                                        |
-| Seznam.cz         | Account takeover / XSS -> CSP bypass -> CSRF -> account takeover               |                                                                        |
-| Tele3.cz          | SQLi - Blind based SQL Injection                                               |                                                                       |
-| Daybyme.com       | CSRF, IDOR / Stored XSS with significant impact                                | [Hacktrophy](https://hacktrophy.com/){:target="_blank"}                                    |
-| Tsbohemia.cz      | Dom based XSS in search function                                               |                                                                      |
+<table>
+    <thead>
+        <tr>
+            <th>Website</th><th>Vulnerability Details</th><th>References</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Rohlik.cz</td>
+            <td>Multiple XSS, web cache deception, open redirects</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Airbank.cz</td>
+            <td>Disclosed Twitter API keys (full access & ability to tweet)</td>
+            <td><a target="_blank"
+                href="https://www.zive.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Zive.cz</td>
+            <td>Multiple XSS and broken logic in SSO (Account takeover)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>mdBook (Rust)</td>
+            <td>Reflected XSS in search function</td>
+            <td><a target="_blank"
+                href="https://blog.rust-lang.org/2021/01/04/mdbook-security-advisory.html">
+            CVE-2020-26297</a></td>
+        </tr>
+        <tr>
+            <td>Kubernetes</td>
+            <td>Reflected XSS in docs page  kubernetes-csi.github.io</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Trezor.io</td>
+            <td>Wiki Open redirect & docs XSS</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Protonmail</td>
+            <td>Reflected XSS via .svg file (Drive)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Protonmail</td>
+            <td>RLO spoofing - Spoofing file extension via share link (Drive)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>trezord-go</td>
+            <td>Misconfigured CORS - CORS bypass via null origin</td>
+            <td><a target="_blank"
+                href="https://github.com/trezor/trezord-go/commit/ddead55bc0d8c332ce8d4beb2491dd49cbdec49d">
+            github.com/trezor</a></td>
+        </tr>
+        <tr>
+            <td>Notino.cz</td><td>Reflected XSS in seach</td><td></td>
+        </tr>
+        <tr>
+            <td>Strong.tv</td>
+            <td>Unauthenticated Remote DoS Exploit in SRT 43UB6203 smart TV</td>
+            <td><a target="_blank"
+                href="https://xss.vavkamil.cz/strong-tv-dos-poc.html">
+            Exploit</a></td>
+        </tr>
+        <tr>
+            <td>Airbank.cz</td>
+            <td>Reflected Dom XSS via POST request</td>
+            <td><a target="_blank"
+                href="https://www.airbank.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Subreg.cz</td>
+            <td>Multiple Reflected & Dom based XSS</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Airbank.cz</td>
+            <td>Unrestricted file upload API allows to upload any file</td>
+            <td><a target="_blank"
+                href="https://www.airbank.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Active24.cz</td>
+            <td>Dom based XSS in domain search</td>
+            <td><a target="_blank"
+                href="https://www.active24.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Prospanek.cz</td>
+            <td>Reflected XSS in search</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Damejidlo.cz</td>
+            <td>Reflected XSS in restaurants archive</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Gopay.com</td>
+            <td>Stored XSS in WordPress (CVE-2019-11869)</td>
+            <td><a target="_blank"
+                href="https://www.gopay.com/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Trezor.io</td>
+            <td>Disclosure of user IPs via debug MessageEvent (Domain takeover)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Rohlik.cz</td>
+            <td>Access to Google calendar revealing sensitive info</td>
+            <td><a target="_blank"
+                href="https://www.rohlik.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>o2.cz</td>
+            <td>Disclosure of invoices and PII via android app API (IDORs)</td>
+            <td>writeup</td>
+        </tr>
+        <tr>
+            <td>Idos.cz</td>
+            <td>Multiple XSS, Arbitrary File Download, Source-code disclosure</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Pirati</td>
+            <td>Reflected XSS Found via source code review</td>
+            <td><a target="_blank"
+                href="https://github.com/pirati-web/socialnisystem.cz/issues/1">
+            github</a></td>
+        </tr>
+        <tr>
+            <td>UPC.cz</td>
+            <td>Reflected XSS / Unvalidated redirect</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>cd.cz</td>
+            <td>Misconfigured API (PII leak in JavaScript, CORS)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>CSFD.cz</td>
+            <td>Multiple XSS, IDOR vulnerabilities (Account takeover)</td>
+            <td><a target="_blank"
+                href="https://www.csfd.cz/vyvojari/">
+            Hall of Fame</a></td>
+        </tr>
+        <tr>
+            <td>t-mobile.cz</td>
+            <td>Multiple CSRF, XSS vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://www.t-mobile.cz/bug-bounty/zed-slavy">
+            Hall of Fame</a></td>
+        </tr>
+        <tr>
+            <td>Zive.cz</td>
+            <td>Multiple XSS vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://www.zive.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Mall.cz</td>
+            <td>XSS in Angular Template</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Fler.cz</td>
+            <td>CORS misconfiguration - Disclosure of PII via JavaScript exploit</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Alza.cz</td>
+            <td>XSS filter bypass</td>
+            <td><a target="_blank"
+                href="https://www.alza.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Heureka.cz</td>
+            <td>Multiple XSS vulnerabilities</td>
+            <td><a target="_blank"
+                href="https://heureka.cz/.well-known/security.txt">
+            security.txt</a></td>
+        </tr>
+        <tr>
+            <td>Drmax.cz</td>
+            <td>CORS misconfiguration - Disclosure of PII via JavaScript exploit</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Seznam.cz</td>
+            <td>Account takeover / XSS -> CSP bypass -> CSRF -> account takeover</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Tele3.cz</td>
+            <td>SQLi - Blind based SQL Injection</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Daybyme.com</td>
+            <td>CSRF, IDOR / Stored XSS with significant impact</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Tsbohemia.cz</td>
+            <td>Dom based XSS in search function</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+        <tr>
+            <td>foo</td><td>bar</td><td></td>
+        </tr>
+    </tbody>
+</table>

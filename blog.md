@@ -21,23 +21,63 @@ permalink: /blog/
         margin: 0.25rem 0;
     }
 
-    /* Fixed-width year column */
     .talks-toc-year {
         width: 3.5rem;
         color: #7CFF00;
-        /* optional, match your theme */
         flex-shrink: 0;
     }
 
-    /* Push event name to the right */
     .talks-toc-event {
         margin-left: auto;
         opacity: 0.8;
         white-space: nowrap;
     }
-li {
-    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
-}
+
+    li {
+        border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+    }
+
+  @media (max-width: 640px) {
+    .talks-toc li {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      column-gap: 0.75rem;
+      row-gap: 0.25rem;
+      align-items: start;
+      min-width: 0;
+      padding-bottom: 0.4rem;
+    }
+
+    .talks-year {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .talks-toc li > small {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: start;
+    }
+
+    .talks-right {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: end;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .talks-toc li > a {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      display: block;
+      padding: 0.15rem 0;
+    }
 </style>
 Mostly posts about web application security, ethical hacking, and security research:
 
