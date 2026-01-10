@@ -21,23 +21,63 @@ permalink: /talks/
         margin: 0.25rem 0;
     }
 
-    /* Fixed-width year column */
     .talks-toc-year {
         width: 3.5rem;
         color: #7CFF00;
-        /* optional, match your theme */
         flex-shrink: 0;
     }
 
-    /* Push event name to the right */
     .talks-toc-event {
         margin-left: auto;
         opacity: 0.8;
         white-space: nowrap;
     }
-li {
-    border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
-}
+    
+    li {
+        border-bottom: 1px dotted rgba(124, 255, 0, 0.2);
+    }
+
+  @media (max-width: 640px) {
+    .talks-toc li {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      column-gap: 0.75rem;
+      row-gap: 0.25rem;
+      align-items: start;
+      min-width: 0;
+      padding-bottom: 0.4rem;
+    }
+
+    .talks-year {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .talks-toc li > small {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: start;
+    }
+
+    .talks-right {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: end;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .talks-toc li > a {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      display: block;
+      padding: 0.15rem 0;
+    }
 </style>
 15+ talks. 13+ years. Mostly offensive web security, bug bounty, and security research:
 {% assign talks_sorted = site.talks | sort: "latest_event_date" | reverse %}
@@ -48,7 +88,7 @@ li {
             {% assign year = talk.latest_event_date | date: "%Y" %}
             <li>
                 <span class="talks-toc-year">{{ year }}</span>
-                <a href="{{ talk.url | relative_url }}">{{ talk.title }}</a>
+                <a href="{{ talk.url | relative_url }}" {% unless talk.slides %}style="text-decoration: line-through;"{% endunless %}>{{ talk.title }}</a>
                 <span class="talks-toc-event"><small>{{ talk.events[0].event }}</small></span>
             </li>
         {% endfor %}
