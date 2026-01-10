@@ -406,6 +406,55 @@ permalink: /bug-bounty/
 
 ## Responsible Disclosure Details
 
+<style>
+@media (max-width: 640px) {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1.5em;
+    border-bottom: 2px solid rgba(124, 255, 0, 0.2);
+    padding-bottom: 1em;
+  }
+
+  td {
+    border: none;
+    padding: 0.4em 0;
+  }
+
+  td::before {
+    display: block;
+    font-weight: 600;
+    color: #7cff00;
+    margin-bottom: 0.2em;
+  }
+
+  td:nth-of-type(1)::before {
+    content: "Website";
+  }
+
+  td:nth-of-type(2)::before {
+    content: "Vulnerability Details";
+  }
+
+  td:nth-of-type(3)::before {
+    content: "References";
+  }
+}
+
+</style>
 <table>
     <thead>
         <tr>
