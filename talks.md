@@ -2,6 +2,7 @@
 layout: page
 title: "Public talks"
 permalink: /talks/
+image: "/assets/img/og-image.png"
 ---
 
 <style>

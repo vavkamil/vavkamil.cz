@@ -2,6 +2,7 @@
 layout: page
 title: "whoami"
 permalink: /whoami/
+image: "/assets/img/og-image.png"
 ---
 <style>
     a {

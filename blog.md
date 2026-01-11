@@ -2,6 +2,7 @@
 layout: page
 title: "Blog"
 permalink: /blog/
+image: "/assets/img/og-image.png"
 ---
 
 <style>

@@ -2,6 +2,7 @@
 layout: page
 title: "Bug bounty"
 permalink: /bug-bounty/
+image: "/assets/img/og-image.png"
 ---
 
 19+ years of hands-on ethical hacking experience. Mostly responsible disclosure.

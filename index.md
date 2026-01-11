@@ -1,5 +1,6 @@
 ---
 layout: default
+image: "/assets/img/og-image.png"
 ---
 
 # vavkamil@localhost:~$
