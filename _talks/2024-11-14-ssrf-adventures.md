@@ -3,6 +3,7 @@ layout: talk
 title: "SSRF Adventures: Chaining Your Way Through the Network"
 latest_event_date: 2024-11-14
 slides: "https://vavkamil.cz/assets/slides/2024-11-14-ssrf-adventures.pdf"
+image: "/assets/img/talks/2024-11-14-ssrf-adventures.png"
 events:
   - date: 2024-11-14
     event: "OWASP Czech Chapter Meeting"

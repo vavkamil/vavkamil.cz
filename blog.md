@@ -2,6 +2,7 @@
 layout: page
 title: "Blog"
 permalink: /blog/
+image: "/assets/img/og-image.png"
 ---
 
 <style>
@@ -103,9 +104,7 @@ Mostly posts about web application security, ethical hacking, and security resea
     {{ minutes }} minutes
   {% endif %}
 {% endunless %}
-
                 </small></small></span>
-
             </li>
         {% endfor %}
     </ul>
@@ -143,6 +142,7 @@ Mostly posts about web application security, ethical hacking, and security resea
   </h2>
   <a href="{{ post.url }}">
       <img src="{{ '/assets/img/posts/' | append: slug | append: '.png' | relative_url }}"
+           loading="lazy"
            align="right"
            height="230"
            alt="{{ post.title }}"

@@ -3,6 +3,7 @@ layout: talk
 title: "Infecting Google Chrome from PowerShell"
 latest_event_date: 2015-04-01
 slides: "https://vavkamil.cz/assets/slides/2015-04-01-chrome-powershell.pdf"
+image: "/assets/img/talks/2015-04-01-chrome-powershell.png"
 events:
   - date: 2015-04-01
     event: "CTJB Hacker Camp"

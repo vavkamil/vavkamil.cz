@@ -3,6 +3,7 @@ layout: talk
 title: "I know where you live"
 latest_event_date: 2021-08-05
 slides: "https://vavkamil.cz/assets/slides/2021-08-05-where-you-live.pdf"
+image: "/assets/img/talks/2021-08-05-where-you-live.png"
 video: "https://vimeo.com/647349400"
 github: "https://github.com/vavkamil/SpyPortal"
 events:

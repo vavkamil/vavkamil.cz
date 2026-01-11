@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs>
+    <style>
+      .bg { fill: #0f1115; }
+      .title { fill: #ffffff; font-size: 56px; font-weight: 700; font-family: Inter, system-ui, sans-serif; }
+      .subtitle { fill: #d1d1d1; font-size: 32px; font-weight: 400; }
+      .meta { fill: #9aa0a6; font-size: 24px; }
+      .accent { fill: #ffb000; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="630"/>
+
+  <text x="100" y="150" class="meta">Kamil Vavra</text>
+  <rect x="100" y="170" width="80" height="4" class="accent"/>
+
+  <text x="100" y="260" class="title">vavkamil.cz</text>
+  <text x="100" y="320" class="subtitle">Offensive Application Security</text>
+
+  <text x="100" y="390" class="meta">
+    Offensive Web Application Security / Ethical Hacking
+  </text>
+
+  <text x="100" y="430" class="meta">
+    19+ years of real-world Security Research experience
+  </text>
+
+  <text x="100" y="540" class="meta">
+    vavkamil.cz • @vavkamil • Kamil Vavra
+  </text>
+</svg>

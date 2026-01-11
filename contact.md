@@ -2,6 +2,7 @@
 layout: page
 title: "Contact"
 permalink: /contact/
+image: "/assets/img/og-image.png"
 ---
 <style>
     a {

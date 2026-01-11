@@ -5,6 +5,7 @@ date: 2020-09-07 00:00:00 -0000
 categories: ['Ethical hacking', 'Security research', 'Bug bounty']
 tags: [hacking, nodejs, security, frontend, bugbounty]
 author: vavkamil
+image: "/assets/img/posts/2020-09-07-hacking-nodejs-url-api.png"
 ---
 
 Our security engineers ensure the highest possible safety of our services. Their weapon of choice? Penetration testing. It is a simulation of a cyber-attack conducted by authorized developers to discover and penetrate any security vulnerabilities in the system/app/service the team is developing. Other proactive steps include secure code review, dependency scanning, SAST, and asset monitoring.

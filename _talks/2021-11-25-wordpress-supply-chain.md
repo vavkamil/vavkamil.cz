@@ -3,6 +3,7 @@ layout: talk
 title: "WordPress Supply Chain Attack"
 latest_event_date: 2021-11-25
 slides: "https:/vavkamil.cz/assets/slides/2021-11-25-wordpress-supply-chain.pdf"
+image: "/assets/img/talks/2021-11-25-wordpress-supply-chain.png"
 video: "https://vimeo.com/662198524"
 blog: "https:/vavkamil.cz/2021/11/25/wordpress-plugin-confusion-update-can-get-you-pwned/"
 events:

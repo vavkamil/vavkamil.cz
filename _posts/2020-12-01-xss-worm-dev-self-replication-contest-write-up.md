@@ -7,6 +7,7 @@ tags: [XSS, worm, ctf, challenge, bitcoin]
 author: vavkamil
 redirect_from:
   - /2020/12/01/xss-worm-dev-self-replication-contest-write-up/
+image: "/assets/img/posts/2020-12-01-xss-worm-dev-self-replication-contest-write-up.png"
 ---
 
 tl;dr: I created "CTF" style challenge for our **[OWASP Czech Chapter Virtual Meeting](https://www.meetup.com/owasp-czech-republic-meetup-group/events/274616231/)**. The goal was to write an XSS worm and score points by infecting 1k virtual users. You can find the source code [here](https://github.com/vavkamil/XSSworm.dev) and read the details in this post.

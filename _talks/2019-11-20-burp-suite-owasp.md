@@ -2,6 +2,7 @@
 layout: talk
 title: "Burp Suite & OWASP Top 10 workshop"
 latest_event_date: 2019-11-20
+image: "/assets/img/talks/2019-11-20-burp-suite-owasp.png"
 events:
   - date: 2019-10-31
     event: "OWASP Czech Chapter Meeting"

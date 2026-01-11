@@ -2,6 +2,7 @@
 layout: page
 title: "Public talks"
 permalink: /talks/
+image: "/assets/img/og-image.png"
 ---
 
 <style>
@@ -103,6 +104,7 @@ permalink: /talks/
     | remove: "/" %}
     <a href="{{ talk.url }}">
         <img src="{{ '/assets/img/talks/' | append: slug | append: '.png' | relative_url }}"
+             loading="lazy"
              align="right"
              height="230"
              alt="{{ talk.title }}"
