@@ -2,6 +2,7 @@
 layout: talk
 title: "Ethical Hacking (web security)"
 latest_event_date: 2020-11-09
+image: "/assets/img/talks/2020-11-09-ethical-hacking.png"
 events:
   - date: 2020-11-09
     event: "Private online event"

@@ -3,6 +3,7 @@ layout: talk
 title: "Bug Bounty ~ Work Smarter, Not Harder"
 latest_event_date: 2019-05-01
 slides: "https://vavkamil.cz/assets/slides/2019-05-01-bug-bounty-work-smarter.pdf"
+image: "/assets/img/talks/2019-05-01-bug-bounty-work-smarter.png"
 events:
   - date: 2019-05-01
     event: "CTJB Hacker Camp"

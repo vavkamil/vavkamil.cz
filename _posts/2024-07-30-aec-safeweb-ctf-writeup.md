@@ -7,6 +7,7 @@ tags: [ctf, writeup, hacking, challenge]
 author: vavkamil
 redirect_from:
   - /2024/07/30/aec-safeweb-ctf-writeup/
+image: "/assets/img/posts/2024-07-30-aec-safeweb-ctf-writeup.png"
 ---
 
 AEC Hacking Competition is a famous Czech CTF with 15 web application security challenges. It used to work like this: If you solved at least 12 challenges, you were invited for the penetration tester interview.

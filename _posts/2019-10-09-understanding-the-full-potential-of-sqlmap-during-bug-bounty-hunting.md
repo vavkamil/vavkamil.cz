@@ -7,9 +7,9 @@ tags: [sql injection, SQLi, sqlmap]
 author: vavkamil
 redirect_from:
   - /2019/10/09/understanding-the-full-potential-of-sqlmap-during-bug-bounty-hunting/
+image: "/assets/img/posts/2019-10-09-understanding-the-full-potential-of-sqlmap-during-bug-bounty-hunting.png"
 ---
 
-<hr>
 <p>
     Swiss army knife for SQL Injection attacks, sqlmap was first developed in 2006 by Daniele Bellucci and later maintained by Bernardo Damele and Miroslav Stampar.
 </p>

@@ -7,6 +7,7 @@ tags: [wordpress, dependency confusion, update confusion, supply chain attack]
 author: vavkamil
 redirect_from:
   - /2021/11/25/wordpress-plugin-confusion-update-can-get-you-pwned/
+image: "/assets/img/posts/2021-11-25-wordpress-plugin-confusion-update-can-get-you-pwned.png"
 ---
 
 tl;dr: Like the novel "[Dependency Confusion](https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610)" supply chain attack, it is possible to take over internally developed WordPress plugins unclaimed on the wordpress.org registry. Updating the plugin might result in the RCE or installing a PHP backdoor. You can use [wp_update_confusion.py](https://github.com/vavkamil/wp-update-confusion) to scan for potential targets. To protect your website, please read this [announcement](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/).

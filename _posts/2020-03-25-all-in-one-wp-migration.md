@@ -7,9 +7,9 @@ tags: [0day, exploit, vulnerability, WordPress]
 author: vavkamil
 redirect_from:
   - /2020/03/25/all-in-one-wp-migration/
+image: "/assets/img/posts/2020-03-25-all-in-one-wp-migration.png"
 ---
 
-<hr>
 <p>
     A long time ago, I made a stupid decision to use WordPress for this blog about offensive website security. Since then, I learned a lot. I will be releasing a plugin to defend against <a href="https://twitter.com/vavkamil/status/1231298635561930752"
     target="_blank">XML-RPC attacks</a> and guide how to generate a static HTML site in upcoming weeks.

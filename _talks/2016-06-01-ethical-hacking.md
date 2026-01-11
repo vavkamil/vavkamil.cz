@@ -2,6 +2,7 @@
 layout: talk
 title: "Ethical Hacking"
 latest_event_date: 2016-06-01
+image: "/assets/img/talks/2016-06-01-ethical-hacking.png"
 events:
   - date: 2016-06-01
     event: "CEVRO Institut"

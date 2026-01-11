@@ -3,6 +3,7 @@ layout: talk
 title: "Hacking a Cruise Ship"
 latest_event_date: 2023-11-08
 slides: "https://vavkamil.cz/assets/slides/2023-11-08-hacking-cruise-ship.pdf"
+image: "/assets/img/talks/2023-11-08-hacking-cruise-ship.png"
 events:
   - date: 2023-11-08
     event: "OWASP Czech Chapter Meeting"

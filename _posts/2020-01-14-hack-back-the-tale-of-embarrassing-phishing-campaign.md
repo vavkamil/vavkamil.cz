@@ -7,6 +7,7 @@ tags: [hack-back, phishing, PHP]
 author: vavkamil
 redirect_from:
   - /2020/01/14/hack-back-the-tale-of-embarrassing-phishing-campaign/
+image: "/assets/img/posts/2020-01-14-hack-back-the-tale-of-embarrassing-phishing-campaign.png"
 ---
 
 <hr>

@@ -7,6 +7,7 @@ tags: [trezor, bitcoin, scam, cryptocurrency]
 author: vavkamil
 redirect_from:
   - /2021/04/14/analysis-of-the-fake-trezor-mobile-wallet-app-in-the-play-store/
+image: "/assets/img/posts/2021-04-14-analysis-of-the-fake-trezor-mobile-wallet-app-in-the-play-store.png"
 ---
 
 tl;dr: I analyzed the fake Trezor Android application on Google Play Store, compromised the backend, and said hello to the developer.

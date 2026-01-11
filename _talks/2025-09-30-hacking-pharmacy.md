@@ -3,6 +3,7 @@ layout: talk
 title: "Hacking a Pharmacy for Fun and Drugs"
 latest_event_date: 2025-09-30
 slides: "https://vavkamil.cz/assets/slides/2025-09-30-hacking-pharmacy.pdf"
+image: "/assets/img/talks/2025-09-30-hacking-pharmacy.png"
 events:
   - date: 2025-09-30
     event: "OWASP Czech Chapter Meeting"

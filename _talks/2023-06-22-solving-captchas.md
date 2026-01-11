@@ -3,6 +3,7 @@ layout: talk
 title: "Solving CAPTCHAs for Fun"
 latest_event_date: 2023-06-22
 slides: "https://vavkamil.cz/assets/slides/2023-06-22-solving-captchas.pdf"
+image: "/assets/img/talks/2023-06-22-solving-captchas.png"
 # slides: "/assets/slides/2023-06-22-solving-captchas.pdf"
 events:
   - date: 2023-06-22

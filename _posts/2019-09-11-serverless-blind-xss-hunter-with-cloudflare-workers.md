@@ -7,9 +7,9 @@ tags: [blind xss, cloudflare, cloudflare worker, serverless, xss, xss hunter]
 author: vavkamil
 redirect_from:
   - /2019/09/11/serverless-blind-xss-hunter-with-cloudflare-workers/
+image: "/assets/img/posts/2019-09-11-serverless-blind-xss-hunter-with-cloudflare-workers.png"
 ---
 
-<hr>
 <p>
     If you are not familiar with <strong><a href="https://xsshunter.com/" target="_blank">XSS Hunter</a></strong> by <a href="https://twitter.com/IAmMandatory" target="_blank">@IAmMandatory</a>, it's an awesome tool for penetration testers and bug bounty hunters that allows easily hunt for blind XSS vulnerabilities. It's <a href="https://github.com/mandatoryprogrammer/xsshunter"
     target="_blank">open-source</a> with a ton of features. You can use the SaaS version, <a href="https://thehackerblog.com/xss-hunter-is-now-open-source-heres-how-to-set-it-up/"

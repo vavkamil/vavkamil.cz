@@ -3,6 +3,7 @@ layout: talk
 title: "Compromised Keys"
 latest_event_date: 2022-04-27
 slides: "https://vavkamil.cz/assets/slides/2022-04-27-compromised-keys.pdf"
+image: "/assets/img/talks/2022-04-27-compromised-keys.png"
 video: "https://www.youtube.com/watch?v=3MkbahCLvUA"
 events:
   - date: 2022-04-05

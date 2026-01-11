@@ -7,6 +7,7 @@ tags: [android, burp suite, certificate pinning, frida, HTTPS, mitm, objection, 
 author: vavkamil
 redirect_from:
   - /2019/09/15/how-to-bypass-android-certificate-pinning-and-intercept-ssl-traffic/
+image: "/assets/img/posts/2019-09-15-how-to-bypass-android-certificate-pinning-and-intercept-ssl-traffic.png"
 ---
 
 Over the last few months, I had a quite luck finding IDOR vulnerabilities in mobile API of Android applications. Nowadays most of the apps are obfuscated and using certificate pinning to prevent MiTMs.

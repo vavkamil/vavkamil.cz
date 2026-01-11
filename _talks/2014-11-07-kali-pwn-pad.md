@@ -3,6 +3,7 @@ layout: talk
 title: "Kali Pwn Pad - armed with a tablet is a danger to society"
 latest_event_date: 2014-11-07
 slides: "https://vavkamil.cz/assets/slides/2014-11-07-kali-pwn-pad.pdf"
+image: "/assets/img/talks/2014-11-07-kali-pwn-pad.png"
 events:
   - date: 2014-10-01
     event: "HackerFest"
