@@ -48,3 +48,13 @@ The site is intentionally boring (in a good way):
 - **GitHub Pages** — hosting & deployment
 - **Jekyll** — static site generator
 - **[pages-themes/hacker](https://github.com/pages-themes/hacker)** — base theme (customized)
+
+---
+
+## Usage
+
+```
+$ jekyll serve --livereload --drafts
+
+    Server address: http://127.0.0.1:4000
+```
