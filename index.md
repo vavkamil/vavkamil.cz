@@ -82,29 +82,26 @@ Welcome to my personal website! My crime is that of curiosity.
   {% endcapture %}
 
   {%- assign safe_title = post.title | replace: "~~~", "-" -%}
-  {% capture line %}{{ post.date | date: "%Y-%m-%d" }}~~~post~~~{{ post.url | relative_url }}~~~{{ safe_title }}~~~{{ minutes | strip }}{% endcapture %}
+  {%- assign ts = post.date | date: "%s" -%}
+  {% capture line %}{{ ts }}~~~{{ post.date | date: "%Y-%m-%d" }}~~~post~~~{{ post.url | relative_url }}~~~{{ safe_title }}~~~{{ minutes | strip }}{% endcapture %}
   {% assign combined = combined | push: line %}
 {% endfor %}
 
 {% assign talks_sorted = site.talks | sort: "latest_event_date" %}
 {% for talk in talks_sorted %}
   {%- assign safe_title = talk.title | replace: "~~~", "-" -%}
-  {% capture right %}{{ talk.events[0].event }}{% endcapture %}
+  {% capture right %}{% if talk.events and talk.events.size > 0 %}{{ talk.events[0].event }}{% endif %}{% endcapture %}
 
-  {%- assign has_slides = "" -%}
-  {% if talk.slides %}
-    {%- assign has_slides = "1" -%}
-  {% else %}
-    {%- assign has_slides = "0" -%}
-  {% endif %}
+  {%- assign has_slides = talk.slides | default: nil -%}
+  {%- assign has_slides_flag = has_slides | if: "1", else: "0" -%}
 
-  {% capture line %}
-    {{ talk.latest_event_date | date: "%Y-%m-%d" }}~~~talk~~~{{ talk.url | relative_url }}~~~{{ safe_title }}~~~{{ right | strip }}~~~{{ has_slides }}
-  {% endcapture %}
+  {%- assign ts = talk.latest_event_date | date: "%s" -%}
+  {% capture line %}{{ ts }}~~~{{ talk.latest_event_date | date: "%Y-%m-%d" }}~~~talk~~~{{ talk.url | relative_url }}~~~{{ safe_title }}~~~{{ right | strip }}~~~{% if talk.slides %}1{% else %}0{% endif %}{% endcapture %}
   {% assign combined = combined | push: line %}
 {% endfor %}
 
 {% assign combined = combined | sort | reverse %}
+
 
 <style>
 li {
@@ -115,12 +112,13 @@ li {
   <ul>
     {% for row in combined limit: 99 %}
       {% assign parts = row | split: "~~~" %}
-      {% assign d = parts[0] %}
-      {% assign kind = parts[1] %}
-      {% assign url = parts[2] %}
-      {% assign title = parts[3] %}
-      {% assign right = parts[4] %}
-      {% assign has_slides = parts[5] | strip %}
+      {% assign ts = parts[0] %}
+      {% assign d = parts[1] %}
+      {% assign kind = parts[2] %}
+      {% assign url = parts[3] %}
+      {% assign title = parts[4] %}
+      {% assign right = parts[5] %}
+      {% assign has_slides = parts[6] | strip %}
       <li>
         <span class="mixed-year">{{ d | date: "%Y-%m" }}</span>
         <small><small><em>{{ kind }}</em></small></small>
