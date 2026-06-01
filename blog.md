@@ -175,9 +175,7 @@ Mostly posts about web application security, ethical hacking, and security resea
 
 <ul>
     <small><em>
-        <li>2022-02-27 - <a target="_blank"
-            href="https://tunasec.com/blog/kyberneticka-valka-behem-utoku-na-ukrajinu/">
-            Kybernetická válka během útoku na Ukrajinu</a></li>
+        <li>2022-02-27 - Kybernetická válka během útoku na Ukrajinu</li>
         <!-- https://tunasec.com/blog/kyberneticka-valka-behem-utoku-na-ukrajinu/ -->
         <li>2021-10-05 - Pi-hole ~ blokace reklam a sledování uživatelů na úrovni DNS</li>
         <!-- https://tunasec.com/blog/pi-hole-blokace-reklam-sledovani-dns/ -->
