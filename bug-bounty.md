@@ -5,7 +5,9 @@ permalink: /bug-bounty/
 image: "/assets/img/og-image.png"
 ---
 
-19+ years of hands-on ethical hacking experience. Mostly responsible disclosure.
+20+ years of hands-on ethical hacking experience. Mostly responsible disclosure.
+
+Over the years, I've worked with fast-growing startups and established companies across the Czech Republic, Europe, and the United States. Through penetration testing, audits, and bug bounty, I've identified thousands of security issues and helped protect systems used by millions of people worldwide.
 
 ## CVEs
 
@@ -26,6 +28,8 @@ image: "/assets/img/og-image.png"
 <br>
 
 ## Responsible Disclosure Higlights
+
+Some of the companies I've helped include:
 
 <style>
     a {

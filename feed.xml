@@ -1,0 +1,95 @@
+---
+layout: null
+permalink: /feed.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="https://jekyllrb.com/" version="{{ jekyll.version }}">Jekyll</generator>
+  <link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/atom+xml" />
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html" />
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>{{ '/feed.xml' | absolute_url | xml_escape }}</id>
+  <title type="html">{{ site.title | smartify | xml_escape }}</title>
+  <subtitle>{{ site.description | xml_escape }}</subtitle>
+  <author>
+    <name>{{ site.author.name | default: site.author | xml_escape }}</name>
+  </author>
+
+  {% assign combined = "" | split: "" %}
+
+  {% for post in site.posts %}
+    {% assign timestamp = post.date | date: "%s" %}
+    {% capture entry_key %}{{ timestamp }}~~~post~~~{{ post.url }}{% endcapture %}
+    {% assign combined = combined | push: entry_key %}
+  {% endfor %}
+
+  {% for talk in site.talks %}
+    {% unless talk.draft == true %}
+      {% assign timestamp = talk.latest_event_date | date: "%s" %}
+      {% capture entry_key %}{{ timestamp }}~~~talk~~~{{ talk.url }}{% endcapture %}
+      {% assign combined = combined | push: entry_key %}
+    {% endunless %}
+  {% endfor %}
+
+  {% assign combined = combined | sort | reverse %}
+
+  {% for entry_key in combined limit: 20 %}
+    {% assign entry_parts = entry_key | split: "~~~" %}
+    {% assign entry_type = entry_parts[1] %}
+    {% assign entry_url = entry_parts[2] %}
+
+    {% if entry_type == "talk" %}
+      {% assign item = site.talks | where: "url", entry_url | first %}
+      {% assign item_date = item.latest_event_date %}
+      {% assign item_updated = item.last_modified_at | default: item.latest_event_date %}
+      {% assign item_id = item.url %}
+    {% else %}
+      {% assign item = site.posts | where: "url", entry_url | first %}
+      {% assign item_date = item.date %}
+      {% assign item_updated = item.last_modified_at | default: item.date %}
+      {% assign item_id = item.id %}
+    {% endif %}
+
+    {% assign item_title = item.title | smartify | strip_html | normalize_whitespace | xml_escape %}
+    <entry>
+      <title type="html">{{ item_title }}</title>
+      <link href="{{ item.url | absolute_url }}" rel="alternate" type="text/html" title="{{ item_title }}" />
+      <published>{{ item_date | date_to_xmlschema }}</published>
+      <updated>{{ item_updated | date_to_xmlschema }}</updated>
+      <id>{{ item_id | absolute_url | xml_escape }}</id>
+      <content type="html" xml:base="{{ item.url | absolute_url | xml_escape }}"><![CDATA[{{ item.content | strip }}]]></content>
+      <author>
+        <name>{{ item.author.name | default: item.author | default: site.author.name | default: site.author | xml_escape }}</name>
+      </author>
+
+      {% if entry_type == "talk" %}
+        <category term="Talk" />
+      {% elsif item.category %}
+        <category term="{{ item.category | xml_escape }}" />
+      {% elsif item.categories %}
+        {% for category in item.categories %}
+          <category term="{{ category | xml_escape }}" />
+        {% endfor %}
+      {% endif %}
+
+      {% for tag in item.tags %}
+        <category term="{{ tag | xml_escape }}" />
+      {% endfor %}
+
+      {% assign item_summary = item.description | default: item.excerpt %}
+      {% if item_summary and item_summary != empty %}
+        <summary type="html"><![CDATA[{{ item_summary | strip_html | normalize_whitespace }}]]></summary>
+      {% endif %}
+
+      {% assign item_image = item.image.path | default: item.image %}
+      {% if item_image %}
+        {% unless item_image contains "://" %}
+          {% assign item_image = item_image | absolute_url %}
+        {% endunless %}
+        <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{{ item_image | xml_escape }}" />
+        <media:content medium="image" url="{{ item_image | xml_escape }}" xmlns:media="http://search.yahoo.com/mrss/" />
+      {% endif %}
+    </entry>
+  {% endfor %}
+</feed>
