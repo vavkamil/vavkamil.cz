@@ -26,12 +26,26 @@ image: "/assets/img/og-image.png"
         filter: none;
         transform: scale(1.05) rotate(3deg);
     }
+
+    #burp-certification {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    #burp-certification img {
+        width: 90px;
+        height: auto;
+        margin: 0;
+        padding: 5px;
+        background: #fff;
+    }
 </style>
 <img id="avatar" align="right" height="" src="{{ site.baseurl }}/assets/img/avatar.jpg" border="1" alt="avatar" title="Kamil Vavra">
 
 Hi there, my name is Kamil Vavra.
 
-I’m an independent offensive security expert with **19+ years of hands-on ethical hacking experience**, specializing in offensive web application security.
+I’m an independent offensive security expert with **20+ years of hands-on ethical hacking experience**, specializing in offensive web application security.
 
 White-hat hacker based in Brno, Czechia, currently working as a Senior Application Security Engineer. My work focuses on deep, manual web application testing, vulnerability research, and helping product teams secure real-world production systems.
 
@@ -42,4 +56,7 @@ My main interests include offensive security, [bug bounty]({{ site.baseurl }}/bu
 I enjoy sharing knowledge through public [talks]({{ site.baseurl }}/talks) on security conferences, and I’m also an OWASP Czech Chapter Leader. Occasionally, I write code. You can find my projects on [GitHub](https://github.com/vavkamil){:target="_blank"} or add me on [LinkedIn](https://linkedin.com/in/vavkamil){:target="_blank"}.
 
 <hr>
-<small><em>Certifications: <a target="_blank" href="https://portswigger.net/web-security/e/c/d1af2e3f879e4c25">Burp Suite Certified Practitioner</a></em></small>
+<div id="burp-certification">
+    <a target="_blank" href="https://portswigger.net/web-security/e/c/d1af2e3f879e4c25"><img src="{{ site.baseurl }}/assets/img/burp-suite-certified.svg" alt="Burp Suite Certified Practitioner"></a>
+    <small><a target="_blank" href="https://portswigger.net/web-security/e/c/d1af2e3f879e4c25">Burp Suite Certified Practitioner</a><br>Demonstrates the ability to identify impactful web vulnerabilities, adapt attack methods to bypass defenses, and find weak points across an attack surface, including out-of-band attacks.</small>
+</div>
