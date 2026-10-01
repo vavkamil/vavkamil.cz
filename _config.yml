@@ -30,6 +30,11 @@ plugins:
  - jekyll-gist
  - jekyll-redirect-from
 
+# Jekyll excludes dot-prefixed directories by default. Publish the standard
+# security contact endpoint without disabling the GitHub Pages build.
+include:
+ - .well-known
+
 # SEO
 permalink: /blog/:year-:month-:day-:title/
 
@@ -41,4 +46,3 @@ collections:
   talks:
     output: true
     permalink: /talks/:name/
-
