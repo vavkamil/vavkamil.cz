@@ -1,0 +1,4 @@
+Canonical: https://vavkamil.cz/.well-known/security.txt
+Contact: mailto:vavkamil@protonmail.com
+Expires: 2027-01-13T10:00:00Z
+Preferred-Languages: en, cs
