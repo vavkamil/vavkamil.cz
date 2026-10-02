@@ -3,7 +3,7 @@ layout: post
 title: "security.txt on the Czech web: Scanning 1k popular .cz domains"
 date: 2026-10-02 00:00:00 -0000
 categories: ['Security research', 'Responsible disclosure']
-tags: [ctf, writeup, hacking, challenge]
+tags: [writeup, research, security-txt, czechia, rfc9116]
 author: vavkamil
 image: "/assets/img/posts/2026-10-02-security-txt-on-czech-web.png"
 ---
