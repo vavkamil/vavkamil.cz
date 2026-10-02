@@ -123,6 +123,8 @@ What we want to see is `content-type: text/plain; charset=UTF-8`.
 I scanned all of my projects:
 
 ```
+$ python scan_security_txt.py mine.txt
+
 #  Domain                HTTP  security.txt  RFC      Issue / note
 ------------------------------------------------------------------
 1  cvealert.io            200  found         invalid  charset header
