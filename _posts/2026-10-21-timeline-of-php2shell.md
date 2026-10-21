@@ -55,7 +55,13 @@ For context check [https://calif.io/php2shell/](https://calif.io/php2shell/) or 
 - October 21, 15:59 UTC - Patched images were being built
 - October 21, 16:30 UTC - First patched Docker images reportedly become available
 - October 21, 16:57 UTC - GitHub starting to recover
-- October 21, 16:57 UTC - GitHub mostly recovered
+- October 21, 17:09 UTC - GitHub mostly recovered
 - October 21, 17:55 UTC - All of Docker Hub's patched tags available
+- October 21, 19:22 UTC - GitHub fully recovered
 
 What a day ...
+
+Or what a week? (single digit private key / opencode compromised / CVE-2026-99999 / french fridge hacked / PHP RCE / LiteLLM compromised again? / GitLab 10.0 RCE CVE-2026-110264 ??!)
+
+I guess everyone has LLMs now, but companies don't have enough humans to make the best ouf of it?
+
